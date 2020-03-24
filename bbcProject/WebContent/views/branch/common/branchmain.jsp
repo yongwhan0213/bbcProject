@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="<%= request.getContextPath() %>/resources/vendor/chart.js/Chart.min.js" rel="stylesheet">
 <link href="<%= request.getContextPath() %>/resources/js/demo/chart-area-demo.js" rel="stylesheet">
 <link href="<%= request.getContextPath() %>/resources/js/demo/chart-pie-demo.js" rel="stylesheet">
