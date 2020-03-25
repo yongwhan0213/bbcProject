@@ -80,7 +80,7 @@
 											<% for(Reservation r : list) { %>
 												<tr>
 													<td><%= r.getMemberNo() %></td>
-													<td id="<%= r.getMemberNo() %>"><%= r.getMemberId() %></td>
+													<td><%= r.getMemberId() %></td>
 													<td><%= r.getMemberName() %></td>
 													<td><%= r.getPhone() %></td>
 													<td><%= r.getMemberEmail() %></td>
@@ -180,7 +180,7 @@
 	<script>
 	
 		$("#reserv-user-table>tbody>tr>td").click(function(){
-			var nno = $(this).parent().children().eq(0).val();
+			var nno = $(this).parent().children().eq(0).text();
 			location.href="<%= request.getContextPath() %>/reservClientDetail.b.rv?nno=" + nno;
 			console.log(nno);
 		});
