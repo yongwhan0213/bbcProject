@@ -213,7 +213,10 @@
 		
 		$("#selectDelete").click(function(){
 			
-			new array = 
+			var arr = new Array();
+			
+			
+			
 			$.ajax({
 				url:"chkDelete.b.no?no=" + no,
 				type:"get",
