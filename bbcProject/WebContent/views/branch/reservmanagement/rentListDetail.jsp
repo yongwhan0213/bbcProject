@@ -104,8 +104,6 @@
 									<th>결제 금액</th>
 									<th>결제 일시</th>
 									<th>결제 방식</th>
-									<th>환불 여부</th>
-									<th>환불 일시</th>
 								</tr>
 								<tr>
 									<td><%= p.getCarName() %></td>
@@ -115,8 +113,6 @@
 									<td><%= p.getPayAmount() %>원</td>
 									<td><%= p.getPayDate() %></td>
 									<td><%= p.getPayMethod() %></td>
-									<td><%= p.getRefundStatus() %></td>
-									<td><%= p.getRefundDate() %></td>
 								</tr>
 							</table>
 						</div>

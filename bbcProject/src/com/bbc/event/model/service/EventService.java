@@ -5,7 +5,7 @@ import static com.bbc.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.event.model.dao.EventDao;
 import com.bbc.event.model.vo.Event;
 
