@@ -45,6 +45,7 @@
 							data-target="#logoutModal"> <i
 							class="fas fa-sign-out-alt logout-icon"> log out </i>
 						</a>
+						
 					</div>
 
 
@@ -58,15 +59,20 @@
 
 						<hr class="tab-divider">
 
-						<ul class="nav nav-tabs" role="tablist">
-							<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">예약중</a></li>
-							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">대여중</a></li>
-							<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">반납 완료</a></li>
+						<ul class="nav nav-tabs" role="tablist" id="tabs">
+							<li class="nav-item">
+								<a id="default" href="#content1" class="nav-link active" data-toggle="tab">
+									예약중<input type="hidden" id="tabNo" value=1>
+								</a>
+							</li>
+							
+							<li class="nav-item"><a href="#content2" class="nav-link active" data-toggle="tab" >대여중</a></li>
+							<li class="nav-item"><a href="#content3" class="nav-link active" data-toggle="tab" >반납 완료</a></li>
 						</ul>
 
 						<!-- Tab panes -->
 						<div class="tab-content">
-							<div id="home" class="container tab-pane active">
+							<div id="content1" class="container tab-pane active">
 								<br>
 
 								<table id="user-table" class="table table-bordered">
@@ -99,7 +105,7 @@
 									</tbody>
 								</table>
 							</div>
-							<div id="menu1" class="container tab-pane fade">
+							<div id="content2" class="container tab-pane fade">
 								<br>
 								<table id="user-table" class="table table-bordered">
 									<thead>
@@ -123,7 +129,7 @@
 									</tbody>
 								</table>
 							</div>
-							<div id="menu2" class="container tab-pane fade">
+							<div id="content3" class="container tab-pane fade">
 								<br>
 								<table id="user-table" class="table table-bordered">
 									<thead>
@@ -234,12 +240,12 @@
 	</div>
 	
 	<script>
-	 $(function(){
-     	$("#user-table>tbody>tr").click(function(){
-     		var mno = $(this).children().eq(2).text();
-     		location.href="<%= request.getContextPath() %>/detailWhole.b.rv?mno=" + mno;
-     	})
-     });
+		
+		// Ajax tab menu
+		$("#tabs a").click(function(){
+			
+		});
+		 
 	</script>
 
 

@@ -1,23 +1,28 @@
 package com.bbc.reservation.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bbc.payment.model.vo.Payment;
+import com.bbc.reservation.model.service.ReservationService;
+import com.bbc.userInfo.model.vo.UserInfo;
+
 /**
- * Servlet implementation class ReservClientServlet
+ * Servlet implementation class ReservRentListDetailServlet
  */
-@WebServlet("/reservClient.b.rv")
-public class ReservClientServlet extends HttpServlet {
+@WebServlet("/detailRent.b.rv")
+public class ReservRentListDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservClientServlet() {
+    public ReservRentListDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +32,15 @@ public class ReservClientServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("views/branch/reservmanagement/reservClient.jsp").forward(request, response);;
+		int no = Integer.parseInt(request.getParameter("no"));
+		
+		UserInfo ui = new ReservationService().selectRentDetailMember(no);
+		Payment p = new ReservationService().selectRentDetailPay(no);
+		
+		request.setAttribute("ui", ui);
+		request.setAttribute("p", p);
+		
+		request.getRequestDispatcher("views/branch/reservmanagement/rentListDetail.jsp").forward(request, response);;
 	}
 
 	/**
