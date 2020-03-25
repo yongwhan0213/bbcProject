@@ -10,6 +10,7 @@
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
 
+	String black = (String)session.getAttribute("black");
 %>
 <!DOCTYPE html>
 <html>
@@ -186,7 +187,14 @@
 </head>
 <body>
 	<%@ include file="../common/adminBase.jsp" %>
-	
+	<script>
+		var black = "<%=black%>"
+		
+		if(black != "null"){
+			alert(black);
+			<% session.removeAttribute("black"); %>
+		}
+	</script>	
 	<!-- 회원조회 시작 -->
 	<div class="outer">
 		
@@ -208,7 +216,7 @@
 					<hr>      	
 			      	<table id="userInfo-table">
 						<tr>
-							<input type="text" class="blackNo" value="<%=u.getMemberNo()%>">
+							<input type="hidden" class="blackNo" value="<%=u.getMemberNo()%>">
 							<th>이름</th>
 							<td><%=u.getMemberName()%></td>
 						</tr>

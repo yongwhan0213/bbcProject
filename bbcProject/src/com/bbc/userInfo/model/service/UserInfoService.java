@@ -58,4 +58,33 @@ public class UserInfoService{
 		
 		return result;
 	}
+	
+	/**
+	 * 4. 블랙 회원수 조회용 서비스
+	 * @return	블랙회원 인원수 리턴
+	 */
+	public int adminGetBlackListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new UserInfoDao().adminGetBlackListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	/**
+	 * 5. 블랙 회원 리스트 조회용 서비스
+	 * @param pi	페이지 정보가 담긴 객체
+	 * @return		블랙 회원 리스트가 담긴 객체 리턴
+	 */
+	public ArrayList<UserInfo> adminBlackSelectList(){
+		Connection conn = getConnection();
+		
+		ArrayList<UserInfo> list = new UserInfoDao().adminBlackSelectList(conn);
+		
+		close(conn);
+		
+		return list;
+	}
 }

@@ -119,7 +119,7 @@
           <div class="py-2 collapse-inner rounded">
             <a class="collapse-item" onclick="couponList();">쿠폰등록</a>
             <a class="collapse-item" onclick="memberList();">회원조회</a>
-            <a class="collapse-item" href="<%=contextPath%>/views/admin/user/blackUser.jsp">회원정지</a>
+            <a class="collapse-item" onclick="blackList();">회원정지</a>
           </div>
         </div>
       </li>
@@ -165,6 +165,10 @@
     	
     	function memberList(){
     		location.href = "<%=contextPath%>/list.t.ui";
+    	}
+    	
+    	function blackList(){
+    		location.href = "<%=contextPath%>/blackList.t.ui";
     	}
     </script>
 
