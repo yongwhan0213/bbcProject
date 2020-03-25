@@ -9,3 +9,7 @@ Servers/Tomcat v8.5 Server at localhost-config/tomcat-users.xml
 Servers/Tomcat v8.5 Server at localhost-config/web.xml
 bbcProject/.classpath
 bbcProject/.classpath
+bbcProject/WebContent/WEB-INF/classes/sql/event/event-query.properties
+bbcProject/WebContent/WEB-INF/classes/sql/reservation/reservation-query.properties
+bbcProject/WebContent/WEB-INF/classes/sql/notice/notice-query.properties
+bbcProject/WebContent/WEB-INF/classes/sql/event/event-query.properties

@@ -933,7 +933,8 @@ p.card-text {
 	-o-background-size: cover;
 	-moz-background-size: cover;
 	-ms-background-size: cover;
-	min-height: 110px;
+	min-height: 120px;
+	
 }
 
 
