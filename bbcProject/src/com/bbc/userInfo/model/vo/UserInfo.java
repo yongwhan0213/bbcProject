@@ -43,18 +43,25 @@ public class UserInfo {
 		this.status = status;
 		this.branchNo = branchNo;
 	}
-	
-	
-	// 대여리스트 상세조회 멤버 정보 매개변수
-	public UserInfo(String memberName, String memberZipcode, String memberAddress, String phone, String rrn,
-			String memberEmail) {
+
+	// 회원리스트 조회시 사용하는 매개변수
+	public UserInfo(int memberNo, String memberId, String memberPwd, String memberName, String memberZipcode,
+			String memberAddress, String phone, String rrn, String memberEmail, String gender, int authorityNo,
+			Date joinDate, String status) {
 		super();
+		this.memberNo = memberNo;
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
 		this.memberName = memberName;
 		this.memberZipcode = memberZipcode;
 		this.memberAddress = memberAddress;
 		this.phone = phone;
 		this.rrn = rrn;
 		this.memberEmail = memberEmail;
+		this.gender = gender;
+		this.authorityNo = authorityNo;
+		this.joinDate = joinDate;
+		this.status = status;
 	}
 
 	public int getMemberNo() {

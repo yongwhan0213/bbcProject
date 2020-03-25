@@ -64,7 +64,7 @@ public class UserAddNoticeServlet extends HttpServlet {
 			 n.setNoticeTitle(title);
 			 n.setNoticeContent(content);
 			 n.setMemberNo(memNo);
-			 n.setNoticeImportant(checkNo);
+			 n.setNoticeImport(checkNo);
 			 // nullPoint error 때문에  빈값은 빠지게끔 조건 처리
 			 if(noticeV[0].isEmpty()) {
 				 int branch = Integer.parseInt(noticeV[1]);

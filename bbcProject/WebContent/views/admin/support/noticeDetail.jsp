@@ -134,7 +134,7 @@
 		<h5 id="notice-content-title"><%=n.getNoticeTitle()%></h5>
 		<span id="read_count">조회수 : <%=n.getNoticeReadCnt() %></span><br>
 		<span id="read_count">
-			<% if(n.getNoticeImportant() == 1) { %>
+			<% if(n.getNoticeImport() == 1) { %>
 				중요 /
 			<% }else { %>
 				일반 /
@@ -219,7 +219,7 @@
 			      		<tr>
 			      			<th>중요</th>
 			      			<td>
-			      				<% if(n.getNoticeImportant() == 1){ %>
+			      				<% if(n.getNoticeImport() == 1){ %>
 					      			<input type="checkbox" id="importCheck" name="importCheck" value="1" checked> 중요공지사항			      					
 			      				<% }else { %>
 			      					<input type="checkbox" id="importCheck" name="importCheck" value="0"> 중요공지사항

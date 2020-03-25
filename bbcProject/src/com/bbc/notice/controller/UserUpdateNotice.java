@@ -47,7 +47,7 @@ public class UserUpdateNotice extends HttpServlet {
 		n.setRename(noticeFile);
 		n.setNoticeField(Integer.parseInt(noticeV));
 		if(check != null) {
-			n.setNoticeImportant(Integer.parseInt(check));			
+			n.setNoticeImport(Integer.parseInt(check));			
 		}
 		
 		int result = new NoticeService().adminUserNoticeUpdate(n);
