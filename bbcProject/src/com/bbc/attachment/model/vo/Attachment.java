@@ -8,7 +8,7 @@ public class Attachment {
 	private String rename;		// 리네임
 	private int noticeNo;		// 문서 번호
 	private String filePath;	// 파일 저장된 폴더 경로
-	
+		
 	public Attachment() {
 		
 	}
