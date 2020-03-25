@@ -328,4 +328,10 @@ public class NoticeDao {
 		return n;
 		
 	}
+	
+//	String no = "123";
+//	arry = no.split(",");
+//	for(i=0; i< array.length; i++) {
+//		int result = new ReservationDao().selectReservDetailPay(conn, array[i]);
+//	}
 }
