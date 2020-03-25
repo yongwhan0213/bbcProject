@@ -21,11 +21,11 @@ public class NoticeService {
 	 * @param pi		페이지 객체
 	 * @return			조회된 공지사항 리스트 객체
 	 */
-	public ArrayList<Notice> selectNoticeList(int memNo, PageInfo pi) {
+	public ArrayList<Notice> branchSelectNoticeList(int memNo, PageInfo pi) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Notice> list = new NoticeDao().selectNoticeList(conn, memNo, pi);
+		ArrayList<Notice> list = new NoticeDao().branchSelectNoticeList(conn, memNo, pi);
 		
 		close(conn);
 		
@@ -37,7 +37,7 @@ public class NoticeService {
 	 * @param nno		조회하고자 하는 공지사항 번호
 	 * @return			조회된 공지사항 객체
 	 */
-	public Notice selectNotice(int nno) {
+	public Notice branchSelectNotice(int nno) {
 		
 		Connection conn = getConnection();
 		
@@ -50,7 +50,7 @@ public class NoticeService {
 			commit(conn);
 			
 			// 공지사항 조회
-			nList = new NoticeDao().selectNotice(conn, nno);
+			nList = new NoticeDao().branchSelectNotice(conn, nno);
 		} else {
 			rollback(conn);
 		}
@@ -63,11 +63,11 @@ public class NoticeService {
 	 * @param nno		삭제할 공지사항 번호
 	 * @return			삭제 후 조회되는 행의 개수
 	 */
-	public int deleteOneNotice(int nno) {
+	public int branchDeleteOneNotice(int nno) {
 		
 		Connection conn = getConnection();
 		
-		int result = new NoticeDao().deleteOneNotice(conn, nno);
+		int result = new NoticeDao().branchDeleteOneNotice(conn, nno);
 		
 		if(result > 0) {
 			commit(conn);
@@ -86,12 +86,12 @@ public class NoticeService {
 	 * @param flag		중요 공지사항 체크여부
 	 * @return			공지사항 등록 후 행의 개수
 	 */
-	public int insertNotice(Notice n, ArrayList<Attachment> list, int memNo) {
+	public int branchInsertNotice(Notice n, ArrayList<Attachment> list, int memNo) {
 		
 		Connection conn = getConnection();
 		
-		int result1 = new NoticeDao().insertNotice(conn, n, memNo);
-		int result2 = new NoticeDao().insertAttachment(conn, list);
+		int result1 = new NoticeDao().branchInsertNotice(conn, n, memNo);
+		int result2 = new NoticeDao().branchInsertAttachment(conn, list);
 		
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
@@ -108,11 +108,11 @@ public class NoticeService {
 	 * @param nno	수정할 공지사항 번호
 	 * @return		수정할 공지사항 객체
 	 */
-	public Notice selectUpdateNotice(int nno) {
+	public Notice branchSelectUpdateNotice(int nno) {
 		
 		Connection conn = getConnection();
 		
-		Notice nList = new NoticeDao().selectNotice(conn, nno);
+		Notice nList = new NoticeDao().branchSelectNotice(conn, nno);
 
 		close(conn);
 		
@@ -126,12 +126,12 @@ public class NoticeService {
 	 * @param memNo	로그인한 회원 번호
 	 * @return		두 실행 결과를 곱한 값
 	 */
-	public int updateNotice(Notice n, ArrayList<Attachment> list, int memNo) {
+	public int branchUpdateNotice(Notice n, ArrayList<Attachment> list, int memNo) {
 		
 		Connection conn = getConnection();
 		
-		int result1 = new NoticeDao().updateNotice(conn, n, memNo);
-		int result2 = new NoticeDao().insertAttachment(conn, list);
+		int result1 = new NoticeDao().branchUpdateNotice(conn, n, memNo);
+		int result2 = new NoticeDao().branchInsertAttachment(conn, list);
 		
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
@@ -147,11 +147,11 @@ public class NoticeService {
 	 * @param nno	해당 파일을 조회할 공지사항 번호
 	 * @return		첨부파일 리스트
 	 */
-	public ArrayList<Attachment> selectAttachment(int nno) {
+	public ArrayList<Attachment> branchSelectAttachment(int nno) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Attachment> aList = new NoticeDao().selectAttachment(conn, nno);
+		ArrayList<Attachment> aList = new NoticeDao().branchSelectAttachment(conn, nno);
 		
 		close(conn);
 		
@@ -173,6 +173,27 @@ public class NoticeService {
 		return result;
 	}
 	
+	public int branchDeleteChkNotice(String[] arr) {
+		
+		Connection conn = getConnection();
+		
+		int result = 0;
+		
+		for(int i=0; i<arr.length; i++) {
+			
+			result = new NoticeDao().branchDeleteChkNotice(conn, arr[i]);
+		}
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 	/**
 	 * 9. 차랑예약시 지점선택시 선택한 지점의 공지사항 리스트 조회
 	 * @param branchNo	조회할 지점 번호

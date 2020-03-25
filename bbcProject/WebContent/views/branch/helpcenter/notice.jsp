@@ -216,21 +216,21 @@
 			var arr = new Array();
 			
 			$('input:checkbox[name=checkRow]:checked').each(function(){
-				
-			})
+				arr.push($(this).val());
+			});
 			
 			$.ajax({
-				url:"chkDelete.b.no?no=" + no,
-				type:"get",
+				url:"chkDelete.b.no?arr=" + arr,
+				type:"post",
+				data:{arr:arr},
 				success:function(){
-					
+					location.href="notice.b.no";
 				},
 				error:function(){
 					console.log("공지사항 선택 삭제 ajax 통신 오류");
 				}
 			});
 		});
-			                
 	</script>
 
 </body>

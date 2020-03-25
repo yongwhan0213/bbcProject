@@ -31,7 +31,7 @@ public class NoticeDao {
 		}
 	}
 	
-	public ArrayList<Notice> selectNoticeList(Connection conn, int memNo, PageInfo pi) {
+	public ArrayList<Notice> branchSelectNoticeList(Connection conn, int memNo, PageInfo pi) {
 		
 		ArrayList<Notice> list = new ArrayList<>();
 		
@@ -94,7 +94,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public Notice selectNotice(Connection conn, int nno) {
+	public Notice branchSelectNotice(Connection conn, int nno) {
 		
 		Notice nList = null;
 		
@@ -137,13 +137,13 @@ public class NoticeDao {
 		return nList;
 	}
 	
-	public int deleteOneNotice(Connection conn, int nno) {
+	public int branchDeleteOneNotice(Connection conn, int nno) {
 		
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("deleteNoticeOne");
+		String sql = prop.getProperty("deleteNotice");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -160,7 +160,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int insertNotice(Connection conn, Notice n, int memNo) {
+	public int branchInsertNotice(Connection conn, Notice n, int memNo) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -183,7 +183,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int insertAttachment(Connection conn, ArrayList<Attachment> list) {
+	public int branchInsertAttachment(Connection conn, ArrayList<Attachment> list) {
 		
 		int result = 1;
 		PreparedStatement pstmt = null;
@@ -215,7 +215,7 @@ public class NoticeDao {
 		
 	}
 	
-	public int updateNotice(Connection conn, Notice n, int memNo) {
+	public int branchUpdateNotice(Connection conn, Notice n, int memNo) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -240,7 +240,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public ArrayList<Attachment> selectAttachment(Connection conn, int nno){
+	public ArrayList<Attachment> branchSelectAttachment(Connection conn, int nno){
 		
 		ArrayList<Attachment> aList = new ArrayList<>();
 		
@@ -275,7 +275,7 @@ public class NoticeDao {
 	
 	public int getNoticeCount(Connection conn) {
 		
-		int eventCount = 0;
+		int noticeCount = 0;
 		
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -288,7 +288,7 @@ public class NoticeDao {
 			rset = stmt.executeQuery(sql);
 			
 			if(rset.next()) {
-				eventCount = rset.getInt(1);
+				noticeCount = rset.getInt(1);
 			}
 			
 		} catch (SQLException e) {
@@ -298,7 +298,7 @@ public class NoticeDao {
 			close(stmt);
 		}
 		
-		return eventCount;
+		return noticeCount;
 	}
 	
 	public Notice selectByBranch(Connection conn, int branchNo) {
@@ -329,11 +329,29 @@ public class NoticeDao {
 		
 	}
 	
-//	String no = "123";
-//	arry = no.split(",");
-//	for(i=0; i< array.length; i++) {
-//		int result = new ReservationDao().selectReservDetailPay(conn, array[i]);
-//	}
+	public int branchDeleteChkNotice(Connection conn, String arr) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, arr);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
 	
 	// -------------------------------------------- 민기 Dao
 	public int adminGetListCount(Connection conn) {

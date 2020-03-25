@@ -32,7 +32,7 @@ public class HelpNoticeDeleteOneServlet extends HttpServlet {
 		
 		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		int result = new NoticeService().deleteOneNotice(nno);
+		int result = new NoticeService().branchDeleteOneNotice(nno);
 		
 		if(result > 0) {
 			response.sendRedirect("notice.b.no");

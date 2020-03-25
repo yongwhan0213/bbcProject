@@ -78,7 +78,7 @@ public class HelpNoticeEnrollServlet extends HttpServlet {
 				}
 			}
 			
-			int result = new NoticeService().insertNotice(n, list, memNo);
+			int result = new NoticeService().branchInsertNotice(n, list, memNo);
 			
 			if(result > 0) {
 				response.sendRedirect("notice.b.no");

@@ -35,7 +35,7 @@ public class HelpNoticeModifyFormServlet extends HttpServlet {
 		
 		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		Notice nList = new NoticeService().selectUpdateNotice(nno);
+		Notice nList = new NoticeService().branchSelectUpdateNotice(nno);
 		
 		request.setAttribute("nList", nList);
 		request.getRequestDispatcher("views/branch/helpcenter/noticeModify.jsp").forward(request, response);

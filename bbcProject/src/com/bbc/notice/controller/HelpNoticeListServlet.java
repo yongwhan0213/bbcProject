@@ -49,7 +49,7 @@ public class HelpNoticeListServlet extends HttpServlet {
 		
 		int memNo = 21;
 		
-		ArrayList<Notice> list = new NoticeService().selectNoticeList(memNo, pi);
+		ArrayList<Notice> list = new NoticeService().branchSelectNoticeList(memNo, pi);
 		
 		
 		request.setAttribute("list", list);
