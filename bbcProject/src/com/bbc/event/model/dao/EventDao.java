@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.event.model.vo.Event;
 
 public class EventDao {

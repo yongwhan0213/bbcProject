@@ -93,7 +93,7 @@
 								<tr>
 									<th>번호</th>
 									<th>대여 번호</th>
-									<th>대여 기간</th>
+									<th width="150px">대여 기간</th>
 									<th>차종</th>
 									<th>차량 번호</th>
 									<th>결제 금액</th>
@@ -113,7 +113,11 @@
 										<td><%= p.getPayDate() %></td>
 										<td><%= p.getPayMethod() %></td>
 										<td><%= p.getRefundStatus() %></td>
-										<td><%= p.getRefundDate() %></td>
+										<% if(p.getRefundDate() != null) { %>
+											<td><%= p.getRefundDate() %></td>
+										<% } else { %>
+											<td>-</td>
+										<% } %>
 									</tr>
 								<% } %>
 							</table>

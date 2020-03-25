@@ -33,7 +33,7 @@ public class ReservClientDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int no = Integer.parseInt(request.getParameter("no"));
+		String no = request.getParameter("nno");
 		
 		UserInfo ui = new ReservationService().selectReservDetailMember(no);
 		ArrayList<Payment> list = new ReservationService().selectReservDetailPay(no);

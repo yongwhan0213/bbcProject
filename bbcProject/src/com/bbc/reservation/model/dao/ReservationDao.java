@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.payment.model.vo.Payment;
 import com.bbc.reservation.model.vo.Reservation;
 import com.bbc.userInfo.model.vo.UserInfo;
@@ -269,18 +269,18 @@ public class ReservationDao {
 		return list;
 	}
 	
-	public UserInfo selectReservDetailMember(Connection conn, int no) {
+	public UserInfo selectReservDetailMember(Connection conn, String no) {
 
 		UserInfo ui = null;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("rentDetailMember");
+		String sql = prop.getProperty("reservClientMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
+			pstmt.setString(1, no);
 			
 			rset = pstmt.executeQuery();
 			
@@ -303,17 +303,17 @@ public class ReservationDao {
 		
 	}
 	
-	public ArrayList<Payment> selectReservDetailPay(Connection conn, int no) {
+	public ArrayList<Payment> selectReservDetailPay(Connection conn, String no) {
 		
 		ArrayList<Payment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("rentDetailPay");
+		String sql = prop.getProperty("reservClientDetailPay");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
+			pstmt.setString(1, no);
 			
 			rset = pstmt.executeQuery();
 			

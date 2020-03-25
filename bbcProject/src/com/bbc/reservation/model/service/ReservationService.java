@@ -6,7 +6,7 @@ import static com.bbc.common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.payment.model.vo.Payment;
 import com.bbc.reservation.model.dao.ReservationDao;
 import com.bbc.reservation.model.vo.Reservation;
@@ -131,7 +131,7 @@ public class ReservationService {
 	 * @param no	예약 회원 번호
 	 * @return		회원 정보 객체
 	 */
-	public UserInfo selectReservDetailMember(int no) {
+	public UserInfo selectReservDetailMember(String no) {
 		
 		Connection conn = getConnection();
 		
@@ -142,7 +142,7 @@ public class ReservationService {
 		return ui;
 	}
 	
-	public ArrayList<Payment> selectReservDetailPay(int no) {
+	public ArrayList<Payment> selectReservDetailPay(String no) {
 		
 		Connection conn = getConnection();
 		

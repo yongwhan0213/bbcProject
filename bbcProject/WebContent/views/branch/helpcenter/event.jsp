@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.bbc.event.model.vo.Event, com.bbc.common.PageInfo" %>
+<%@ page import="java.util.ArrayList, com.bbc.event.model.vo.Event, com.bbc.common.page.vo.PageInfo" %>
 <%
 	ArrayList<Event> list = (ArrayList<Event>)request.getAttribute("list");
 

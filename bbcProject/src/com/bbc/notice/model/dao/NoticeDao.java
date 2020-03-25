@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.bbc.attachment.model.vo.Attachment;
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.notice.model.vo.Notice;
 
 public class NoticeDao {
