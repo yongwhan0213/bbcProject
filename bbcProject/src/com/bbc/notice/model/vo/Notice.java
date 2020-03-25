@@ -12,9 +12,9 @@ public class Notice {
 	private Date modifyDate;		// 등록일
 	private int noticeReadCnt;		// 조회수
 	private int memberNo;			// 회원 번호
-	private int noticeImport;		// 중요 공지사항
-	private int noticeField;		// 공지 분류
-	private int branchNo;
+	private int noticeImport;		// 중요공지사항 여부(1-중요공지사항)
+	private int noticeField;		// 공지분류(1-사용자,2-지점)
+	private int branchNo;			// 공지사항 등록자(지점관리자)의 지점번호
 	
 	private String memberName;		// 이벤트 리스트 조회시 필요한 회원 이름
 	private int rowNum;				// 조회 번호
@@ -52,6 +52,13 @@ public class Notice {
 		this.memberName = memberName;
 		this.enrollDate = enrollDate;
 		this.noticeReadCnt = noticeReadCnt;
+	}
+	
+	// 차량예약시 지점별 공지사항 리스트 조회시 사용
+	public Notice(String noticeTitle, String noticeContent) {
+		super();
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
 	}
 
 	public int getNoticeNo() {

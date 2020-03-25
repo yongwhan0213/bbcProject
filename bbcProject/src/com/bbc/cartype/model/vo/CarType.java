@@ -41,6 +41,17 @@ public class CarType {
 		this.accidentPriceType2 = accidentPriceType2;
 		this.recessPrice = recessPrice;
 	}
+	
+	// 차량예약시 차량유형 리스트 조회시 참조
+	public CarType(int carTypeNo, String carTypeName, int rent1d, int rent1d6d, int rent7dp, int memberCar) {
+		super();
+		this.carTypeNo = carTypeNo;
+		this.carTypeName = carTypeName;
+		this.rent1D = rent1d;
+		this.rent1D6D = rent1d6d;
+		this.rent7DP = rent7dp;
+		this.memberCar = memberCar;
+	}
 
 	public int getCarTypeNo() {
 		return carTypeNo;
