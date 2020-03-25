@@ -63,11 +63,11 @@
 								<table id="reserv-user-table" class="table table-bordered">
 									<thead>
 										<tr>
+											<th>회원 번호</th>
+											<th>아이디</th>
 											<th>이름</th>
-											<th>예약 번호</th>
-											<th>차종</th>
-											<th>차량 번호</th>
-											<th>예약 기간</th>
+											<th>연락처</th>
+											<th>이메일</th>
 										</tr>
 									</thead>
 
@@ -79,11 +79,11 @@
 										<% } else { %>
 											<% for(Reservation r : list) { %>
 												<tr>
-													<td id="<%= r.getMemberNo() %>"><%= r.getMemberName() %></td>
-													<td><%= r.getReservationNo() %></td>
-													<td><%= r.getCarNo() %></td>
-													<td><%= r.getCarName() %></td>
-													<td><%= r.getRentDate() %> ~ <%= r.getReturnDate() %></td>
+													<td><%= r.getMemberNo() %></td>
+													<td id="<%= r.getMemberNo() %>"><%= r.getMemberId() %></td>
+													<td><%= r.getMemberName() %></td>
+													<td><%= r.getPhone() %></td>
+													<td><%= r.getMemberEmail() %></td>
 												</tr>
 											<% } %>
 										<% } %>
@@ -180,8 +180,9 @@
 	<script>
 	
 		$("#reserv-user-table>tbody>tr>td").click(function(){
-			var nno = $(this).parent().children().eq(0).attr("id");
+			var nno = $(this).parent().children().eq(0).val();
 			location.href="<%= request.getContextPath() %>/reservClientDetail.b.rv?nno=" + nno;
+			console.log(nno);
 		});
 	</script>
 </body>

@@ -63,6 +63,19 @@ public class UserInfo {
 		this.joinDate = joinDate;
 		this.status = status;
 	}
+	
+	
+	// 대여리스트 상세 조회 멤버 정보 테이블
+	public UserInfo(String memberName, String memberZipcode, String memberAddress, String rrn, String phone, 
+			String memberEmail) {
+		super();
+		this.memberName = memberName;
+		this.memberZipcode = memberZipcode;
+		this.memberAddress = memberAddress;
+		this.rrn = rrn;
+		this.phone = phone;
+		this.memberEmail = memberEmail;
+	}
 
 	public int getMemberNo() {
 		return memberNo;

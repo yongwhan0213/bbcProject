@@ -13,7 +13,6 @@ import com.bbc.common.PageTemplate;
 import com.bbc.common.page.vo.PageInfo;
 import com.bbc.event.model.service.EventService;
 import com.bbc.event.model.vo.Event;
-import com.bbc.notice.model.service.NoticeService;
 
 /**
  * Servlet implementation class HelpEventListServlet

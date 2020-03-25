@@ -245,17 +245,15 @@ public class ReservationDao {
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);
-			
+
 			while(rset.next()) {
-				Reservation r = new Reservation(rset.getInt("member_no"),
-												rset.getString("member_name"),
-												rset.getInt("reservation_no"),
-												rset.getString("car_name"),
-												rset.getInt("car_no"),
-												rset.getDate("rent_date"),
-												rset.getDate("return_date"));
+				Reservation u = new Reservation(rset.getInt("member_no"),
+											rset.getString("member_id"),
+											rset.getString("member_name"),
+											rset.getString("phone"),
+											rset.getString("member_email"));
 				
-				list.add(r);
+				list.add(u);
 			}
 			
 			
