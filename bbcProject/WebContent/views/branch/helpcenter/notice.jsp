@@ -215,7 +215,9 @@
 			
 			var arr = new Array();
 			
-			
+			$('input:checkbox[name=checkRow]:checked').each(function(){
+				console.log
+			})
 			
 			$.ajax({
 				url:"chkDelete.b.no?no=" + no,
