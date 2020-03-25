@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bbc.common.PageTemplate;
 import com.bbc.common.page.vo.PageInfo;
-import com.bbc.myinquiry.model.service.MyInquiryService;
 import com.bbc.notice.model.service.NoticeService;
 import com.bbc.notice.model.vo.Notice;
 

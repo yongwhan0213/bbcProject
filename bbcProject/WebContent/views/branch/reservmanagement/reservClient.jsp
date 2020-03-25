@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.bbc.reservation.model.vo.Reservation, com.bbc.common.PageInfo" %>
+<%@ page import="java.util.ArrayList, com.bbc.reservation.model.vo.Reservation, com.bbc.common.page.vo.PageInfo" %>
 <%
 	ArrayList<Reservation> list = (ArrayList<Reservation>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");

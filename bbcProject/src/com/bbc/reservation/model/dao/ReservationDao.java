@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.payment.model.vo.Payment;
 import com.bbc.reservation.model.vo.Reservation;
 import com.bbc.userInfo.model.vo.UserInfo;

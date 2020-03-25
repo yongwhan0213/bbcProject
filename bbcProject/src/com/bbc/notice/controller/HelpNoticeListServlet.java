@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bbc.common.PageInfo;
+import com.bbc.common.PageTemplate;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.notice.model.service.NoticeService;
 import com.bbc.notice.model.vo.Notice;
 
@@ -33,29 +34,18 @@ public class HelpNoticeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		PageInfo pi = new PageInfo();
+		int listCount;			// 총 게시글 갯수
+		int currentPage;		// 현재 페이지 (즉, 요청한 페이지)
 		
-		pi.setListCount(new NoticeService().getNoticeCount());
+		listCount = new NoticeService().getNoticeCount();
 		
-		pi.setCurrentPage(1);
+		currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) {
-			pi.setCurrentPage(Integer.parseInt(request.getParameter("currentPage")));
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
-		pi.setPageLimit(5);
-		
-		pi.setTableLimit(15);
-		
-		pi.setMaxPage((int)Math.ceil((double)pi.getListCount()/pi.getTableLimit()));
-		
-		pi.setStartPage((pi.getCurrentPage() - 1)/pi.getPageLimit() * pi.getPageLimit() + 1);
-		
-		pi.setEndPage(pi.getStartPage() + pi.getPageLimit() - 1);
-		
-		if(pi.getMaxPage() < pi.getEndPage()) {
-			pi.setEndPage(pi.getMaxPage());
-		}
+
+		PageInfo pi = PageTemplate.getPageInfo(listCount, currentPage);
 		
 		int memNo = 21;
 		

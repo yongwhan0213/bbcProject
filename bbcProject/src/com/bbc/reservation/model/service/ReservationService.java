@@ -6,7 +6,7 @@ import static com.bbc.common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.payment.model.vo.Payment;
 import com.bbc.reservation.model.dao.ReservationDao;
 import com.bbc.reservation.model.vo.Reservation;

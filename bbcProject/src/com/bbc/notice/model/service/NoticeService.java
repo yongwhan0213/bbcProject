@@ -1,15 +1,17 @@
 package com.bbc.notice.model.service;
 
-import static com.bbc.common.JDBCTemplate.*;
+import static com.bbc.common.JDBCTemplate.close;
+import static com.bbc.common.JDBCTemplate.commit;
+import static com.bbc.common.JDBCTemplate.getConnection;
+import static com.bbc.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.bbc.attachment.model.vo.Attachment;
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.notice.model.dao.NoticeDao;
 import com.bbc.notice.model.vo.Notice;
-import com.bbc.reservation.model.dao.ReservationDao;
 
 public class NoticeService {
 	
