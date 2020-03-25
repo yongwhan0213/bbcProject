@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.bbc.attachment.model.vo.Attachment;
 import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.notice.model.dao.NoticeDao;
 import com.bbc.notice.model.vo.Notice;
 import com.bbc.reservation.model.dao.ReservationDao;
