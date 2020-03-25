@@ -1,9 +1,6 @@
 package com.bbc.event.model.service;
 
-import static com.bbc.common.JDBCTemplate.close;
-import static com.bbc.common.JDBCTemplate.commit;
-import static com.bbc.common.JDBCTemplate.getConnection;
-import static com.bbc.common.JDBCTemplate.rollback;
+import static com.bbc.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -172,6 +169,23 @@ public class EventService {
 //		
 //		return eList;
 //	}
+	
+	/**
+	 * 8. 차량예약예서 지점선택시 지점에 해당하는 이벤트 가져오기
+	 * @param branchNo	조회할 지점
+	 * @return		   	지점에 등록된 이벤트 리스트
+	 */
+	public ArrayList<Event> selectListBranch(int branchNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Event> elist = new EventDao().selectListBranch(conn, branchNo);
+		
+		close(conn);
+		
+		return elist;
+		
+	}
 	
 
 }

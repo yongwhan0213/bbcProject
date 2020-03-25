@@ -3,24 +3,24 @@ package com.bbc.area.model.vo;
 // 지역 테이블 	.ar
 public class Area {
 
-	private String areaCode;	// 지역코드
+	private int areaCode;	// 지역코드
 	private String areaName;	// 지역명
 	
 	public Area() {
 		
 	}
 
-	public Area(String areaCode, String areaName) {
+	public Area(int areaCode, String areaName) {
 		super();
 		this.areaCode = areaCode;
 		this.areaName = areaName;
 	}
 
-	public String getAreaCode() {
+	public int getAreaCode() {
 		return areaCode;
 	}
 
-	public void setAreaCode(String areaCode) {
+	public void setAreaCode(int areaCode) {
 		this.areaCode = areaCode;
 	}
 

@@ -1,6 +1,6 @@
 package com.bbc.event.model.dao;
 
-import static com.bbc.common.JDBCTemplate.close;
+import static com.bbc.common.JDBCTemplate.*;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -260,5 +260,38 @@ public class EventDao {
 //		return eList;
 //	}
 	
+	public ArrayList<Event> selectListBranch(Connection conn, int branchNo) {
+		
+		ArrayList<Event> elist = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectListBranch");
+				
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, branchNo);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Event e = new Event();
+				e.setEventNo(rset.getInt("EVENT_MANAGEMENT_NO"));
+				e.setEventTitle(rset.getString("EVENT_MANAGEMENT_TITLE"));
+				e.setEventStartDate(rset.getDate("EVENT_MANAGEMENT_START"));
+				e.setEventEndDate(rset.getDate("EVENT_MANAGEMENT_END"));
+				e.setDiscountRate(rset.getInt("DISCOUNT_RATE"));
+				e.setBranchNo(rset.getInt("BRANCH_NO"));				
+				elist.add(e);
+			}
+		} catch (SQLException e) {			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return elist;
+		
+	}
 
 }

@@ -1,9 +1,6 @@
 package com.bbc.notice.model.service;
 
-import static com.bbc.common.JDBCTemplate.close;
-import static com.bbc.common.JDBCTemplate.commit;
-import static com.bbc.common.JDBCTemplate.getConnection;
-import static com.bbc.common.JDBCTemplate.rollback;
+import static com.bbc.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -171,6 +168,23 @@ public class NoticeService {
 		close(conn);
 		
 		return result;
+	}
+	
+	/**
+	 * 9. 차랑예약시 지점선택시 선택한 지점의 공지사항 리스트 조회
+	 * @param branchNo	조회할 지점 번호
+	 * @return			지점의 공지사항 리스트
+	 */
+	public Notice selectListByBr(int branchNo) {
+		
+		Connection conn = getConnection();
+		
+		Notice n = new NoticeDao().selectByBranch(conn, branchNo);
+		
+		close(conn);
+		
+		return n;
+		
 	}
 
 }

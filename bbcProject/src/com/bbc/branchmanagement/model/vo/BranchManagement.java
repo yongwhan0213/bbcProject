@@ -13,6 +13,9 @@ public class BranchManagement {
 	private String areaCode;		// 지역 코드
 	private int memberNo;			// 회원 번호
 	
+	private String noticeContent;	// 차량예약시 지점선택 화면에서 보여줄 공지사항 내용
+	private String eventContent;	// 차량예약시 지점선택 화면세서 보여줄 이벤트 내용
+	
 	public BranchManagement() {
 		
 	}
@@ -29,6 +32,16 @@ public class BranchManagement {
 		this.branchDir = branchDir;
 		this.areaCode = areaCode;
 		this.memberNo = memberNo;
+	}
+	
+	// 차량예약시 지점선택시 사용
+	public BranchManagement(int branchNo, String branchName, String noticeContent, String eventContent) {
+		super();
+		this.branchNo = branchNo;
+		this.branchName = branchName;
+		this.noticeContent = noticeContent;
+		this.eventContent = eventContent;
+
 	}
 
 	public int getBranchNo() {
@@ -101,6 +114,23 @@ public class BranchManagement {
 
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+	
+
+	public String getNoticeContent() {
+		return noticeContent;
+	}
+
+	public void setNoticeContent(String noticeContent) {
+		this.noticeContent = noticeContent;
+	}
+	
+	public String getEventContent() {
+		return eventContent;
+	}
+
+	public void setEventContent(String eventContent) {
+		this.eventContent = eventContent;
 	}
 
 	@Override

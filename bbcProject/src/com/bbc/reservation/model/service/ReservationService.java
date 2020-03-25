@@ -45,6 +45,22 @@ public class ReservationService {
 		
 		return result;
 	}
+	
+	/**
+	 * 3. 차량예약 시 선택한 차량의 예약여부 확인
+	 * @param	차량등록번호,대여일시,반납일시
+	 * @return  예약가능한 차량인경우 0 반환
+	 */
+	public int selectCarListRv(int car_no, String rent_date, String return_date) {
+		Connection conn = getConnection();
+		
+		int result = new ReservationDao().selectCarListRv(conn, car_no, rent_date, return_date);
+		
+		close(conn);
+		
+		return result;
+		
+	}
 
 	/**
 	 * 3. 대여리스트 조회

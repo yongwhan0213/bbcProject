@@ -21,6 +21,8 @@ public class Event {
 	private int prev;				// 이전글
 	private int next;				// 다음글
 	
+	private int branchNo;			// 이벤트를 등록한 지점관리자의 지점번호
+	
 	public Event() {
 		
 	}
@@ -51,6 +53,17 @@ public class Event {
 		this.eventStartDate = eventStartDate;
 		this.eventEndDate = eventEndDate;
 		this.eventReadCnt = eventReadCnt;
+	}
+	
+	// 지점선택시 해당 지점의 이벤트 조회시 사용
+	public Event(int eventNo, String eventTitle, Date eventStartDate, Date eventEndDate, int discountRate, int branchNo) {
+		super();
+		this.eventNo = eventNo;
+		this.eventTitle = eventTitle;
+		this.eventStartDate = eventStartDate;
+		this.eventEndDate = eventEndDate;
+		this.discountRate = discountRate;
+		this.branchNo = branchNo;
 	}
 
 	public int getEventNo() {
@@ -155,6 +168,14 @@ public class Event {
 
 	public void setNext(int next) {
 		this.next = next;
+	}
+	
+	public int getBranchNo() {
+		return branchNo;
+	}
+
+	public void setBranchNo(int branchNo) {
+		this.branchNo = branchNo;
 	}
 
 	@Override

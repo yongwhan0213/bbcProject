@@ -300,4 +300,32 @@ public class NoticeDao {
 		
 		return eventCount;
 	}
+	
+	public Notice selectByBranch(Connection conn, int branchNo) {
+
+		Notice n = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectByBranch");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, branchNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {	
+				n = new Notice(rset.getString("NOTICE_TITLE"),
+						       rset.getString("NOTICE_CONTENT"));
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return n;
+		
+	}
 }
