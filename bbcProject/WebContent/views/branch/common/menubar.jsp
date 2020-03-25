@@ -60,23 +60,6 @@
 			</div>
 		</li>
 		
-		<script>
-			function goWholeList(){
-				location.href="<%= request.getContextPath() %>/wholeList.b.rv";
-			}
-			
-			function goRentList(){
-				location.href="<%= request.getContextPath() %>/rentList.b.rv";
-			}
-			
-			function goReturnManage(){
-				location.href="<%= request.getContextPath() %>/returnManage.b.rv";
-			}
-			
-			function goReservClient(){
-				location.href="<%= request.getContextPath() %>/reservClient.b.rv";
-			}
-		</script>
 
 		<!-- Nav Item - 고객 센터 Collapse Menu -->
 		<li class="nav-item">
@@ -93,16 +76,6 @@
 			</div>
 		</li>
 		
-		<script>
-			function goNotice(){
-				location.href="<%=request.getContextPath()%>/notice.b.no";
-			}
-			
-			function goEvent(){
-				location.href="<%=request.getContextPath()%>/event.b.ev";
-			}
-		</script>
-
 		<!-- Nav Item - 차량 관리 Collapse Menu -->
 		<li class="nav-item">
 			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCar"
@@ -120,22 +93,6 @@
 		</li>
 
 	</ul>
-	
-	<script>
-		function goCurrentCar(){
-			location.href="<%=request.getContextPath()%>/carList.b.ci";
-		}
-		
-		function goEnrollCar(){
-			location.href="<%=request.getContextPath()%>/enrollCar.b.ci";
-		}
-		
-		function goDeleteCar(){
-			location.href="<%=request.getContextPath()%>/deleteCar.b.ci";
-		}
-	</script>
-
-
 
 	<!-- Logout Modal-->
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
@@ -159,5 +116,43 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		function goWholeList(){
+			location.href="<%= request.getContextPath() %>/wholeList.b.rv";
+		}
+			
+		function goRentList(){
+			location.href="<%= request.getContextPath() %>/rentList.b.rv";
+		}
+			
+		function goReturnManage(){
+			location.href="<%= request.getContextPath() %>/returnManage.b.rv";
+		}
+			
+		function goReservClient(){
+			location.href="<%= request.getContextPath() %>/reservClient.b.rv";
+		}
+		
+		function goCurrentCar(){
+			location.href="<%=request.getContextPath()%>/carList.b.ci";
+		}
+		
+		function goEnrollCar(){
+			location.href="<%=request.getContextPath()%>/enrollCar.b.ci";
+		}
+		
+		function goDeleteCar(){
+			location.href="<%=request.getContextPath()%>/deleteCar.b.ci";
+		}
+		
+		function goNotice(){
+			location.href="<%=request.getContextPath()%>/notice.b.no";
+		}
+		
+		function goEvent(){
+			location.href="<%=request.getContextPath()%>/event.b.ev";
+		}
+	</script>
 </body>
 </html>
