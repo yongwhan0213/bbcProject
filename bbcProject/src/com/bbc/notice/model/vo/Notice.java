@@ -21,6 +21,9 @@ public class Notice {
 	
 	private int prev;				// 이전글
 	private int next;				// 다음글
+	//-------------------- 추가된 변수(민기)
+   private String rename;			// 변경된 파일이름
+	
 	
 	public Notice() {
 		
@@ -59,6 +62,16 @@ public class Notice {
 		super();
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
+	}
+	
+	// 공지사항 전체 조회용 매개변수(민기)
+   public Notice(int noticeNo, String noticeTitle, String memberName, Date modifyDate, int noticeReadCnt) {
+	super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.memberName = memberName;
+		this.modifyDate = modifyDate;
+		this.noticeReadCnt = noticeReadCnt;
 	}
 
 	public int getNoticeNo() {
@@ -172,6 +185,14 @@ public class Notice {
 
 	public void setNext(int next) {
 		this.next = next;
+	}
+
+	public String getRename() {
+		return rename;
+	}
+
+	public void setRename(String rename) {
+		this.rename = rename;
 	}
 
 	@Override
