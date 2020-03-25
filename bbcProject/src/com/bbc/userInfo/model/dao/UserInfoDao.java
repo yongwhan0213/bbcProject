@@ -87,5 +87,24 @@ public class UserInfoDao {
 		
 		return list;
 	}
+	
+	public int adminBlackUser(Connection conn, int blackNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("adminBlackUser");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, blackNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 }

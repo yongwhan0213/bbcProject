@@ -1,7 +1,6 @@
 package com.bbc.userInfo.model.service;
 
-import static com.bbc.common.JDBCTemplate.close;
-import static com.bbc.common.JDBCTemplate.getConnection;
+import static com.bbc.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -39,5 +38,24 @@ public class UserInfoService{
 		close(conn);
 		
 		return list;
+	}
+	
+	/**
+	 * 3. 회원 정지시키는 서비스
+	 * @param blackNo	정지시킬 회원 번호
+	 * @return			처리 결과 리턴
+	 */
+	public int adminBlackUser(int blackNo) {
+		Connection conn = getConnection();
+		
+		int result = new UserInfoDao().adminBlackUser(conn, blackNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
 	}
 }
