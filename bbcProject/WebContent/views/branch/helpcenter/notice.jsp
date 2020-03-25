@@ -84,7 +84,7 @@
 										<% } else { %>
 											<% for(Notice n : list) { %>
 												<tr>
-													<td><input type="checkbox" name="checkRow"></td>
+													<td><input type="checkbox" name="checkRow" value="<%= n.getNoticeNo() %>"></td>
 													<td><%= n.getRowNum() %></td>
 													<td style="display:none;"><%= n.getNoticeNo() %></td>
 													<td><%= n.getNoticeTitle() %></td>
@@ -99,29 +99,6 @@
 							</div>
 						</div>
 
-						<!-- check box all select/cancel script-->
-						<script>
-			                
-							function checkAll(){
-			                    if( $("#th_checkAll").is(':checked') ){
-			                        $("input[name=checkRow]").prop("checked", true);
-			                    }else{
-			                        $("input[name=checkRow]").prop("checked", false);
-			                    }
-			                }
-							
-			                $("#notice-table>tbody>tr>td:not(:first-child)").click(function(){
-					        	var nno = $(this).parent().children().eq(2).text();
-					        	location.href="<%= request.getContextPath() %>/detail.b.no?nno=" + nno;
-					        });
-  
-			                
-			                function enrollFormNotice(){
-			                	location.href="<%= request.getContextPath() %>/enrollForm.b.no";
-			                }
-			                
-			                
-			            </script>
 
 						<!-- search form -->
 						<form class="navbar-form navbar-search" role="search">
@@ -212,6 +189,49 @@
 		</div>
 	</div>
 
+
+	<!-- check box all select/cancel script-->
+	<script>
+			                
+		function checkAll(){
+			if( $("#th_checkAll").is(':checked') ){
+			    $("input[name=checkRow]").prop("checked", true);
+			}else{
+			    $("input[name=checkRow]").prop("checked", false);
+			}
+		}
+							
+		$("#notice-table>tbody>tr>td:not(:first-child)").click(function(){
+			var nno = $(this).parent().children().eq(2).text();
+			location.href="<%= request.getContextPath() %>/detail.b.no?nno=" + nno;
+		});
+  
+			                
+		function enrollFormNotice(){
+			 location.href="<%= request.getContextPath() %>/enrollForm.b.no";
+		}
+		
+		$("#selectDelete").click(function(){
+			
+			var arr = new Array();
+			
+			$('input:checkbox[name=checkRow]:checked').each(function(){
+				console.log("aaa");
+			})
+			
+			$.ajax({
+				url:"chkDelete.b.no?no=" + no,
+				type:"get",
+				success:function(){
+					
+				},
+				error:function(){
+					console.log("공지사항 선택 삭제 ajax 통신 오류");
+				}
+			});
+		});
+			                
+	</script>
 
 </body>
 </html>
