@@ -269,7 +269,7 @@ public class ReservationDao {
 		return list;
 	}
 	
-	public UserInfo selectReservDetailMember(Connection conn, int no) {
+	public UserInfo selectReservDetailMember(Connection conn, String no) {
 
 		UserInfo ui = null;
 		
@@ -280,7 +280,7 @@ public class ReservationDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
+			pstmt.setString(1, no);
 			
 			rset = pstmt.executeQuery();
 			
@@ -303,7 +303,7 @@ public class ReservationDao {
 		
 	}
 	
-	public ArrayList<Payment> selectReservDetailPay(Connection conn, int no) {
+	public ArrayList<Payment> selectReservDetailPay(Connection conn, String no) {
 		
 		ArrayList<Payment> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -313,7 +313,7 @@ public class ReservationDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
+			pstmt.setString(1, no);
 			
 			rset = pstmt.executeQuery();
 			

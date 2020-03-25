@@ -110,7 +110,11 @@
 										<td><%= p.getCarName() %></td>
 										<td><%= p.getCarNo() %></td>
 										<td><%= p.getPayAmount() %>원</td>
-										<td><%= p.getPayDate() %></td>
+										<% if(p.getPayDate() == null) { %>
+											<td>-</td>
+										<% } else { %>
+											<td><%= p.getPayDate() %></td>
+										<% } %>
 										<td><%= p.getPayMethod() %></td>
 										<td><%= p.getRefundStatus() %></td>
 										<td><%= p.getRefundDate() %></td>

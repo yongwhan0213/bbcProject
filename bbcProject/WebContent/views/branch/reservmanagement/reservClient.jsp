@@ -79,7 +79,7 @@
 										<% } else { %>
 											<% for(Reservation r : list) { %>
 												<tr>
-													<td><%= r.getMemberName() %><input type="hidden" id="no" value="<%= r.getMemberNo() %>"></td>
+													<td id="<%= r.getMemberNo() %>"><%= r.getMemberName() %></td>
 													<td><%= r.getReservationNo() %></td>
 													<td><%= r.getCarNo() %></td>
 													<td><%= r.getCarName() %></td>
@@ -179,12 +179,10 @@
 	
 	<script>
 	
-		$(function(){
-	     	$("#reserv-user-table>tbody>tr>td").click(function(){
-	     		var no = $("#id").val();
-	     		location.href="<%= request.getContextPath() %>/reservClientDetail.b.rv?no=" + no;
-	     	})
-	     });
+		$("#reserv-user-table>tbody>tr>td").click(function(){
+			var nno = $(this).parent().children().eq(0).attr("id");
+			location.href="<%= request.getContextPath() %>/reservClientDetail.b.rv?nno=" + nno;
+		});
 	</script>
 </body>
 </html>

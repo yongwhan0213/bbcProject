@@ -131,7 +131,7 @@ public class ReservationService {
 	 * @param no	예약 회원 번호
 	 * @return		회원 정보 객체
 	 */
-	public UserInfo selectReservDetailMember(int no) {
+	public UserInfo selectReservDetailMember(String no) {
 		
 		Connection conn = getConnection();
 		
@@ -142,7 +142,7 @@ public class ReservationService {
 		return ui;
 	}
 	
-	public ArrayList<Payment> selectReservDetailPay(int no) {
+	public ArrayList<Payment> selectReservDetailPay(String no) {
 		
 		Connection conn = getConnection();
 		
