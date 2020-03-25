@@ -223,7 +223,7 @@
 				url:"chkDelete.b.no?no=" + no,
 				type:"get",
 				success:function(){
-					
+					console.log();
 				},
 				error:function(){
 					console.log("공지사항 선택 삭제 ajax 통신 오류");
