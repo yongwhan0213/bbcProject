@@ -36,6 +36,7 @@ public class Reservation {
 	
 	private String memberName;
 	private String carName;
+	private int rowNum;				// 조회 번호
 	
 	public Reservation() {
 		
@@ -77,16 +78,29 @@ public class Reservation {
 		this.payNo = payNo;
 	}
 
-	// 전체 회원 조회 매개변수 생성자(wholeList)
-	public Reservation(int reservationNo, Date rentDate, Date returnDate, int carNo, String memberName,
+	// 대여리스트 회원 조회 매개변수 생성자(rentList)
+	public Reservation(int memberNo, int reservationNo, Date rentDate, Date returnDate, int carNo, String memberName,
 			String carName) {
 		super();
+		this.memberNo = memberNo;
 		this.reservationNo = reservationNo;
 		this.rentDate = rentDate;
 		this.returnDate = returnDate;
 		this.carNo = carNo;
 		this.memberName = memberName;
 		this.carName = carName;
+	}
+	
+	// 예약 회원 리스트 조회 매개변수(reservClient)
+	public Reservation(int memberNo, String memberName, int reservationNo, String carName, int carNo, Date rentDate, Date returnDate) {
+		super();
+		this.memberNo = memberNo;
+		this.memberName = memberName;
+		this.reservationNo = reservationNo;
+		this.carName = carName;
+		this.carNo = carNo;
+		this.rentDate = rentDate;
+		this.returnDate = returnDate;
 	}
 
 	public int getReservationNo() {
@@ -329,6 +343,14 @@ public class Reservation {
 		this.carName = carName;
 	}
 
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [reservationNo=" + reservationNo + ", memberStatus=" + memberStatus + ", reservationStatus="
@@ -342,10 +364,6 @@ public class Reservation {
 				+ ", branchReservationNo=" + branchReservationNo + ", branchReturnNo=" + branchReturnNo + ", payNo="
 				+ payNo + "]";
 	}
-	
-	
-	
-	
 	
 	
 }

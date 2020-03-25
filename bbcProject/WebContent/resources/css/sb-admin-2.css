@@ -11,6 +11,19 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
+/* 차트 */
+.chart-pie{position:relative;height:15rem;width:100%}
+@media (min-width:768px){.chart-pie{height:calc(20rem - 43px)!important}}
+.card .card-header[data-toggle=collapse].collapsed{border-radius:.35rem}
+.card .card-header[data-toggle=collapse].collapsed::after{content:'\f105'}
+.chart-area{position:relative;height:10rem;width:100%}
+@media (min-width:768px){.chart-area{height:20rem}}
+.chart-bar{position:relative;height:10rem;width:100%}
+@media (min-width:768px){.chart-bar{height:20rem}}
+.chart-pie{position:relative;height:15rem;width:100%}
+@media (min-width:768px){.chart-pie{height:calc(20rem - 43px)!important}}
+
+
 /* 중요 공지사항 체크 */
 .chk_imp {
   text-align: left;
@@ -71,11 +84,13 @@ textarea {
   vertical-align: middle;
 }
 
-/* 테이블스타일 */
+/* 테이블스타일 
 .rent-table th:first-child{
   background-color: white !important;
   border-inline-end: 1px solid #e3e6f0;
 }
+*/
+
 .info-client-table th{
   background-color: #898a8e1f;
 }
@@ -360,10 +375,11 @@ textarea {
   cursor: default;
 }
 
-#info-client-hr {
+#info-client-hr{
   border: 1px solid rgba(0, 0, 0, 0.1);
-  width: 70rem;
   margin-bottom: 2rem;
+  margin-left: 60px;
+  width: 1105px;
 }
 
 #info-client {
@@ -495,7 +511,7 @@ textarea {
 .tab-divider {
   margin-bottom: 3rem;
   margin-left: 4rem;
-  width: 70rem;
+  width: 1100px;
 }
 
 .black-divider {
