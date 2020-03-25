@@ -216,7 +216,7 @@
 			var arr = new Array();
 			
 			$('input:checkbox[name=checkRow]:checked').each(function(){
-				console.log
+				console.log("aaa");
 			})
 			
 			$.ajax({
