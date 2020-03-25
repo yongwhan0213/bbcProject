@@ -276,7 +276,7 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("rentDetailMember");
+		String sql = prop.getProperty("reservClientMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -309,7 +309,7 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("rentDetailPay");
+		String sql = prop.getProperty("reservClientDetailPay");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
