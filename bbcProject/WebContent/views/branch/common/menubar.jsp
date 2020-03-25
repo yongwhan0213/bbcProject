@@ -7,10 +7,6 @@
 <!-- 공통 -->
 <link href="<%= request.getContextPath() %>/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-<script src="<%= request.getContextPath() %>/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="<%= request.getContextPath() %>/resources/vendor/jquery/jquery.js"></script>
-<script src="<%= request.getContextPath() %>/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 
 
 <link href="<%= request.getContextPath() %>/resources/css/common/menubar.css" rel="stylesheet">
@@ -73,7 +69,7 @@
 			}
 			
 			function goReservClient(){
-				location.href="<%= request.getContextPath() %>/reservClient.b.rv";
+				location.href="<%= request.getContextPath() %>/reservClientList.b.rv";
 			}
 		</script>
 
@@ -158,5 +154,13 @@
 			</div>
 		</div>
 	</div>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="<%= request.getContextPath() %>/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="<%= request.getContextPath() %>/resources/vendor/jquery/jquery.js"></script>
+	<script src="<%= request.getContextPath() %>/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	
+	
 </body>
 </html>

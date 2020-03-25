@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.bbc.userInfo.model.vo.UserInfo, com.bbc.payment.model.vo.Payment" %>
+<%
+	UserInfo ui = (UserInfo)request.getAttribute("ui");
+	Payment p = (Payment)request.getAttribute("p");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,47 +56,47 @@
 						</h5>
 
 						<h5 id="info-client">
-							회원 정보
-							<hr id="info-client-hr">
+							회원 정보 
 						</h5>
+						<hr id="info-client-hr">
 
 						<!-- 회원 정보 div -->
 						<div>
 							<table class="table info-client-table rent-user-table">
 								<tr>
 									<th scope="row">이름</th>
-									<td>여민진</td>
+									<td><%= ui.getMemberName() %></td>
 								</tr>
 								<tr>
 									<th scope="row">주소</th>
-									<td>서울특별시</td>
+									<td><%= ui.getMemberZipcode() %> <%= ui.getMemberAddress() %></td>
 								</tr>
 								<tr>
 									<th scope="row">주민등록번호</th>
-									<td>961213 - 2******</td>
+									<td><%= ui.getRrn() %></td>
 								</tr>
 								<tr>
 									<th scope="row">연락처</th>
-									<td>010 - 1234 - 5678</td>
+									<td><%= ui.getPhone() %></td>
 								</tr>
 								<tr>
 									<th scope="row">이메일</th>
-									<td>adfsf@google.com</td>
+									<td><%= ui.getMemberEmail() %></td>
 								</tr>
 							</table>
 						</div>
 
 						<h5 id="info-client">
 							대여 정보
-							<hr id="info-client-hr">
 						</h5>
+						<hr id="info-client-hr">
 
 						<!-- 대여 정보 div-->
 						<div>
 							<table class="table info-client-table info-table rent-table">
 								<tr>
-									<th rowspan="4"><img id="car-img"
-										src="https://imageonthefly.autodatadirect.com/images/?USER=eDealer&PW=edealer872&IMG=USC80HOC091A021001.jpg&width=440&height=262"></th>
+									<!-- <th rowspan="4"><img id="car-img"
+										src="https://imageonthefly.autodatadirect.com/images/?USER=eDealer&PW=edealer872&IMG=USC80HOC091A021001.jpg&width=440&height=262"></th> -->
 									<th>차종</th>
 									<th>차량 번호</th>
 									<th>대여 번호</th>
@@ -103,15 +108,15 @@
 									<th>환불 일시</th>
 								</tr>
 								<tr>
-									<td>제네시스</td>
-									<td>xx가 xxxx</td>
-									<td>548285</td>
-									<td>2020.02.05 ~ 2020.02.07</td>
-									<td>109,000원</td>
-									<td>2018.01.24</td>
-									<td>신용카드</td>
-									<td>진행중</td>
-									<td>2018.02.04</td>
+									<td><%= p.getCarName() %></td>
+									<td><%= p.getCarNo() %></td>
+									<td><%= p.getReservationNo() %></td>
+									<td><%= p.getRentDate() %> ~ <%= p.getReturnDate() %></td>
+									<td><%= p.getPayAmount() %>원</td>
+									<td><%= p.getPayDate() %></td>
+									<td><%= p.getPayMethod() %></td>
+									<td><%= p.getRefundStatus() %></td>
+									<td><%= p.getRefundDate() %></td>
 								</tr>
 							</table>
 						</div>

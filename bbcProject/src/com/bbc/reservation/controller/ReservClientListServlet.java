@@ -14,16 +14,16 @@ import com.bbc.reservation.model.service.ReservationService;
 import com.bbc.reservation.model.vo.Reservation;
 
 /**
- * Servlet implementation class ReservRentListServlet
+ * Servlet implementation class ReservClientServlet
  */
-@WebServlet("/rentList.b.rv")
-public class ReservRentListServlet extends HttpServlet {
+@WebServlet("/reservClientList.b.rv")
+public class ReservClientListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservRentListServlet() {
+    public ReservClientListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -57,12 +57,12 @@ public class ReservRentListServlet extends HttpServlet {
 			pi.setEndPage(pi.getMaxPage());
 		}
 		
-		ArrayList<Reservation> rentList = new ReservationService().selectRentList(pi);
+		ArrayList<Reservation> list = new ReservationService().selectReservClientList(pi);
 		
-		request.setAttribute("rentList", rentList);
+		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
-		request.getRequestDispatcher("views/branch/reservmanagement/rentList.jsp").forward(request, response);;
+		request.getRequestDispatcher("views/branch/reservmanagement/reservClient.jsp").forward(request, response);
 	}
 
 	/**

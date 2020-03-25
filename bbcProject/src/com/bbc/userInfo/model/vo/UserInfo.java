@@ -43,6 +43,19 @@ public class UserInfo {
 		this.status = status;
 		this.branchNo = branchNo;
 	}
+	
+	
+	// 대여리스트 상세조회 멤버 정보 매개변수
+	public UserInfo(String memberName, String memberZipcode, String memberAddress, String phone, String rrn,
+			String memberEmail) {
+		super();
+		this.memberName = memberName;
+		this.memberZipcode = memberZipcode;
+		this.memberAddress = memberAddress;
+		this.phone = phone;
+		this.rrn = rrn;
+		this.memberEmail = memberEmail;
+	}
 
 	public int getMemberNo() {
 		return memberNo;
