@@ -187,7 +187,114 @@ public class NoticeService {
 		return n;
 		
 	}
+	
+	//------------------------------------------ 민기 Service
+	/**
+	 * 1_1. 공지사항 전체 리스트 갯수 조회용 서비스
+	 * 
+	 * @return 공지사항 리스트 갯수
+	 */
+	public int adminGetListCount() {
+		Connection conn = getConnection();
 
+		int listCount = new NoticeDao().adminGetListCount(conn);
+
+		close(conn);
+
+		return listCount;
+	}
+
+	/**
+	 * 2. 공지사항 전체 리스트 조회용 서비스
+	 * 
+	 * @param pi 페이징바 정보 담은 객체
+	 * @return 공지사항 리스트 담은 객체
+	 */
+	public ArrayList<Notice> adminSelectList(PageInfo pi) {
+		Connection conn = getConnection();
+
+		ArrayList<Notice> list = new NoticeDao().adminSelectList(conn, pi);
+
+		close(conn);
+
+		return list;
+	}
+
+	/**
+	 * 3. 공지사항 등록용 서비스
+	 * 
+	 * @param n    Notice테이블에 insert할 정보가 담겨있는 객체
+	 * @param list Attachment테이블에 insert할 정보가 담겨있는 객체
+	 * @return 처리 결과 리턴
+	 */
+	public int adminUserAddNotice(Notice n, ArrayList<Attachment> list) {
+		Connection conn = getConnection();
+
+		System.out.println(n.getNoticeField());
+
+		// 공지사항 작성 전달 
+		int result1 = new NoticeDao().adminUserNotice(conn, n); 
+		// 첨부파일 저장 전달 
+		int result2 = new NoticeDao().adminUserAttachment(conn, list);
+	
+
+		return result1 * result2;
+	}
+	
+	/**
+	 * 4. 공지사항 상세보기 서비스
+	 * @param no	조회할 공지사항 번호
+	 * @return		공지사항 정보를 담은 객체
+	 */
+	 public Notice adminUserNoticeDetail(int no){ 		 
+		 Connection conn = getConnection();
+	 
+		 Notice n = new NoticeDao().adminUserNoticeDetail(conn, no);
+	 
+		 close(conn);
+	 
+		 return n; 
+	 }
+	 
+	 /**
+	  * 5. 공지사항 수정용 서비스
+	 * @param n		수정할 공지사항 정보를 담은 객체
+	 * @return		처리 결과 리턴
+	 */
+	public int adminUserNoticeUpdate(Notice n) {		 
+		 Connection conn = getConnection();
+		 
+		 int result = new NoticeDao().adminUserNoticeUpdate(conn, n);
+		 
+		 if(result > 0) {
+			 commit(conn);
+		 }else {
+			 rollback(conn);
+		 }
+		 close(conn);
+		 
+		 return result;
+	 }
+	
+	/**
+	 * 6. 공지사항 삭제용 서비스
+	 * @param no	삭제할 공지사항 번호
+	 * @return		처리 결과 리턴
+	 */
+	public int adminUserNoticeDelete(int no) {
+		Connection conn = getConnection();
+		
+		int result = new NoticeDao().adminUserNoticeDelete(conn, no);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 
 
 }
