@@ -17,7 +17,7 @@ public class UserInfo {
 	private String gender;			// 성별
 	private int authorityNo;		// 권한 번호
 	private Date joinDate;			// 가입일
-	private String status;			// 회원 상태(1:일반, 2:탈퇴, 3:정지)
+	private String status;			// 회원 상태 (1:사용중, 2:탈퇴, 3:정지)
 	private int branchNo;			// 지점 번호
 	//------------------- 추가 변수(민기)
 	private String reason;			// 정지,탈퇴 사유
