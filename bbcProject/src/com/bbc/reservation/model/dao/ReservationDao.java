@@ -32,21 +32,20 @@ public class ReservationDao {
 		}
 	}
 	
-	public ArrayList<Reservation> selectWholeList(Connection conn, PageInfo pi){
+	public ArrayList<Reservation> selectWholeList(Connection conn, PageInfo pi, int status){
 		
 		ArrayList<Reservation> wholeList = new ArrayList<>();
 		
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("wholeList");
 		
 		try {
-			stmt = conn.createStatement();
-//			pstmt = conn.prepareStatement(sql);
-//			stmt.setInt(1, status);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, status);
 			
-			rset = stmt.executeQuery(sql);
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				Reservation r = new Reservation(rset.getInt("member_no"),
@@ -62,7 +61,7 @@ public class ReservationDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		
 		return wholeList;
