@@ -78,6 +78,7 @@ public class UserInfoDao {
 									  rset.getString("gender"),
 									  rset.getInt("authority_no"),
 									  rset.getDate("join_date"),
+									  rset.getString("status"),
 									  rset.getString("secession")));	
 			}
 		} catch (SQLException e) {
@@ -155,7 +156,8 @@ public class UserInfoDao {
 									  rset.getString("gender"),
 									  rset.getInt("authority_no"),
 									  rset.getDate("join_date"),
-									  rset.getString("secession")));
+									  rset.getString("secession"),
+									  rset.getString("reason")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
