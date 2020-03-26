@@ -104,10 +104,36 @@
 		<!-- /div car-info-right -->
 		<!-- div car-search-result -->
 		<div id="car-search-result" style="display:none">	
-			<label class="mt5 ml10">결과<span>(5)</span></label>					
+			<label class="mt5 ml10" id="searchcnt"></label>					
 			<span class="pl100 pb15 f12 txt-red1">* 할인 및 쿠폰적용은 예약 다음 페이지에서 선택 가능합니다.</span>
-			<div class="list-car">
-				<table style="width:470px">
+			<div class="list-car">			
+			<table style="width:470px" border="1">
+					<tbody>
+					<tr>
+					<td rowspan="3">
+					<img src="/bbc/resources/images/car/avante2019.jpg">
+					</td>
+					</tr>	
+					<tr>
+					<td width="70%" class="car-type">아반떼 AD</td>
+					<td width="30%" class="car-price">49,500원</td>
+					</tr>
+					<tr>
+					<td colspan="2">
+					<span class="ico-gas"><img src="/bbc/resources/images/car/ico_gas_new.png"></span>
+					<div class="ico-people-wrap">
+					<div><img src="/bbc/resources/images/car/ico_people.png"></div>
+					<div class="ico-people-text"><p class="ico-people-count">5</p></div>
+					</div>
+					<div class="btn-reservation" onclick="goLinkPage('/caroption.rv')">예약</div>
+					</td>
+					</tr>
+					<tr>
+					<td colspan="3">
+					<p style="border-bottom: 1px solid #757272; margin-top:10px; margin-bottom:5px;"></p>
+					</td>
+					</tr>
+					<!-- -- 두번째 -->
 					<tr>
 					<td rowspan="3"><img src="<%=request.getContextPath()%>/resources/images/car/avante2019.jpg"></td>
 					</tr>
@@ -209,9 +235,8 @@
 					<div class="btn-reservation" onclick="">예약</div>
 					</td>		
 					</tr>
-						
+						</tbody>
 				</table>
-	
 			</div>
 		</div>	
 		<!-- div /car-search-result -->
@@ -390,6 +415,7 @@
     	</div>
   	</div>
  
+ 	<script>var contextJSPath="<%=contextPath%>"</script> 
 	<script type="text/javascript" src="<%=contextPath%>/resources/js/reservation/reservation.js"></script>
 
 </body>	
