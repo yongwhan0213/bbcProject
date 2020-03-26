@@ -120,6 +120,17 @@ public class Reservation {
 		this.memberEmail = memberEmail;
 	}
 
+	// 전체 회원 조회(wholeList)
+	public Reservation(String memberName, int reservationNo, String carName, int carNo, Date rentDate, Date returnDate) {
+		super();
+		this.memberName = memberName;
+		this.reservationNo = reservationNo;
+		this.carName = carName;
+		this.carNo = carNo;
+		this.rentDate = rentDate;
+		this.returnDate = returnDate;
+	}
+
 	public int getReservationNo() {
 		return reservationNo;
 	}

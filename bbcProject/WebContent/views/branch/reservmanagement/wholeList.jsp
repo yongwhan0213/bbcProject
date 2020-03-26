@@ -73,9 +73,7 @@
 
 						<!-- Tab panes -->
 						<div class="tab-content">
-							<div id="content1" class="container tab-pane active">
-								<br>
-
+							<div id="tab1" class="container tab-pane active">
 								<table id="user-table" class="table table-bordered">
 									<thead>
 										<tr>
@@ -93,7 +91,7 @@
 												<td colspan="5">조회된 회원이 없습니다.</td>
 											</tr>
 										<% } else {%>
-											<% for(Reservation r : wholeList){ %>
+											<% for(Reservation r : wholeList) { %>
 												<tr>
 													<td><%= r.getMemberName() %></td>
 													<td><%= r.getReservationNo() %></td>
@@ -103,54 +101,6 @@
 												</tr>
 											<% } %>
 										<% } %>
-									</tbody>
-								</table>
-							</div>
-							<div id="content2" class="container tab-pane fade">
-								<br>
-								<table id="user-table" class="table table-bordered">
-									<thead>
-										<tr>
-											<th>이름</th>
-											<th>예약 번호</th>
-											<th>차종</th>
-											<th>차량 번호</th>
-											<th>예약 기간</th>
-										</tr>
-									</thead>
-
-									<tbody>
-										<tr>
-											<td>Tiger Nixon</td>
-											<td>System Architect</td>
-											<td>Edinburgh</td>
-											<td>61</td>
-											<td>2011/04/25</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div id="content3" class="container tab-pane fade">
-								<br>
-								<table id="user-table" class="table table-bordered">
-									<thead>
-										<tr>
-											<th>이름</th>
-											<th>예약 번호</th>
-											<th>차종</th>
-											<th>차량 번호</th>
-											<th>예약 기간</th>
-										</tr>
-									</thead>
-
-									<tbody>
-										<tr>
-											<td>Tiger Nixon</td>
-											<td>System Architect</td>
-											<td>Edinburgh</td>
-											<td>61</td>
-											<td>2011/04/25</td>
-										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -249,12 +199,27 @@
 			var value = "";
 			
 			$.ajax({
-				url:"wholeList.b.rv?st=" + st,
+				
+				url:"wholeList.b.rv?st=" + st + "&&fr=tab",
 				type:"get",
 				success:function(list){
 					
-					console.log(list);
+					value +="<table id='user-table' class='table table-bordered'>"
+					value += "<thead> <tr> <th>이름</th> <th>예약 번호</th> <th>차종</th> <th>차량 번호</th> <th>예약 기간</th> </tr> </thead>"
+					value += "<tbody>"
+					if(list.length == 0) {
+						value += "<tr> <td colspan='5'>조회된 회원이 없습니다.</td> </tr>"
+					} else { 
+						for(var i=0; i<list.length; i++) {  				
+							value += "<tr> <td>" + list[i].memberName + "</td> <td>" + list[i].reservationNo 
+							value += "</td> <td>" + list[i].carName + "</td> <td>" + list[i].carNo 
+							value += "</td> <td>" + list[i].rentDate + "~" + list[i].returnDate + "</td> </tr>"
+						}
+					}	
 					
+					value += "</tbody> </table>";
+				
+					$("#tab1").html(value);
 				},
 				error:function(){
 					console.log("tab menu ajax 통신 실패");

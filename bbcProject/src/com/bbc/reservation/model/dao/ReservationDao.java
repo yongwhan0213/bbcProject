@@ -48,13 +48,12 @@ public class ReservationDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Reservation r = new Reservation(rset.getInt("member_no"),
+				Reservation r = new Reservation(rset.getString("member_name"),
 												rset.getInt("reservation_no"),
-												rset.getDate("rent_date"),
-												rset.getDate("return_date"),
+												rset.getString("car_name"),
 												rset.getInt("car_no"),
-												rset.getString("member_name"),
-												rset.getString("car_name"));
+												rset.getDate("rent_date"),
+												rset.getDate("return_date"));
 				wholeList.add(r);
 			}
 		} catch (SQLException e) {

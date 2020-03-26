@@ -13,6 +13,7 @@ import com.bbc.common.PageTemplate;
 import com.bbc.common.page.vo.PageInfo;
 import com.bbc.reservation.model.service.ReservationService;
 import com.bbc.reservation.model.vo.Reservation;
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class ReservWholeListServlet
@@ -47,15 +48,24 @@ public class ReservWholeListServlet extends HttpServlet {
 
 		PageInfo pi = PageTemplate.getPageInfo(listCount, currentPage);
 		
+		String fr = request.getParameter("fr");
 		int st = Integer.parseInt(request.getParameter("st"));
+
 		ArrayList<Reservation> wholeList = new ReservationService().selectWholeList(pi, st);
 		
-		System.out.println(wholeList);
-		
-		request.setAttribute("wholeList", wholeList);
 		request.setAttribute("pi", pi);
-		
-		request.getRequestDispatcher("views/branch/reservmanagement/wholeList.jsp").forward(request, response);
+				
+		if(fr.equals("menu")) {
+			request.setAttribute("wholeList", wholeList);
+			request.getRequestDispatcher("views/branch/reservmanagement/wholeList.jsp").forward(request, response);
+		} else {
+			response.setContentType("application/json; charset=utf-8");
+			
+			Gson gson = new Gson();
+			gson.toJson(wholeList, response.getWriter());
+
+		}
+				
 	}
 
 	/**

@@ -92,7 +92,7 @@
 	
 	<script>
 		function goWholeList(){
-			location.href="<%= request.getContextPath() %>/wholeList.b.rv?st=1";
+			location.href="<%= request.getContextPath() %>/wholeList.b.rv?st=1&&fr=menu";
 		}
 		
 		function goRentList(){
