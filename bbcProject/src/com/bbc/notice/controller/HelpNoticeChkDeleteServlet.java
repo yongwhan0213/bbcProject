@@ -31,18 +31,17 @@ public class HelpNoticeChkDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String[] arr = request.getParameterValues("arr");
+		String str = request.getParameter("str");
+		
+		
+		String[] arr = str.split(",");
 		
 		int result = new NoticeService().branchDeleteChkNotice(arr);
 		
-		if(result > 0) {
-			response.setContentType("application/json; charset=utf-8");
-			
-			Gson gson = new Gson();
-			gson.toJson(result, response.getWriter());
-		} else {
-			request.getRequestDispatcher("views/branch/common/errorPage.jsp").forward(request, response);
-		}
+		response.setContentType("application/json; charset=utf-8");
+		
+		Gson gson = new Gson();
+		gson.toJson(result, response.getWriter());
 	}
 
 	/**

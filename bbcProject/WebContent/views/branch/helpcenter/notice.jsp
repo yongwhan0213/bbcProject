@@ -190,7 +190,6 @@
 	</div>
 
 
-	<!-- check box all select/cancel script-->
 	<script>
 			                
 		function checkAll(){
@@ -219,10 +218,12 @@
 				arr.push($(this).val());
 			});
 			
+			var str = arr.join();
+			
 			$.ajax({
-				url:"chkDelete.b.no?arr=" + arr,
-				type:"post",
-				data:{arr:arr},
+				url:"chkDelete.b.no",
+				type:"get",
+				data:{str:str},
 				success:function(){
 					location.href="notice.b.no";
 				},

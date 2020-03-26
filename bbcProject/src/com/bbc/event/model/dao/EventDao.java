@@ -183,8 +183,6 @@ public class EventDao {
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println(e);
-			
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		} finally {
@@ -292,6 +290,29 @@ public class EventDao {
 		
 		return elist;
 		
+	}
+	
+	public int deleteChkEvent(Connection conn, String arr) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteEvent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, arr);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

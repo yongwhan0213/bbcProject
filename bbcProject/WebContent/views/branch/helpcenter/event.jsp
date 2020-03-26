@@ -84,7 +84,7 @@
 										<% } else { %>
 											<% for(Event e : list) { %>
 												<tr>
-													<td><input type="checkbox" name="checkRow"></td>
+													<td><input type="checkbox" name="checkRow" value="<%= e.getEventNo() %>"></td>
 													<td><%= e.getRowNum() %></td>
 													<td style="display:none;"><%= e.getEventNo() %></td>
 													<td><%= e.getEventTitle() %></td>
@@ -100,25 +100,6 @@
 							</div>
 						</div>
 						
-						<!-- check box all select/cancel script-->
-						<script>
-							
-							$("#th_checkAll").change(function(){
-								$("input[name=checkRow]").prop("checked", $(this).prop("checked"))
-							});
-							
-							$("#event-table>tbody>tr>td:not(:first-child)").click(function(){
-						        var eno = $(this).parent().children().eq(2).text();
-				        		location.href="<%= request.getContextPath() %>/detail.b.ev?eno=" + eno;
-						    });
-
-					        function enrollEvent(){
-					        	location.href="<%= request.getContextPath() %>/enrollForm.b.ev";
-					        }
-					        
-					        $("")
-					       
-						</script>
 
 						<!-- search form -->
 						<form class="navbar-form navbar-search" role="search" action="">
@@ -197,11 +178,51 @@
 				<div class="modal-body">이벤트를 삭제하시겠습니까?</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" id="delsel" href="javascript:deleteEvent();">삭제</a>
+					<a class="btn btn-primary" id="delsel" href="#">삭제</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<script>
+							
+		$("#th_checkAll").change(function(){
+			$("input[name=checkRow]").prop("checked", $(this).prop("checked"))
+		});
+							
+		$("#event-table>tbody>tr>td:not(:first-child)").click(function(){
+			var eno = $(this).parent().children().eq(2).text();
+				location.href="<%= request.getContextPath() %>/detail.b.ev?eno=" + eno;
+		});
+
+		function enrollEvent(){
+			location.href="<%= request.getContextPath() %>/enrollForm.b.ev";
+		}
+					        
+		$("#delsel").click(function(){
+			
+			var arr = new Array();
+			
+			$('input:checkbox[name=checkRow]:checked').each(function(){
+				arr.push($(this).val());
+			});
+			
+			var str = arr.join();
+			
+			$.ajax({
+				url:"deleteChk.b.ev",
+				type:"get",
+				data:{str:str},
+				success:function(){
+					location.href="event.b.ev";
+				},
+				error:function(){
+					console.log("이벤트 선택 삭제 ajax 통신 오류");
+				}
+			});
+		});
+					       
+		</script>
 
 </body>
 </html>
