@@ -78,7 +78,8 @@ public class UserInfoDao {
 									  rset.getString("gender"),
 									  rset.getInt("authority_no"),
 									  rset.getDate("join_date"),
-									  rset.getString("secession")));	
+									  rset.getString("secession"),
+									  rset.getString("reason")));	
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -143,7 +144,7 @@ public class UserInfoDao {
 			rset = stmt.executeQuery(sql);
 			
 			while(rset.next()) {
-				list.add(new UserInfo(rset.getInt("memner_no"),
+				list.add(new UserInfo(rset.getInt("member_no"),
 									  rset.getString("member_id"),
 									  rset.getString("member_pwd"),
 									  rset.getString("member_name"),
@@ -155,7 +156,8 @@ public class UserInfoDao {
 									  rset.getString("gender"),
 									  rset.getInt("authority_no"),
 									  rset.getDate("join_date"),
-									  rset.getString("secession")));
+									  rset.getString("secession"),
+									  rset.getString("reason")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -166,22 +168,27 @@ public class UserInfoDao {
 		
 		return list;
 	}
-
-public class UserInfoDao {
 	
-	private Properties prop = new Properties();
-	
-	public UserInfoDao() {
-		String fileName = UserInfoDao.class.getResource("/sql/member/member-query.properties").getPath();
+	public int adminBlackUpdate(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("adminBlackUpdate");
 		
 		try {
-			prop.load(new FileReader(fileName));
-		} catch (FileNotFoundException e) {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
+		
+		return result;
 	}
+
+	// ---------------------------------- 요한 Dao
 	public UserInfo loginUserInfo(Connection conn, String memberId, String memberPwd) {
 		
 		UserInfo loginUser = null;

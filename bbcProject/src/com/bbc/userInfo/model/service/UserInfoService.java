@@ -144,4 +144,24 @@ public class UserInfoService{
 		
 		return list;
 	}
+	
+	/**
+	 * 6. 정지된 회원 해제하는 서비스
+	 * @param no	정지 해제할 회원 번호
+	 * @return		처리 결과 리턴
+	 */
+	public int adminBlackUpdate(int no) {
+		Connection conn = getConnection();
+		
+		int result = new UserInfoDao().adminBlackUpdate(conn, no);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 }
