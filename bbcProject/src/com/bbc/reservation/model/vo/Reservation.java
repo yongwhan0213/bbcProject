@@ -3,6 +3,10 @@ package com.bbc.reservation.model.vo;
 import java.sql.Date;
 
 // 차량예약정보 테이블	rv
+/**
+ * @author shinh
+ *
+ */
 public class Reservation {
 	
 	private int reservationNo;
@@ -34,6 +38,10 @@ public class Reservation {
 	private int branchReturnNo;
 	private int payNo;
 	
+	private String memberEmail;
+	private String phone;
+	private Date joinDate;
+	private String memberId;
 	private String memberName;
 	private String carName;
 	private int rowNum;				// 조회 번호
@@ -102,11 +110,21 @@ public class Reservation {
 		this.rentDate = rentDate;
 		this.returnDate = returnDate;
 	}
+	
+	public Reservation(int memberNo, String memberId, String memberName, String phone, String memberEmail) {
+		super();
+		this.memberNo = memberNo;
+		this.memberId = memberId;
+		this.memberName = memberName;
+		this.phone = phone;
+		this.memberEmail = memberEmail;
+	}
 
 	public int getReservationNo() {
 		return reservationNo;
 	}
 
+	
 	public void setReservationNo(int reservationNo) {
 		this.reservationNo = reservationNo;
 	}
@@ -349,6 +367,40 @@ public class Reservation {
 
 	public void setRowNum(int rowNum) {
 		this.rowNum = rowNum;
+	}
+
+
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Date getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
 	}
 
 	@Override

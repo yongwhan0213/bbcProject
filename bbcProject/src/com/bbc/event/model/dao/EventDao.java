@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.event.model.vo.Event;
 
 public class EventDao {
@@ -183,8 +183,6 @@ public class EventDao {
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println(e);
-			
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		} finally {
@@ -292,6 +290,29 @@ public class EventDao {
 		
 		return elist;
 		
+	}
+	
+	public int deleteChkEvent(Connection conn, String arr) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteEvent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, arr);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

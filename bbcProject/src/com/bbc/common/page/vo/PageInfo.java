@@ -1,4 +1,4 @@
-package com.bbc.common;
+package com.bbc.common.page.vo;
 
 public class PageInfo {
 	

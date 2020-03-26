@@ -10,18 +10,23 @@ public class BranchManagement {
 	private String branchAddress;	// 상세 주소
 	private String branchHrs;		// 영업시간
 	private String branchDir;		// 교통 안내
-	private String areaCode;		// 지역 코드
+	private int areaCode;		// 지역 코드
 	private int memberNo;			// 회원 번호
 	
 	private String noticeContent;	// 차량예약시 지점선택 화면에서 보여줄 공지사항 내용
 	private String eventContent;	// 차량예약시 지점선택 화면세서 보여줄 이벤트 내용
+	//----------- 민기 추가
+	private String areaName;		// 지역 이름
+	private String mapX;			// x축 값
+	private String mapY;			// y축 값
+	
 	
 	public BranchManagement() {
 		
 	}
 	
 	public BranchManagement(int branchNo, String branchName, String branchPhone, String branchZipcode,
-			String branchAddress, String branchHrs, String branchDir, String areaCode, int memberNo) {
+			String branchAddress, String branchHrs, String branchDir, int areaCode, int memberNo) {
 		super();
 		this.branchNo = branchNo;
 		this.branchName = branchName;
@@ -43,6 +48,19 @@ public class BranchManagement {
 		this.eventContent = eventContent;
 
 	}
+	
+	// 지점 리스트 조회용 매개변수(민기)
+		public BranchManagement(int branchNo, String areaName, String branchName, String branchPhone, String branchAddress
+				,String mapX, String mapY) {
+			super();
+			this.branchNo = branchNo;
+			this.areaName = areaName;
+			this.branchName = branchName;
+			this.branchPhone = branchPhone;
+			this.branchAddress = branchAddress;
+			this.mapX = mapX;
+			this.mapY = mapY;
+		}
 
 	public int getBranchNo() {
 		return branchNo;
@@ -100,11 +118,11 @@ public class BranchManagement {
 		this.branchDir = branchDir;
 	}
 
-	public String getAreaCode() {
+	public int getAreaCode() {
 		return areaCode;
 	}
 
-	public void setAreaCode(String areaCode) {
+	public void setAreaCode(int areaCode) {
 		this.areaCode = areaCode;
 	}
 
@@ -131,6 +149,30 @@ public class BranchManagement {
 
 	public void setEventContent(String eventContent) {
 		this.eventContent = eventContent;
+	}
+
+	public String getAreaName() {
+		return areaName;
+	}
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+
+	public String getMapX() {
+		return mapX;
+	}
+
+	public void setMapX(String mapX) {
+		this.mapX = mapX;
+	}
+
+	public String getMapY() {
+		return mapY;
+	}
+
+	public void setMapY(String mapY) {
+		this.mapY = mapY;
 	}
 
 	@Override

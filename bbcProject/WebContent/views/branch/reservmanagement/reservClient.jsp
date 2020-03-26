@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, com.bbc.reservation.model.vo.Reservation, com.bbc.common.PageInfo" %>
+<%@ page import="java.util.ArrayList, com.bbc.reservation.model.vo.Reservation, com.bbc.common.page.vo.PageInfo" %>
 <%
 	ArrayList<Reservation> list = (ArrayList<Reservation>)request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
@@ -63,11 +63,11 @@
 								<table id="reserv-user-table" class="table table-bordered">
 									<thead>
 										<tr>
+											<th>회원 번호</th>
+											<th>아이디</th>
 											<th>이름</th>
-											<th>예약 번호</th>
-											<th>차종</th>
-											<th>차량 번호</th>
-											<th>예약 기간</th>
+											<th>연락처</th>
+											<th>이메일</th>
 										</tr>
 									</thead>
 
@@ -79,11 +79,11 @@
 										<% } else { %>
 											<% for(Reservation r : list) { %>
 												<tr>
-													<td><%= r.getMemberName() %><input type="hidden" id="no" value="<%= r.getMemberNo() %>"></td>
-													<td><%= r.getReservationNo() %></td>
-													<td><%= r.getCarNo() %></td>
-													<td><%= r.getCarName() %></td>
-													<td><%= r.getRentDate() %> ~ <%= r.getReturnDate() %></td>
+													<td><%= r.getMemberNo() %></td>
+													<td><%= r.getMemberId() %></td>
+													<td><%= r.getMemberName() %></td>
+													<td><%= r.getPhone() %></td>
+													<td><%= r.getMemberEmail() %></td>
 												</tr>
 											<% } %>
 										<% } %>
@@ -179,12 +179,11 @@
 	
 	<script>
 	
-		$(function(){
-	     	$("#reserv-user-table>tbody>tr>td").click(function(){
-	     		var no = $("#id").val();
-	     		location.href="<%= request.getContextPath() %>/reservClientDetail.b.rv?no=" + no;
-	     	})
-	     });
+		$("#reserv-user-table>tbody>tr>td").click(function(){
+			var nno = $(this).parent().children().eq(0).text();
+			location.href="<%= request.getContextPath() %>/reservClientDetail.b.rv?nno=" + nno;
+			console.log(nno);
+		});
 	</script>
 </body>
 </html>

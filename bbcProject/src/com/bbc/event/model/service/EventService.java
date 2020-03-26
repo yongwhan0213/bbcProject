@@ -5,7 +5,7 @@ import static com.bbc.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.event.model.dao.EventDao;
 import com.bbc.event.model.vo.Event;
 
@@ -185,6 +185,27 @@ public class EventService {
 		
 		return elist;
 		
+	}
+	
+	public int deleteChkEvent(String[] arr) {
+		
+		Connection conn = getConnection();
+		
+		int result = 0;
+		
+		for(int i=0; i<arr.length; i++) {
+			result = new EventDao().deleteChkEvent(conn, arr[i]);
+		}
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 	
 
