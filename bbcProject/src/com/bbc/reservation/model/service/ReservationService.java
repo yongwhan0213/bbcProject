@@ -19,11 +19,11 @@ public class ReservationService {
 	 * @param pi	페이지 객체
 	 * @return		조회된 전체 회원 예약 정보 객체
 	 */
-	public ArrayList<Reservation> selectWholeList(PageInfo pi, int status){
+	public ArrayList<Reservation> selectWholeList(PageInfo pi, int st){
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Reservation> wholeList = new ReservationDao().selectWholeList(conn, pi, status);
+		ArrayList<Reservation> wholeList = new ReservationDao().selectWholeList(conn, pi, st);
 		
 		close(conn);
 		

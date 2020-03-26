@@ -61,13 +61,13 @@
 
 						<ul class="nav nav-tabs" role="tablist">
 							<li class="nav-item" id="1">
-								<a class="nav-link active" data-toggle="tab" href="#content1">예약중</a>
+								<a class="nav-link active" data-toggle="tab">예약중</a>
 			              	</li>
 			              	<li class="nav-item" id="2">
-			                	<a class="nav-link" data-toggle="tab" href="#content1">대여중</a>
+			                	<a class="nav-link" data-toggle="tab">대여중</a>
 			              	</li>
 			              	<li class="nav-item" id="3">
-			                	<a class="nav-link" data-toggle="tab" href="#content2">반납 완료</a>
+			                	<a class="nav-link" data-toggle="tab">반납 완료</a>
 			              	</li>
 			            </ul>
 
@@ -93,7 +93,7 @@
 												<td colspan="5">조회된 회원이 없습니다.</td>
 											</tr>
 										<% } else {%>
-											<% for(Reservation r : wholeList) { %>
+											<% for(Reservation r : wholeList){ %>
 												<tr>
 													<td><%= r.getMemberName() %></td>
 													<td><%= r.getReservationNo() %></td>
@@ -245,13 +245,15 @@
 		// Ajax tab menu
 		$(".nav-item").click(function(){
 			
-			var status = $(this).attr('id');
+			var st = $(this).attr('id');
+			var value = "";
 			
 			$.ajax({
-				url:"wholeList.b.rv?status=" + status,
+				url:"wholeList.b.rv?st=" + st,
 				type:"get",
 				success:function(list){
 					
+					console.log(list);
 					
 				},
 				error:function(){

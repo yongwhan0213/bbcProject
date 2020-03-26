@@ -32,7 +32,7 @@ public class ReservationDao {
 		}
 	}
 	
-	public ArrayList<Reservation> selectWholeList(Connection conn, PageInfo pi, int status){
+	public ArrayList<Reservation> selectWholeList(Connection conn, PageInfo pi, int st){
 		
 		ArrayList<Reservation> wholeList = new ArrayList<>();
 		
@@ -43,7 +43,7 @@ public class ReservationDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, status);
+			pstmt.setInt(1, st);
 			
 			rset = pstmt.executeQuery();
 			

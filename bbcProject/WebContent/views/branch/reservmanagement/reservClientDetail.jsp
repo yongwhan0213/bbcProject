@@ -112,14 +112,11 @@
 										<td><%= p.getPayAmount() %>원</td>
 										<td><%= p.getPayDate() %></td>
 										<td><%= p.getPayMethod() %></td>
-										<% if(p.getRefundStatus() == "1") { %>
+										<% if(p.getRefundStatus() != "1") { %>
 											<td>환불 완료</td>
-										<% } else { %>
-											<td>-</td>
-										<% } %>
-										<% if(p.getRefundDate() != null) { %>
 											<td><%= p.getRefundDate() %></td>
 										<% } else { %>
+											<td>-</td>
 											<td>-</td>
 										<% } %>
 									</tr>
