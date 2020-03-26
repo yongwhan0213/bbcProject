@@ -208,43 +208,49 @@
 						<tr>
 							<input type="hidden" value="<%=u.getMemberNo()%>">
 							<th>이름</th>
-							<td>김민기</td>
+							<td><%=u.getMemberName()%></td>
 						</tr>
 						<tr>
 							<th>회원 아이디</th>
-							<td>admin</td>
+							<td><%=u.getMemberId()%></td>
 						</tr>
 						<tr>
 							<th>회원 비밀번호</th>
-							<td>admin123</td>
+							<td><%=u.getMemberPwd()%></td>
 						</tr>
 						<tr>
 							<th>주소</th>
-							<td>서울특별시 강동구 천호동 111-11
+							<td><%=u.getMemberZipcode()%> <%=u.getMemberAddress()%></td>
 						</tr>
 						<tr>
 							<th>연락처</th>
-							<td>010-3806-7661</td>
+							<td><%=u.getPhone()%></td>
 						</tr>
 						<tr>
 							<th>이메일</th>
-							<td>duddjdkdlel1728@gmail.com</td>
+							<td><%=u.getMemberEmail()%></td>
 						</tr>
 						<tr>
 							<th>성별</th>
-							<td>남</td>
+							<td><%=u.getGender()%></td>
 						</tr>
 						<tr>
 							<th>가입일</th>
-							<td>2020-03-15</td>
+							<td><%=u.getJoinDate()%></td>
 						</tr>
 						<tr>
 							<th>회원상태</th>
-							<td>정지</td>
+							<% if(u.getStatus().equals("1")){ %>
+								<td>사용중</td>
+							<%} else if(u.getStatus().equals("2")){ %>
+								<td>탈퇴</td>
+							<% }else if(u.getStatus().equals("3")){ %>
+								<td>정지</td>
+							<% } %>
 						</tr>
 						<tr>
 							<th>정지사유</th>
-							<td>욕설</td>
+							<td><%=u.getReason()%></td>
 						</tr>
 						
 			      	</table>
@@ -253,7 +259,9 @@
 			      <div style="display:none;"></div>
 			      
 			      <div class="modal-footer">
-			      	<button type="button" class="completeBtn" onclick="deleteBlack();">해제</button>
+			      	<% if(u.getStatus().equals("2")){ %>
+			      		<button type="button" class="completeBtn" onclick="deleteBlack();">해제</button>
+			      	<% } %>
 			        <button type="button" class="cancelBtn" data-dismiss="modal">취소</button>
 			      </div>
 			    </div>
@@ -261,7 +269,7 @@
 			</div>
     	<% } %>
 		
-    	<!-- 탈퇴회원 상세 조회 Modal -->
+    	<!-- 회원 상세 조회 Modal -->
 		<div class="modal fade" id="falseUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
