@@ -71,18 +71,18 @@ hr.garo{
 		<div class="outer"> 
 		     <div class="main-title">회원 정보</div>
 		<hr class="garo"> 
-		<div class="upside"><b>휴대폰 정보를 입력해주세요</b></div>
+		<div class="upside"><b>이메일 정보를 입력해주세요</b></div>
 		<hr>
 		<form>
 			 <div class="form-group options" style="margin-left: 40px;">
-			   <input type="checkbox" name="type[]" value="A" required /><b> 휴대폰 본인확인 전체동의</b><br>
+			   <input type="checkbox" name="type[]" value="A" required /><b> 이메일 본인확인 전체동의</b><br>
 
 			   <input style="margin-top:20px;"id="mgn" type="checkbox" name="type[]" value="B" required /> 개인정보 이용 동의(필수)<br>
 			  <span><input id="mgn" type="checkbox" name="type[]" value="C" required /> 고유 식별 정보처리 동의(필수)
 			   </span>
 			   <br>  
 			   <input id="mgn" type="checkbox" name="type[]" value="D" required /> 서비스 이용약관동의(필수)<br>
-			   <input id="mgn" type="checkbox" name="type[]" value="E" required /> 통신사 이용약관 동의(필수)<br>
+			   <input id="mgn" type="checkbox" name="type[]" value="E" required /> 이메일 이용약관 동의(필수)<br>
 			<p style="float:right;margin-top: -21%;margin-right: 50px;border:1px solid lightgray;width:500px;height:200px;overflow: auto;margin-top: -165;margin-bottom: 0px;">
 				[서비스 이용약관]<br><br>
 제1조 (목적)<br>
@@ -134,13 +134,10 @@ hr.garo{
         <ul id="mleft">주민등록번호: <input type="number"> - <input type="number">
         </ul >
         <ul id="mleft">
-            휴대폰번호:   <select name="type">
-                <option value="선택">선택</option>
-                <option value="KT">KT</option>
-                <option value="SKT">SKT</option>
-                <option value="LG">LG</option>
-                <input  type="text" style="width:70px;"> -<input type="text" style="width:70px;">-<input type="text" style="width:70px;">  <button type="submit" id="verifi">인증하기</button>
-        </select>
+           이메일
+           
+                <input  type="text" style="width:140px;"> <button type="submit" id="verifi">인증하기</button>
+      
         </ul>
         <ul id="mleft">
            인증번호: <input type="number">

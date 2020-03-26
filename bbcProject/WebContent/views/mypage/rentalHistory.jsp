@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@page import="com.bbc.reservation.model.vo.Reservation" %>
+ <%@ page import="java.util.ArrayList" %>
+ <%
+ 	ArrayList<Reservation> list = (ArrayList<Reservation>)request.getAttribute("reservationlist");
+ %>
     
 <!DOCTYPE html>
 <html>
@@ -318,7 +323,7 @@
     <%@ include file="../common/menubar.jsp" %>
     
         <div class="outer"> 
-            <span class="main-title">차량 이용 내역</span>
+            <span class="main-title">차량이용 내역</span>
             <hr class="garo">
             
             
@@ -327,7 +332,7 @@
     		 <div class="popup" style="float: right;"> 
                 <button onclick="myFunction();" class="search">사용자 지정</button>
                 <span class="popuptext" id="myPopup"> 
-                        <b style="font-size: 15px; color:#ffc107">조회기간</b><br>
+                        <b style="font-size: 15px; color:white">조회기간</b><br>
              <span> <input  type="date" name="listDate" value="01/01/2018" style="width: 155px;height: 24px; background-color:white;" >
  					<br>
  				~
@@ -355,18 +360,43 @@ function myFunction() {
                         <tr>
                           <th style="height:40px;">이용기간</th>
                           <th style="height:40px;">차종</th>
-                          <th style="height:40px;padding-left: 30px;" >지점명 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           상태</th>
+                          <th style="height:40px;padding-left: 30px;" >지점명 </th>
+                           <th>
+                           상태
+                           </th>
                           
                         </tr>
                     </thead>
                     <tbody>
      
+     
+     <% if(list != null){ %>
+     				<% for(Reservation r : list){ %>
       <!-- 테이블 정보 -->
       <tr class="accordion-head breakrow open">
-        <td><div class="arrow"></div> 2020.02.05 ~ 2020.02.07</td>
-        <td> 아반테 SD</td>
-        <td >강남지점-강남지점 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="space" type="button" value="대여중" onclick=""  ></td>
+        <td><div class="arrow"></div> <%=r.getRentDate() %> ~ <%=r.getReturnDate() %> </td>
+        <td> <%=r.getCarTypeName() %></td>
+        <td ><%=r.getRentBranch()%>~<%=r.getReturnBranch()%> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        
+        
+        <% if ( r.getReservationStatus().equals("1")){ %>
+        <td style="padding-right: 20px;">
+        <input id="space" type="button" value="예약중" readonly >
+        </td>
+        <%} else if (r.getReservationStatus().equals("2")){ %>
+        <td style="padding-right: 20px;">
+        <input id="space" type="button" value="대여중" readonly >
+        </td>
+        <%} else if (r.getReservationStatus().equals("3")) {%>
+        <td style="padding-right: 20px;">
+         <input id="space" type="button" value="반납완료" readonly >
+         </td>
+         <%} else{ %>
+         <td style="padding-right: 20px;">
+        <input id="space" type="button" value="예약취소" readonly >
+        </td>
+        <%} %>
+        
       </tr>
       <tr class="accordion-body" style="display: none;">
         <td colspan="3">
@@ -377,625 +407,70 @@ function myFunction() {
               	
 							 <tr id="pop">
 							 <td id="bor" >보험료</td>
-							  <td style="border:1px solid gray" >25,800원 </td>
+							  <td style="border:1px solid gray" ><%=r.getCwdPrice() %> 원 </td>
 							
 							</tr>
 							 <tr id="pop">
 							  <td id="bor">대여료</td>
-							  <td style="border:1px solid gray" colspan="2">25,800원 </td>
+							  <td style="border:1px solid gray" colspan="2"><%=r.getPrice()%> 원</td>
 							  </tr>
 							  <tr id="pop" >
 							<td id="bor" >쿠폰/이벤트</td>
-							<td style="border:1px solid gray" colspan="2">52,520원</td>
+							<td style="border:1px solid gray" colspan="2"><%=r.getDiscountPrice()%> 원</td>
 							
 							</tr>
 							 <tr id="pop">
-							  <td id="bor">총 결제금액 </td>
-							  <td style="border:1px solid gray" colspan="2"> 150,000원 </td>
+							  <td id="bor">총 대여금액 </td>
+							  <td style="border:1px solid gray" colspan="2"><%=r.getTotalPrice() %> 원</td>
 							
 							<tr id="pop">
                 <td id="bor" colspan="2">결제 일시</td>
                
-                <td style="border:1px solid gray" colspan="2">2018.01.24</td>
+                <td style="border:1px solid gray" colspan="2"><%=r.getPayDate() %></td>
                  <tr id="pop">
                 <td id="bor" colspan="2">결제 금액</td>
-                <td style="border:1px solid gray" colspan="2">52,520원</td> 
+                <td style="border:1px solid gray" colspan="2"><%=r.getPayAmount() %> 원</td> 
               </tr>
               <tr id="pop">
                 <td id="bor" colspan="2">결제 방식</td>
-                <td style="border:1px solid gray" colspan="2" >신용카드</td>
+                <td style="border:1px solid gray" colspan="2" ><%=r.getPayMethod()%></td>
               </tr>
               <tr id="pop">
                 <td  style="border:1px solid gray" id="bor"colspan="2">환불 여부</td>
-                <td  colspan="2" style="border:1px solid gray"  >진행중</td>
+                <% if(r.getRefundStatement() != null){ %>
+                <td  colspan="2" style="border:1px solid gray"  ><%=r.getRefundStatement() %></td>
+                <%} else { %>
+                     <td  colspan="2" style="border:1px solid gray"  > - </td>
+                     <%} %>
               </tr>
-               <tr id="pop">
+               <tr id="pop">    
                 <td style="border:1px solid gray"  colspan="2" id="bor">환불 일시</td>
-                <td style="border:1px solid gray"  colspan="2">2018.02.04</td>
+                     <% if(r.getRefundDate() != null){ %>
+                <td style="border:1px solid gray"  colspan="2"><%=r.getRefundDate() %></td>
+                  <%} else { %>
+                      <td  colspan="2" style="border:1px solid gray"  > - </td>
+                        <%} %>
               </tr>
-              </tr>
-      
-                      
-              
-           
+         
+               
             </tbody>
           </table>
         </td>
       </tr>
       
+      <% } %>
+      <% } %>
+                      
+              
+          
      
     <!-- 테이블 정보 끝  -->
     
-          <!-- 테이블 정보 -->
-      <tr class="accordion-head breakrow open">
-        <td><div class="arrow"></div> 2020.02.05 ~ 2020.02.07</td>
-        <td> 아반테 SD</td>
-        <td >강남지점-강남지점 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="space" type="button" value="대여중" onclick=""></td>
-      </tr>
-      <tr class="accordion-body" style="display: none;">
-        <td colspan="3">
-          <table id="sep">
-            <tbody>
-              <tr id="pop">
-                <td id="bor" rowspan="5" style="width: 302px;" ><img src="http://www.cctoday.co.kr/news/photo/201509/925979_306258_1646.jpg" style="width:400px"></td>
-              	
-							 <tr id="pop">
-							 <td id="bor" >보험료</td>
-							  <td style="border:1px solid gray" >25,800원 </td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">대여료</td>
-							  <td style="border:1px solid gray" colspan="2">25,800원 </td>
-							  </tr>
-							  <tr id="pop" >
-							<td id="bor" >쿠폰/이벤트</td>
-							<td style="border:1px solid gray" colspan="2">52,520원</td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">총 결제금액 </td>
-							  <td style="border:1px solid gray" colspan="2"> 150,000원 </td>
-							
-							<tr id="pop">
-                <td id="bor" colspan="2">결제 일시</td>
-               
-                <td style="border:1px solid gray" colspan="2">2018.01.24</td>
-                 <tr id="pop">
-                <td id="bor" colspan="2">결제 금액</td>
-                <td style="border:1px solid gray" colspan="2">52,520원</td> 
-              </tr>
-              <tr id="pop">
-                <td id="bor" colspan="2">결제 방식</td>
-                <td style="border:1px solid gray" colspan="2" >신용카드</td>
-              </tr>
-              <tr id="pop">
-                <td  style="border:1px solid gray" id="bor"colspan="2">환불 여부</td>
-                <td  colspan="2" style="border:1px solid gray"  >진행중</td>
-              </tr>
-               <tr id="pop">
-                <td style="border:1px solid gray"  colspan="2" id="bor">환불 일시</td>
-                <td style="border:1px solid gray"  colspan="2">2018.02.04</td>
-              </tr>
-              </tr>
-      
+        
                       
               
            
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      
-     
-    <!-- 테이블 정보 끝  -->
-          <!-- 테이블 정보 -->
-      <tr class="accordion-head breakrow open">
-        <td><div class="arrow"></div> 2020.02.05 ~ 2020.02.07</td>
-        <td> 아반테 SD</td>
-        <td >강남지점-강남지점 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="space" type="button" value="대여중" onclick=""></td>
-      </tr>
-      <tr class="accordion-body" style="display: none;">
-        <td colspan="3">
-          <table id="sep">
-            <tbody>
-              <tr id="pop">
-                <td id="bor" rowspan="5" style="width: 302px;" ><img src="http://www.cctoday.co.kr/news/photo/201509/925979_306258_1646.jpg" style="width:400px"></td>
-              	
-							 <tr id="pop">
-							 <td id="bor" >보험료</td>
-							  <td style="border:1px solid gray" >25,800원 </td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">대여료</td>
-							  <td style="border:1px solid gray" colspan="2">25,800원 </td>
-							  </tr>
-							  <tr id="pop" >
-							<td id="bor" >쿠폰/이벤트</td>
-							<td style="border:1px solid gray" colspan="2">52,520원</td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">총 결제금액 </td>
-							  <td style="border:1px solid gray" colspan="2"> 150,000원 </td>
-							
-							<tr id="pop">
-                <td id="bor" colspan="2">결제 일시</td>
-               
-                <td style="border:1px solid gray" colspan="2">2018.01.24</td>
-                 <tr id="pop">
-                <td id="bor" colspan="2">결제 금액</td>
-                <td style="border:1px solid gray" colspan="2">52,520원</td> 
-              </tr>
-              <tr id="pop">
-                <td id="bor" colspan="2">결제 방식</td>
-                <td style="border:1px solid gray" colspan="2" >신용카드</td>
-              </tr>
-              <tr id="pop">
-                <td  style="border:1px solid gray" id="bor"colspan="2">환불 여부</td>
-                <td  colspan="2" style="border:1px solid gray"  >진행중</td>
-              </tr>
-               <tr id="pop">
-                <td style="border:1px solid gray"  colspan="2" id="bor">환불 일시</td>
-                <td style="border:1px solid gray"  colspan="2">2018.02.04</td>
-              </tr>
-              </tr>
-      
-                      
-              
-           
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      
-     
-    <!-- 테이블 정보 끝  -->
-          <!-- 테이블 정보 -->
-      <tr class="accordion-head breakrow open">
-        <td><div class="arrow"></div> 2020.02.05 ~ 2020.02.07</td>
-        <td> 아반테 SD</td>
-        <td >강남지점-강남지점 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="space" type="button" value="대여중" onclick=""></td>
-      </tr>
-      <tr class="accordion-body" style="display: none;">
-        <td colspan="3">
-          <table id="sep">
-            <tbody>
-              <tr id="pop">
-                <td id="bor" rowspan="5" style="width: 302px;" ><img src="http://www.cctoday.co.kr/news/photo/201509/925979_306258_1646.jpg" style="width:400px"></td>
-              	
-							 <tr id="pop">
-							 <td id="bor" >보험료</td>
-							  <td style="border:1px solid gray" >25,800원 </td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">대여료</td>
-							  <td style="border:1px solid gray" colspan="2">25,800원 </td>
-							  </tr>
-							  <tr id="pop" >
-							<td id="bor" >쿠폰/이벤트</td>
-							<td style="border:1px solid gray" colspan="2">52,520원</td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">총 결제금액 </td>
-							  <td style="border:1px solid gray" colspan="2"> 150,000원 </td>
-							
-							<tr id="pop">
-                <td id="bor" colspan="2">결제 일시</td>
-               
-                <td style="border:1px solid gray" colspan="2">2018.01.24</td>
-                 <tr id="pop">
-                <td id="bor" colspan="2">결제 금액</td>
-                <td style="border:1px solid gray" colspan="2">52,520원</td> 
-              </tr>
-              <tr id="pop">
-                <td id="bor" colspan="2">결제 방식</td>
-                <td style="border:1px solid gray" colspan="2" >신용카드</td>
-              </tr>
-              <tr id="pop">
-                <td  style="border:1px solid gray" id="bor"colspan="2">환불 여부</td>
-                <td  colspan="2" style="border:1px solid gray"  >진행중</td>
-              </tr>
-               <tr id="pop">
-                <td style="border:1px solid gray"  colspan="2" id="bor">환불 일시</td>
-                <td style="border:1px solid gray"  colspan="2">2018.02.04</td>
-              </tr>
-              </tr>
-      
-                      
-              
-           
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      
-     
-    <!-- 테이블 정보 끝  -->
-          <!-- 테이블 정보 -->
-      <tr class="accordion-head breakrow open">
-        <td><div class="arrow"></div> 2020.02.05 ~ 2020.02.07</td>
-        <td> 아반테 SD</td>
-        <td >강남지점-강남지점 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="space" type="button" value="대여중" onclick=""></td>
-      </tr>
-      <tr class="accordion-body" style="display: none;">
-        <td colspan="3">
-          <table id="sep">
-            <tbody>
-              <tr id="pop">
-                <td id="bor" rowspan="5" style="width: 302px;" ><img src="http://www.cctoday.co.kr/news/photo/201509/925979_306258_1646.jpg" style="width:400px"></td>
-              	
-							 <tr id="pop">
-							 <td id="bor" >보험료</td>
-							  <td style="border:1px solid gray" >25,800원 </td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">대여료</td>
-							  <td style="border:1px solid gray" colspan="2">25,800원 </td>
-							  </tr>
-							  <tr id="pop" >
-							<td id="bor" >쿠폰/이벤트</td>
-							<td style="border:1px solid gray" colspan="2">52,520원</td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">총 결제금액 </td>
-							  <td style="border:1px solid gray" colspan="2"> 150,000원 </td>
-							
-							<tr id="pop">
-                <td id="bor" colspan="2">결제 일시</td>
-               
-                <td style="border:1px solid gray" colspan="2">2018.01.24</td>
-                 <tr id="pop">
-                <td id="bor" colspan="2">결제 금액</td>
-                <td style="border:1px solid gray" colspan="2">52,520원</td> 
-              </tr>
-              <tr id="pop">
-                <td id="bor" colspan="2">결제 방식</td>
-                <td style="border:1px solid gray" colspan="2" >신용카드</td>
-              </tr>
-              <tr id="pop">
-                <td  style="border:1px solid gray" id="bor"colspan="2">환불 여부</td>
-                <td  colspan="2" style="border:1px solid gray"  >진행중</td>
-              </tr>
-               <tr id="pop">
-                <td style="border:1px solid gray"  colspan="2" id="bor">환불 일시</td>
-                <td style="border:1px solid gray"  colspan="2">2018.02.04</td>
-              </tr>
-              </tr>
-      
-                      
-              
-           
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      
-     
-    <!-- 테이블 정보 끝  -->
-          <!-- 테이블 정보 -->
-      <tr class="accordion-head breakrow open">
-        <td><div class="arrow"></div> 2020.02.05 ~ 2020.02.07</td>
-        <td> 아반테 SD</td>
-        <td >강남지점-강남지점 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="space" type="button" value="대여중" onclick=""></td>
-      </tr>
-      <tr class="accordion-body" style="display: none;">
-        <td colspan="3">
-          <table id="sep">
-            <tbody>
-              <tr id="pop">
-                <td id="bor" rowspan="5" style="width: 302px;" ><img src="http://www.cctoday.co.kr/news/photo/201509/925979_306258_1646.jpg" style="width:400px"></td>
-              	
-							 <tr id="pop">
-							 <td id="bor" >보험료</td>
-							  <td style="border:1px solid gray" >25,800원 </td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">대여료</td>
-							  <td style="border:1px solid gray" colspan="2">25,800원 </td>
-							  </tr>
-							  <tr id="pop" >
-							<td id="bor" >쿠폰/이벤트</td>
-							<td style="border:1px solid gray" colspan="2">52,520원</td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">총 결제금액 </td>
-							  <td style="border:1px solid gray" colspan="2"> 150,000원 </td>
-							
-							<tr id="pop">
-                <td id="bor" colspan="2">결제 일시</td>
-               
-                <td style="border:1px solid gray" colspan="2">2018.01.24</td>
-                 <tr id="pop">
-                <td id="bor" colspan="2">결제 금액</td>
-                <td style="border:1px solid gray" colspan="2">52,520원</td> 
-              </tr>
-              <tr id="pop">
-                <td id="bor" colspan="2">결제 방식</td>
-                <td style="border:1px solid gray" colspan="2" >신용카드</td>
-              </tr>
-              <tr id="pop">
-                <td  style="border:1px solid gray" id="bor"colspan="2">환불 여부</td>
-                <td  colspan="2" style="border:1px solid gray"  >진행중</td>
-              </tr>
-               <tr id="pop">
-                <td style="border:1px solid gray"  colspan="2" id="bor">환불 일시</td>
-                <td style="border:1px solid gray"  colspan="2">2018.02.04</td>
-              </tr>
-              </tr>
-      
-                      
-              
-           
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      
-     
-    <!-- 테이블 정보 끝  -->
-          <!-- 테이블 정보 -->
-      <tr class="accordion-head breakrow open">
-        <td><div class="arrow"></div> 2020.02.05 ~ 2020.02.07</td>
-        <td> 아반테 SD</td>
-        <td >강남지점-강남지점 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="space" type="button" value="대여중" onclick=""></td>
-      </tr>
-      <tr class="accordion-body" style="display: none;">
-        <td colspan="3">
-          <table id="sep">
-            <tbody>
-              <tr id="pop">
-                <td id="bor" rowspan="5" style="width: 302px;" ><img src="http://www.cctoday.co.kr/news/photo/201509/925979_306258_1646.jpg" style="width:400px"></td>
-              	
-							 <tr id="pop">
-							 <td id="bor" >보험료</td>
-							  <td style="border:1px solid gray" >25,800원 </td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">대여료</td>
-							  <td style="border:1px solid gray" colspan="2">25,800원 </td>
-							  </tr>
-							  <tr id="pop" >
-							<td id="bor" >쿠폰/이벤트</td>
-							<td style="border:1px solid gray" colspan="2">52,520원</td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">총 결제금액 </td>
-							  <td style="border:1px solid gray" colspan="2"> 150,000원 </td>
-							
-							<tr id="pop">
-                <td id="bor" colspan="2">결제 일시</td>
-               
-                <td style="border:1px solid gray" colspan="2">2018.01.24</td>
-                 <tr id="pop">
-                <td id="bor" colspan="2">결제 금액</td>
-                <td style="border:1px solid gray" colspan="2">52,520원</td> 
-              </tr>
-              <tr id="pop">
-                <td id="bor" colspan="2">결제 방식</td>
-                <td style="border:1px solid gray" colspan="2" >신용카드</td>
-              </tr>
-              <tr id="pop">
-                <td  style="border:1px solid gray" id="bor"colspan="2">환불 여부</td>
-                <td  colspan="2" style="border:1px solid gray"  >진행중</td>
-              </tr>
-               <tr id="pop">
-                <td style="border:1px solid gray"  colspan="2" id="bor">환불 일시</td>
-                <td style="border:1px solid gray"  colspan="2">2018.02.04</td>
-              </tr>
-              </tr>
-      
-                      
-              
-           
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      
-     
-    <!-- 테이블 정보 끝  -->
-          <!-- 테이블 정보 -->
-      <tr class="accordion-head breakrow open">
-        <td><div class="arrow"></div> 2020.02.05 ~ 2020.02.07</td>
-        <td> 아반테 SD</td>
-        <td >강남지점-강남지점 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="space" type="button" value="대여중" onclick=""></td>
-      </tr>
-      <tr class="accordion-body" style="display: none;">
-        <td colspan="3">
-          <table id="sep">
-            <tbody>
-              <tr id="pop">
-                <td id="bor" rowspan="5" style="width: 302px;" ><img src="http://www.cctoday.co.kr/news/photo/201509/925979_306258_1646.jpg" style="width:400px"></td>
-              	
-							 <tr id="pop">
-							 <td id="bor" >보험료</td>
-							  <td style="border:1px solid gray" >25,800원 </td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">대여료</td>
-							  <td style="border:1px solid gray" colspan="2">25,800원 </td>
-							  </tr>
-							  <tr id="pop" >
-							<td id="bor" >쿠폰/이벤트</td>
-							<td style="border:1px solid gray" colspan="2">52,520원</td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">총 결제금액 </td>
-							  <td style="border:1px solid gray" colspan="2"> 150,000원 </td>
-							
-							<tr id="pop">
-                <td id="bor" colspan="2">결제 일시</td>
-               
-                <td style="border:1px solid gray" colspan="2">2018.01.24</td>
-                 <tr id="pop">
-                <td id="bor" colspan="2">결제 금액</td>
-                <td style="border:1px solid gray" colspan="2">52,520원</td> 
-              </tr>
-              <tr id="pop">
-                <td id="bor" colspan="2">결제 방식</td>
-                <td style="border:1px solid gray" colspan="2" >신용카드</td>
-              </tr>
-              <tr id="pop">
-                <td  style="border:1px solid gray" id="bor"colspan="2">환불 여부</td>
-                <td  colspan="2" style="border:1px solid gray"  >진행중</td>
-              </tr>
-               <tr id="pop">
-                <td style="border:1px solid gray"  colspan="2" id="bor">환불 일시</td>
-                <td style="border:1px solid gray"  colspan="2">2018.02.04</td>
-              </tr>
-              </tr>
-      
-                      
-              
-           
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      
-     
-    <!-- 테이블 정보 끝  -->
-          <!-- 테이블 정보 -->
-      <tr class="accordion-head breakrow open">
-        <td><div class="arrow"></div> 2020.02.05 ~ 2020.02.07</td>
-        <td> 아반테 SD</td>
-        <td >강남지점-강남지점 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="space" type="button" value="대여중" onclick=""></td>
-      </tr>
-      <tr class="accordion-body" style="display: none;">
-        <td colspan="3">
-          <table id="sep">
-            <tbody>
-              <tr id="pop">
-                <td id="bor" rowspan="5" style="width: 302px;" ><img src="http://www.cctoday.co.kr/news/photo/201509/925979_306258_1646.jpg" style="width:400px"></td>
-              	
-							 <tr id="pop">
-							 <td id="bor" >보험료</td>
-							  <td style="border:1px solid gray" >25,800원 </td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">대여료</td>
-							  <td style="border:1px solid gray" colspan="2">25,800원 </td>
-							  </tr>
-							  <tr id="pop" >
-							<td id="bor" >쿠폰/이벤트</td>
-							<td style="border:1px solid gray" colspan="2">52,520원</td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">총 결제금액 </td>
-							  <td style="border:1px solid gray" colspan="2"> 150,000원 </td>
-							
-							<tr id="pop">
-                <td id="bor" colspan="2">결제 일시</td>
-               
-                <td style="border:1px solid gray" colspan="2">2018.01.24</td>
-                 <tr id="pop">
-                <td id="bor" colspan="2">결제 금액</td>
-                <td style="border:1px solid gray" colspan="2">52,520원</td> 
-              </tr>
-              <tr id="pop">
-                <td id="bor" colspan="2">결제 방식</td>
-                <td style="border:1px solid gray" colspan="2" >신용카드</td>
-              </tr>
-              <tr id="pop">
-                <td  style="border:1px solid gray" id="bor"colspan="2">환불 여부</td>
-                <td  colspan="2" style="border:1px solid gray"  >진행중</td>
-              </tr>
-               <tr id="pop">
-                <td style="border:1px solid gray"  colspan="2" id="bor">환불 일시</td>
-                <td style="border:1px solid gray"  colspan="2">2018.02.04</td>
-              </tr>
-              </tr>
-      
-                      
-              
-           
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      
-     
-    <!-- 테이블 정보 끝  -->
-          <!-- 테이블 정보 -->
-      <tr class="accordion-head breakrow open">
-        <td><div class="arrow"></div> 2020.02.05 ~ 2020.02.07</td>
-        <td> 아반테 SD</td>
-        <td >강남지점-강남지점 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="space" type="button" value="대여중" onclick=""></td>
-      </tr>
-      <tr class="accordion-body" style="display: none;">
-        <td colspan="3">
-          <table id="sep">
-            <tbody>
-              <tr id="pop">
-                <td id="bor" rowspan="5" style="width: 302px;" ><img src="http://www.cctoday.co.kr/news/photo/201509/925979_306258_1646.jpg" style="width:400px"></td>
-              	
-							 <tr id="pop">
-							 <td id="bor" >보험료</td>
-							  <td style="border:1px solid gray" >25,800원 </td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">대여료</td>
-							  <td style="border:1px solid gray" colspan="2">25,800원 </td>
-							  </tr>
-							  <tr id="pop" >
-							<td id="bor" >쿠폰/이벤트</td>
-							<td style="border:1px solid gray" colspan="2">52,520원</td>
-							
-							</tr>
-							 <tr id="pop">
-							  <td id="bor">총 결제금액 </td>
-							  <td style="border:1px solid gray" colspan="2"> 150,000원 </td>
-							
-							<tr id="pop">
-                <td id="bor" colspan="2">결제 일시</td>
-               
-                <td style="border:1px solid gray" colspan="2">2018.01.24</td>
-                 <tr id="pop">
-                <td id="bor" colspan="2">결제 금액</td>
-                <td style="border:1px solid gray" colspan="2">52,520원</td> 
-              </tr>
-              <tr id="pop">
-                <td id="bor" colspan="2">결제 방식</td>
-                <td style="border:1px solid gray" colspan="2" >신용카드</td>
-              </tr>
-              <tr id="pop">
-                <td  style="border:1px solid gray" id="bor"colspan="2">환불 여부</td>
-                <td  colspan="2" style="border:1px solid gray"  >진행중</td>
-              </tr>
-               <tr id="pop">
-                <td style="border:1px solid gray"  colspan="2" id="bor">환불 일시</td>
-                <td style="border:1px solid gray"  colspan="2">2018.02.04</td>
-              </tr>
-              </tr>
-      
-                      
-              
-           
-            </tbody>
-          </table>
-        </td>
-      </tr>
-      
-     
-    <!-- 테이블 정보 끝  -->
-    
-    
-                      
+        
     
     
                         
@@ -1017,6 +492,8 @@ function myFunction() {
             </div>
     </div>
     <script>
+
+
 
 
     $(document).on('click', '.accordion-head', function(){

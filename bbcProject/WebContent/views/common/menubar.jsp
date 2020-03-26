@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>  
+<%@ page import="com.bbc.userInfo.model.vo.UserInfo"%>
+<% 
+	UserInfo loginUser = (UserInfo)session.getAttribute("loginUser");
+%>
 <% 
 	String contextPath = request.getContextPath();
 	String parentMenu = (String)request.getAttribute("parentMenu");	
@@ -38,7 +42,13 @@
 				<!-- <div class="search">  -->
 					<div class="cd-main-header">
 						<ul class="cd-header-buttons">
-							<li>로그인</li>
+							<%if(loginUser == null){ %>
+							<li > <a href="<%=contextPath%>" style="color:#ffc107" >로그인</a></li>
+							
+							<% } else { %>
+								<li > <a href="<%=request.getContextPath()%>/logout.ui" style="color:#ffc107">로그아웃</a></li>
+							
+							<% } %>
 						</ul>
 					</div>
 				<!-- </div> -->
@@ -62,13 +72,13 @@
 								마이페이지
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item text-center" href="">차량 이용 내역</a>
-								<a class="dropdown-item text-center" href="">예약 내역 조회</a>
-								<a class="dropdown-item text-center" href="">쿠폰함 조회</a>
+								<a class="dropdown-item text-center" onclick="goMyHis();">차량 이용 내역</a>
+								<a class="dropdown-item text-center" onclick="goMyRes();">예약 내역 조회</a>
+								<a class="dropdown-item text-center" onclick="goCoupon();">쿠폰함 조회</a>
 								<a class="dropdown-item text-center" href="">운전면허 등록/수정</a>
 								<a class="dropdown-item text-center" href="">나의 문의 내역</a>
-								<a class="dropdown-item text-center" href="">나의 지점 관리</a>
-								<a class="dropdown-item text-center" href="">회원 정보 수정</a>
+								<a class="dropdown-item text-center" onclick="goMyBranch();">나의 지점 관리</a>
+								<a class="dropdown-item text-center" onclick="goMyInfo();">회원 정보 수정</a>
 							</div>
 						</li>
 						
@@ -104,6 +114,26 @@
 		<li class="breadcrumb-item active"><%=currentMenu%></li>
 	</ol>
 	<!-- // currentMenu -->	
+	
+	
+	<!-- 요한 마이페이지  -->
+		<script>
+		function goCoupon(){
+			location.href = "<%=request.getContextPath()%>/list.mc";
+		}
+		function goMyBranch(){
+			location.href = "<%=request.getContextPath()%>/areaSearch.mb";
+		}
+		function goMyInfo(){
+			location.href = "<%=request.getContextPath()%>/view.ui";
+		}
+		function goMyHis(){
+			location.href = "<%= request.getContextPath()%>/view.rv";
+		}
+		function goMyRes(){
+			location.href = "<%= request.getContextPath()%>/viewRes.rv";
+		}
+	</script>
 	
 </body>
 </html>

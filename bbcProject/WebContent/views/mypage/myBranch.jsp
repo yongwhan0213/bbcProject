@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.util.ArrayList, com.bbc.area.model.vo.Area, com.bbc.branchmanagement.model.vo.BranchManagement, com.bbc.mybranch.model.vo.MyBranch" %>    
+<% 
+	ArrayList<Area> list = (ArrayList<Area>)request.getAttribute("list"); 
+%>    
+<%
+	ArrayList<MyBranch> branchlist = (ArrayList<MyBranch>)request.getAttribute("branchlist");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +18,7 @@
 		width:860px;
 		margin-left:auto;
 		margin-right:auto;
+		margin-top:12px;
 	}	
 	
 hr.garo{
@@ -40,8 +48,8 @@ hr.garo{
    	}
 
    	img{
-   		width: 100px;
-   		height:100px;
+   		width: 60px;
+   		height:60px;
    	}
    	#branchInfo{
    		border: 2px solid lightgray;
@@ -52,6 +60,7 @@ hr.garo{
    		background-color: lightgray;
    		text-align:center !important;
    	}
+   	
 </style>
 </head>
 <body>
@@ -60,7 +69,8 @@ hr.garo{
 	
 
 		<div class="outer"> 
-		     <div class="main-title">나의지점</div>
+		     <div class="main-title" style="margin-top: 17px;">나의지점</div>
+		     
 		     
 			<!--나의 지점 등록 -->	     	
             <div class="popup" > 
@@ -68,138 +78,200 @@ hr.garo{
                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" style="float:right;background: #ffc107;height:20px;font-size:10px;width:90px;padding-top:2px;">지점 등록</button>
               	
 				  <!-- Modal -->
-				  <div class="modal fade" id="myModal" role="dialog">
+				  <div class="modal fade" id="myModal" role="dialog" data-backdrop="false">
 				    <div class="modal-dialog modal-sm">
+				    
+				    <!-- Modal Content -->
 				      <div class="modal-content" style="margin-top:200px;">
+				      
+				      <!-- Modal Header -->
 				        <div class="modal-header">
-				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				          <h4 class="modal-title" style="font-size:20px;"><strong>지점찾기</strong></h4>
+						        <h4 class="modal-title" style="font-size:20px;"><strong>지점찾기</strong></h4>
+						        <button type="button" class="close" data-dismiss="modal">&times;</button>
 				        </div>
 				        
-				    <!-- 모달 지역명: -->
+				    	<!-- 모달 지역명: -->
 				        <div class="modal-body" style="height:310px;">
-				          <strong>지역명:</strong> <table style="border:1px solid lightgray;width:100%;text-align:center;left-margin:10px;bottom-margin:10px">
-				          <tr  style="border:1px solid lightgray;">
-							 <td  style="border:1px solid lightgray;">서울</td>
-							 <td  style="border:1px solid lightgray;">인천/경기</td>
-							 <td  style="border:1px solid lightgray;">강원</td>
-						 </tr>
-						 <tr  style="border:1px solid black;">
-							 <td  style="border:1px solid lightgray;">충청/세종</td>
-							 <td  style="border:1px solid lightgray;">전라/광주</td>
-							 <td  style="border:1px solid lightgray;">경상/대구</td>
-					    </tr>
-						<tr  style="border:1px solid black;">
-							 <td  style="border:1px solid lightgray;">부산/울산</td>
-							 <td  style="border:1px solid lightgray;">제주</td>
-							 <td  style="border:1px solid lightgray;">대전</td>
-					    </tr>	 			          				
-				          </table>
-				          <br>
-				          <!-- 모달 구명: -->
-				            <strong>구(명):</strong> <table style="border:1px solid lightgray;width:100%;text-align:center;left-margin:10px;">
-				          <tr  style="border:1px solid lightgray;">
-							 <td  style="border:1px solid lightgray;">부천</td>
-							 <td  style="border:1px solid lightgray;">분당</td>
-							 <td  style="border:1px solid lightgray;">수원역</td>
-						 </tr>
-						 <tr  style="border:1px solid black;">
-							 <td  style="border:1px solid lightgray;">안양</td>
-							 <td  style="border:1px solid lightgray;">수원</td>
-							 <td  style="border:1px solid lightgray;">인천</td>
-					    </tr>
-						<tr  style="border:1px solid black;">
-							 <td  style="border:1px solid lightgray;">오산</td>
-							 <td  style="border:1px solid lightgray;">의정부</td>
-							 <td  style="border:1px solid lightgray;">일산</td>
-					    </tr>	 			          				
-				          </table>
+				       		
+				       		<div class="left-branch">
+					          		<label class="label-top-title label-top-title-branch">등록 지점</label><br>
+					          		<span style="display:inline-block; padding-bottom:5px; font-size:12px; color:#ef2e0f;">* 대여지점과 다른 지점으로 반납하실 경우 별도의 수수료가 부과됩니다.</span>        		
+							
+							<div style="position:relative">
+		
+									<% if(list.isEmpty()) { %>
+									<select name="brancharea" id="brancharea">
+										<option value='no'>지역정보가 없습니다.</option>
+									</select>
+									<% }else { %>
+									<select name="brancharea" id="brancharea">	
+								
+										<option value='0'>지역선택</option> 
+										
+										<% for(Area a : list) { %>	
+										<option value='<%=a.getAreaCode()%>'><%=a.getAreaName()%></option>
+										<% } %>	
+									</select>
+									<% } %>
+							</div>
+							
+							<div id="selRentDiv" class="select-branch">
+									<ul></ul>
+							</div>		
+							</div>	
 				        </div>
+				        
 				        <div class="modal-footer">
-				          <button type="button" class="btn btn-default" data-dismiss="modal" style="background: #ffc107;color:white;text-align:center;margin-right:85px;">지점등록</button>
+				          <button type="button" onclick="setBranch();"class="btn btn-default" data-dismiss="modal" style="background: #ffc107;color:white;text-align:center;margin-right:85px;">지점등록</button>
 				        </div>
 				      </div>
+				      
 				    </div>
 				  </div>
-				</div>
+				  
+				  
+		
               </div>
               
               <!-- 모달 끝 -->
-			<hr class="garo"> 
+			
 		
 			<!-- 나의 지점 등록 끝 -->
+				<hr class="garo"> 
+		
+			
 		<table>
+		<% if(branchlist != null){ %>
+			<% for(int i=0; i<branchlist.size(); i++){ MyBranch b = branchlist.get(i);%>
 			<tr>
 				<td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSnnJncNl4iwO2L7Hx8uavjI4IID2Mej3AMhUro2uivPjOIeBYH"></td>
-				<td style="padding-left:40px;"><b>지점명:</b></td>
-				<td style="padding-left:10px;">서울</td>
-				<td style="padding-left:40px;"><b>(구)명:</b></td>
-				<td style="padding-left:10px;">강남구</td>
-				<td style="padding-left:40px;"><b>전화번호:</b></td>
-				<td style="padding-left:10px;">02-832-0329</td>
+				<td style="padding-left:15px;font-size:15px;"><b>지점명:</b></td>
+				<td style="padding-left:0px;font-size:15px;"><%=b.getBranchName()%></td>
+				<td style="padding-left:30px;font-size:15px;"><b>(구)명:</b></td>
+				<td style="padding-left: 0px;font-size:15px;padding-right: 10px;"><%=b.getAreaName()%></td>
+				<td style="font-size:15px;"><b>전화번호:</b></td>
+				<td style="padding-left:0px;font-size:15px;"><%=b.getBranchPhone()%></td>
 				
-				
-				
+
 				<td style="padding-left:50px;">
 			 <div class="container" style="margin-bottom:7px;margin-left:15px;">
-                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal2" style="background: #ffc107;height: 30px;width: 78px;">지점 정보</button>
+                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal<%= i %>" style="background: #ffc107;height: 30px;width: 78px;">지점 정보</button>
               	
 				  <!-- Modal -->
-				  <div class="modal fade" id="myModal2" role="dialog">
+				  <div class="modal fade" id="myModal<%= i %>" role="dialog" data-backdrop="false">
 				    <div class="modal-dialog modal-sm">
 				      <div class="modal-content" style="margin-top:200px; width:600px;">
+				      
 				        <div class="modal-header">
-				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				          <h4 class="modal-title" style="font-size:20px;"><strong>지점안내</strong></h4>
-				          
+				           <h4 class="modal-title" style="font-size:20px;"><strong>지점안내</strong></h4>
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>   
 				        </div>
 				        
 				    <!-- 모달 지점안내 -->
-				        <div class="modal-body" style="height:400px; width:600px;">
-				             <table style="border:1px solid lightgray;width:100%;text-align:center;left-margin:10px;">				  
+				        <div class="modal-body" style="height: 400px;width:600px;padding-right: 3px;padding-left: 1px;">
+				             <table style="border:1px solid lightgray;width:100%;height:300px;text-align:center;left-margin:10px;">				  
 							    <tbody>
 							        <tr id="branchInfo">
-							            <th scope="row" id="branchInfo" class="bran">주소</th>
-							          <td id="branchInfo"><b>도로명주소</b>: 서울시 강남구 봉은사로<br>
-							      			<b>지번 주소</b>: 서울시 강남구 삼성동
+							            <th scope="row" id="branchInfo" class="bran" style="width:80px;"><strong>주소</strong></th>
+							          <td id="branchInfo"><b><strong><%=b.getBranchAddress()%></strong></b>
+							      			
 							          </td>
 							        </tr>
 							        <tr id="branchInfo">
-							            <th scope="row" id="branchInfo" class="bran">전화번호</th>
-							            <td id="branchInfo">02-1234-5678</td>
+							            <th scope="row" id="branchInfo" class="bran"><strong>전화번호</strong></th>
+							            <td id="branchInfo"><strong><%=b.getBranchPhone()%></strong></td>
 							        </tr>
 							      <tr id="branchInfo">
-							            <th scope="row" id="branchInfo" class="bran">영업시간</th>
-							            <td id="branchInfo">평일-00:00~24:00/ 주말(휴)- 00:00~24:00</td>
+							            <th scope="row" id="branchInfo" class="bran"><strong>영업시간</strong></th>
+							            <td id="branchInfo"><strong><%=b.getBranchHrs()%></strong></td>
 							        </tr>
 							      <tr id="branchInfo">
-							            <th scope="row"id="branchInfo" class="bran">교통안내</th>
+							            <th scope="row"id="branchInfo" class="bran"><strong>교통안내</strong></th>
 							        	<td id="branchInfo">
-							              <strong>*지하철 이용시:</strong> 지하철 2호선 삼성역 8번출구에서 "도보6분"<br>
-							              <strong>*버스 이용시:</strong> 삼성역 2번출구에서	 "도보6분"<br>
-							              <strong>*택시 이용시:</strong> 삼성동 서울의료원 맞은편
+							              <strong><%=b.getBranchDir()%></strong> 
+							  
 							        </td>
 							        </tr>
 							    </tbody>
 							</table>
 				        </div>
+				        
 				        <div class="modal-footer">
 				          <button type="button" class="btn btn-default" data-dismiss="modal" style="background: #ffc107;color:white;text-align:center;margin-right:43%;">확인</button>
 				        </div>
 				      </div>
+				      
 				    </div>
 				  </div>
 				</div>
 				
 				</td>
 			
-				<td style="padding-left:10px;"><button class="search" style="height:30px;background-color:gray;font-size:15px;">삭제</button></td>
+				<td style="padding-left:10px;">
+					<input type="hidden" value="<%= b.getBranchNo()%>">
+					<button class="search" style="height:30px;background-color:gray;font-size:15px;">삭제</button>
+				</td>
 				
 			</tr>
-		
+			       <%} %>
+			<%} %>     
 		</table>
 		
+	
 </div>
+
+<script>
+
+$(".search").click(function(){
+	console.log($(this).prev().val());
+	location.href="deletemb.mb?bno=" + $(this).prev().val();
+})
+
+	
+	
+
+	// 지점선택 후 확인 클릭시 수행
+	function setBranch(){
+		location.href="<%=request.getContextPath()%>/myBranch.mb?bno="+$("#selRentDiv ul").find(":checked").val();
+	
+	}
+	
+	
+ 	// 지역선택시 선택된 지역의 지점리스트 조회
+  	$('#brancharea').on('change', function() {
+  		
+  		var areano = $(this).val();
+  		
+  		console.log("areano : "+areano);
+  		
+  		$.ajax({
+  			url:"branchSearch.mb?areano=" + areano,
+  			type:"get",
+  			success:function(list){  
+  				var value = "";  	
+  				for(var i=0; i<list.length; i++) {  
+  					console.log(list[i]);
+  					// 선택한 지점의 이벤트리스트가 있는 경우 이벤트 아이콘 표시	
+  				
+  			
+  					value += "<br>" +
+  							 "<input type='radio' id='rdo-" + list[i].branchNo + 
+  							 "' class='radio-branch' name='rdo-'" + list[i].branchNo + 
+  							 "' value='"  + list[i].branchNo + "'>" + 
+  							 " <label for='rdo-" + list[i].branchNo + "'>" +
+  							 list[i].branchName + "</label>" 
+  				}  	  	
+  				
+  				return $("#selRentDiv ul").html(value);
+  				
+  			},
+  			error:function(){
+  				console.log("지점리스트 가져오는 ajax 통신 오류");
+  			}
+  		 });  		
+  	});
+  	
+</script>
 
 </body>
 </html>

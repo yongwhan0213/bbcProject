@@ -254,7 +254,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
                   <img id="file-image" src="#" alt="Preview" class="hidden">
                   <div id="start">
                     <i class="fa fa-download" aria-hidden="true"></i>
-                    <div id="file-upload-btn" class="btn btn-primary">Select a file</div>
+                    <div id="file-upload-btn" class="btn btn-primary" >Select a file</div>
                   </div>
                   <div id="response" class="hidden">
                     <div id="messages"></div>
@@ -308,7 +308,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 		
 		  <h3 style="margin-top:60px;">운전면허정보 등록을 위한 이용자 동의사항</h3>
             <hr>
-            <span><input type="checkbox" style="margin-right:5px;">고유 식별 정보 수집에 관한 동의(필수)</span>
+            <span><input type="checkbox" style="margin-right:5px;" required>고유 식별 정보 수집에 관한 동의(필수)</span>
     				
     			
     
