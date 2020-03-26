@@ -19,6 +19,8 @@ public class UserInfo {
 	private Date joinDate;			// 가입일
 	private String status;			// 회원 상태
 	private int branchNo;			// 지점 번호
+	//------------------- 추가 변수(민기)
+	private String reason;			// 정지,탈퇴 사유
 	
 	public UserInfo() {
 		
@@ -44,7 +46,7 @@ public class UserInfo {
 		this.branchNo = branchNo;
 	}
 
-	// 회원리스트 조회시 사용하는 매개변수
+	// 회원,정지회원 리스트 조회시 사용하는 매개변수
 	public UserInfo(int memberNo, String memberId, String memberPwd, String memberName, String memberZipcode,
 			String memberAddress, String phone, String rrn, String memberEmail, String gender, int authorityNo,
 			Date joinDate, String status) {
@@ -187,6 +189,14 @@ public class UserInfo {
 
 	public void setBranchNo(int branchNo) {
 		this.branchNo = branchNo;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 
 	@Override

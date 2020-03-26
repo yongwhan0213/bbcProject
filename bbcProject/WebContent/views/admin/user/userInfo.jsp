@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.bbc.common.page.vo.PageInfo, java.util.ArrayList" %>
+<%
+	ArrayList<UserInfo> list = (ArrayList<UserInfo>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+
+	String black = (String)session.getAttribute("black");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -175,7 +187,14 @@
 </head>
 <body>
 	<%@ include file="../common/adminBase.jsp" %>
-	
+	<script>
+		var black = "<%=black%>"
+		
+		if(black != "null"){
+			alert(black);
+			<% session.removeAttribute("black"); %>
+		}
+	</script>	
 	<!-- 회원조회 시작 -->
 	<div class="outer">
 		
@@ -186,66 +205,71 @@
 		<br>	
         
     	<!-- 회원정보 상세 조회 Modal -->
-		<div class="modal fade" id="userInfoDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      
-		      <div class="modal-body">
-		      	<br>
-				<div id="userInfoHeader"><h5>회원 정보</h5></div>	
-				<hr>      	
-		      	<table id="userInfo-table">
-					<tr>
-						<th>이름</th>
-						<td>김민기</td>
-					</tr>
-					<tr>
-						<th>회원 아이디</th>
-						<td>admin</td>
-					</tr>
-					<tr>
-						<th>회원 비밀번호</th>
-						<td>admin123</td>
-					</tr>
-					<tr>
-						<th>주소</th>
-						<td>서울특별시 강동구 천호동 111-11
-					</tr>
-					<tr>
-						<th>연락처</th>
-						<td>010-3806-7661</td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td>duddjdkdlel1728@gmail.com</td>
-					</tr>
-					<tr>
-						<th>성별</th>
-						<td>남</td>
-					</tr>
-					<tr>
-						<th>가입일</th>
-						<td>2020-03-15</td>
-					</tr>
-					<tr>
-						<th>회원상태</th>
-						<td>사용중</td>
-					</tr>
-					
-		      	</table>
-		      </div>
-		      
-		      <div style="display:none;"></div>
-		      
-		      <div class="modal-footer">
-		      	<button type="button" class="completeBtn" onclick="blackUser();">정지</button>
-		        <button type="button" class="cancelBtn" data-dismiss="modal">취소</button>
-		      </div>
-		      
-		      
-		    </div>
-		  </div>
-		</div>
+    	<% for(int i=0; i<list.size(); i++){ UserInfo u = list.get(i); %>
+			<div class="modal fade" id="userInfoDetail<%=i%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      
+			      <div class="modal-body">
+			      	<br>
+					<div id="userInfoHeader"><h5>회원 정보</h5></div>	
+					<hr>      	
+			      	<table id="userInfo-table">
+						<tr>
+							<input type="hidden" class="blackNo" value="<%=u.getMemberNo()%>">
+							<th>이름</th>
+							<td><%=u.getMemberName()%></td>
+						</tr>
+						<tr>
+							<th>회원 아이디</th>
+							<td><%=u.getMemberId()%></td>
+						</tr>
+						<tr>
+							<th>주소</th>
+							<td><%=u.getMemberZipcode()%> <%=u.getMemberAddress()%></td>
+						</tr>
+						<tr>
+							<th>연락처</th>
+							<td><%=u.getPhone()%></td>
+						</tr>
+						<tr>
+							<th>이메일</th>
+							<td><%=u.getMemberEmail()%></td>
+						</tr>
+						<tr>
+							<th>성별</th>
+							<td><%=u.getGender()%></td>
+						</tr>
+						<tr>
+							<th>가입일</th>
+							<td><%=u.getJoinDate()%></td>
+						</tr>
+						<tr>
+							<th>회원상태</th>
+							<% if(u.getStatus().equals("1")){ %>
+		      					<td>사용중</td>
+		      				<% }else if(u.getStatus().equals("2")) { %>
+		      					<td>회원탈퇴</td>
+		      				<% }else if(u.getStatus().equals("3")){ %>
+		      					<td>회원정지</td>
+		      				<% } %>
+						</tr>
+						
+			      	</table>
+			      </div>
+			      
+			      <div style="display:none;"></div>
+			      
+			      <div class="modal-footer">
+			      	<button type="button" class="completeBtn" onclick="blackUser();">정지</button>
+			        <button type="button" class="cancelBtn" data-dismiss="modal">취소</button>
+			      </div>
+			      
+			      
+			    </div>
+			  </div>
+			</div>
+		<% } %>
 		
 	
 		<div class="tab-content">
@@ -262,135 +286,36 @@
 		            <th>상태</th>
 		        </tr>
 		      </thead>
-		      
 		      <tbody>
-		        <tr data-toggle="modal" data-target="#userInfoDetail">
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>01</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>02</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>f</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>03</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>u</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>04</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>05</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>06</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>07</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>08</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>09</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>10</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>11</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>12</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>13</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>14</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
-		        <tr>
-		            <td><input type="checkbox" name="checkRow"></td>
-		            <td>15</td>
-		            <td>user01</td>
-		            <td>김민기</td>
-		            <td>강동구</td>
-		            <td>b</td>
-		        </tr>
+		      	<% if(list.isEmpty()){ %>
+		      		<tr>
+		      			<td colspan="6">등록된 회원이 없습니다.</td>
+		      		</tr>
+		      	<% }else { %>
+		      		<% for(int i=0; i<list.size(); i++){ UserInfo u = list.get(i); %>
+		      			<tr>
+		      				<th><input type="checkbox" name="checkRow"></th>
+		      				<td data-toggle="modal" data-target="#userInfoDetail<%=i%>"><%=u.getMemberNo()%></td>
+		      				<td data-toggle="modal" data-target="#userInfoDetail<%=i%>"><%=u.getMemberId()%></td>
+		      				<td data-toggle="modal" data-target="#userInfoDetail<%=i%>"><%=u.getMemberName()%></td>
+		      				<td data-toggle="modal" data-target="#userInfoDetail<%=i%>"><%=u.getMemberZipcode()%> <%=u.getMemberAddress()%></td>
+		      				<% if(u.getStatus().equals("1")){ %>
+		      					<td>사용중</td>
+		      				<% }else if(u.getStatus().equals("2")) { %>
+		      					<td>회원탈퇴</td>
+		      				<% }else if(u.getStatus().equals("3")){ %>
+		      					<td>회원정지</td>
+		      				<% } %>
+		      			</tr>
+		      		<% } %>
+		      	<% } %>
 		      </tbody>
 		    </table>
 		  </div>
 		</div>
             
-		<!-- 전체 선택 스크립트 -->
 		<script>
+			<!-- 전체 선택 스크립트 -->
 		    function checkAll(){
 		        if( $("#th_checkAll").is(':checked') ){
 		            $("input[name=checkRow]").prop("checked", true);
@@ -398,11 +323,15 @@
 		            $("input[name=checkRow]").prop("checked", false);
 		        }
 		    }
-		    
+		    /* 회원 정지 modal script */
 		    function blackUser(){
-		    	prompt("정지 사유를 입력해주세요");
-		    	confirm("회원을 정지시키겠습니까?");
-		    	location.href="userInfo.jsp"
+		    	if(confirm("회원을 정지시키겠습니까?")){
+		    		var no = $(".blackNo").val();
+		    		location.href="black.t.ui?no="+no;
+		    	}else{
+		    		alert("취소하셨습니다.");
+		    		//$(".fade").hide();
+		    	}
 		    }
 		    
 		
@@ -451,15 +380,24 @@
 	</form>   
 
         <div class="pagination">
-             <a href="#"> &lt;&lt; </a>
-            <a href="#"> &lt; </a>
-            <li><a href="#home">1</a></li>
-            <li><a href="#home">2</a></li>
-            <li><a href="#home">3</a></li>
-            <li><a href="#home">4</a></li>
-            <li><a href="#home">5</a></li>
-            <a href="#"> &gt; </a>
-            <a href="#"> &gt;&gt; </a>
+        	<!-- 맨 처음으로 (<<) -->
+        	<a href="<%=contextPath%>/list.t.ui"> &lt;&lt; </a>
+        	<!-- 이전 페이지 (<) -->
+        	<a href="<%=contextPath%>/list.t.ul?currenPage=<%=currentPage-1%>"> &lt; </a>
+        	
+        	<!-- 페이지 목록 -->
+        	<% for(int p=startPage; p<=endPage; p++){ %>
+				<% if(currentPage == p){ %>
+					<li><a><%=p%></a></li>
+				<% }else { %>
+					<li><a href="<%=contextPath%>/list.t.ui?currentPage=<%=p%>"><%=p%></a>
+				<% } %>        	
+        	<% } %>
+        
+        	<!-- 다음 페이지(>) -->
+        	<a href="<%=contextPath%>/list.t.ui?currentPage=<%=currentPage+1%>"> &gt; </a>
+        	<!-- 끝 페이지(>>) -->
+        	<a href="<%=contextPath%>/list.t.ui?currentPage=<%=maxPage%>"> &gt;&gt; </a>
         </div>
 		
 	</div>

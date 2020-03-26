@@ -1,7 +1,6 @@
 package com.bbc.userInfo.model.service;
 
-import static com.bbc.common.JDBCTemplate.close;
-import static com.bbc.common.JDBCTemplate.getConnection;
+import static com.bbc.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -35,6 +34,54 @@ public class UserInfoService{
 		Connection conn = getConnection();
 		
 		ArrayList<UserInfo> list = new UserInfoDao().adminSelectList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	/**
+	 * 3. 회원 정지시키는 서비스
+	 * @param blackNo	정지시킬 회원 번호
+	 * @return			처리 결과 리턴
+	 */
+	public int adminBlackUser(int blackNo) {
+		Connection conn = getConnection();
+		
+		int result = new UserInfoDao().adminBlackUser(conn, blackNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 4. 블랙 회원수 조회용 서비스
+	 * @return	블랙회원 인원수 리턴
+	 */
+	public int adminGetBlackListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new UserInfoDao().adminGetBlackListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+	
+	/**
+	 * 5. 블랙 회원 리스트 조회용 서비스
+	 * @param pi	페이지 정보가 담긴 객체
+	 * @return		블랙 회원 리스트가 담긴 객체 리턴
+	 */
+	public ArrayList<UserInfo> adminBlackSelectList(){
+		Connection conn = getConnection();
+		
+		ArrayList<UserInfo> list = new UserInfoDao().adminBlackSelectList(conn);
 		
 		close(conn);
 		

@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.bbc.common.page.vo.PageInfo, java.util.ArrayList" %>
+<%
+	ArrayList<UserInfo> list = (ArrayList<UserInfo>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -186,68 +195,71 @@
 		<br>
 		
     	<!-- 블랙회원 상세 조회 Modal -->
-		<div class="modal fade" id="blackUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      
-		      <div class="modal-body">
-		      	<br>
-				<div id="userInfoHeader"><h5>회원 정보</h5></div>	
-				<hr>      	
-		      	<table id="userInfo-table">
-					<tr>
-						<th>이름</th>
-						<td>김민기</td>
-					</tr>
-					<tr>
-						<th>회원 아이디</th>
-						<td>admin</td>
-					</tr>
-					<tr>
-						<th>회원 비밀번호</th>
-						<td>admin123</td>
-					</tr>
-					<tr>
-						<th>주소</th>
-						<td>서울특별시 강동구 천호동 111-11
-					</tr>
-					<tr>
-						<th>연락처</th>
-						<td>010-3806-7661</td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td>duddjdkdlel1728@gmail.com</td>
-					</tr>
-					<tr>
-						<th>성별</th>
-						<td>남</td>
-					</tr>
-					<tr>
-						<th>가입일</th>
-						<td>2020-03-15</td>
-					</tr>
-					<tr>
-						<th>회원상태</th>
-						<td>정지</td>
-					</tr>
-					<tr>
-						<th>정지사유</th>
-						<td>욕설</td>
-					</tr>
-					
-		      	</table>
-		      </div>
-		      
-		      <div style="display:none;"></div>
-		      
-		      <div class="modal-footer">
-		      	<button type="button" class="completeBtn" onclick="deleteBlack();">해제</button>
-		        <button type="button" class="cancelBtn" data-dismiss="modal">취소</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+    	<% for(int i=0; i<list.size(); i++){ UserInfo u = list.get(i);%>
+			<div class="modal fade" id="blackUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      
+			      <div class="modal-body">
+			      	<br>
+					<div id="userInfoHeader"><h5>회원 정보</h5></div>	
+					<hr>      	
+			      	<table id="userInfo-table">
+						<tr>
+							<input type="hidden" value="<%=u.getMemberNo()%>">
+							<th>이름</th>
+							<td>김민기</td>
+						</tr>
+						<tr>
+							<th>회원 아이디</th>
+							<td>admin</td>
+						</tr>
+						<tr>
+							<th>회원 비밀번호</th>
+							<td>admin123</td>
+						</tr>
+						<tr>
+							<th>주소</th>
+							<td>서울특별시 강동구 천호동 111-11
+						</tr>
+						<tr>
+							<th>연락처</th>
+							<td>010-3806-7661</td>
+						</tr>
+						<tr>
+							<th>이메일</th>
+							<td>duddjdkdlel1728@gmail.com</td>
+						</tr>
+						<tr>
+							<th>성별</th>
+							<td>남</td>
+						</tr>
+						<tr>
+							<th>가입일</th>
+							<td>2020-03-15</td>
+						</tr>
+						<tr>
+							<th>회원상태</th>
+							<td>정지</td>
+						</tr>
+						<tr>
+							<th>정지사유</th>
+							<td>욕설</td>
+						</tr>
+						
+			      	</table>
+			      </div>
+			      
+			      <div style="display:none;"></div>
+			      
+			      <div class="modal-footer">
+			      	<button type="button" class="completeBtn" onclick="deleteBlack();">해제</button>
+			        <button type="button" class="cancelBtn" data-dismiss="modal">취소</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+    	<% } %>
 		
     	<!-- 탈퇴회원 상세 조회 Modal -->
 		<div class="modal fade" id="falseUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -329,7 +341,30 @@
 		      </thead>
 		      
 		      <tbody>
-		        <tr data-toggle="modal" data-target="#blackUserInfo">
+		      	<% if(list.isEmpty()){ %>
+		      		<tr>
+		      			<td colspan="6">정지된 회원이 없습니다.</td>
+		      		</tr>
+		      	<% }else { %>
+		      		<% for(int i=0; i<list.size(); i++){ UserInfo u = list.get(i); %>
+		      			<tr>
+		      				<td><input type="checkbox" name="checkRow"></td>
+		      				<td><%=u.getMemberNo()%></td>
+		      				<td><%=u.getMemberId()%></td>
+		      				<td><%=u.getMemberName()%></td>
+		      				<td><%=u.getMemberZipcode()%> <%=u.getMemberAddress()%></td>
+		      				<% if(u.getStatus().equals("1")){ %>
+		      					<td>사용중</td>
+		      				<% }else if(u.getStatus().equals("2")){ %>
+		      					<td>탈퇴회원</td>
+		      				<% }else if(u.getStatus().equals("3")){ %>
+		      					<td>정지회원</td>
+		      				<% } %>
+		      			</tr>
+		      		<% } %>
+		      	<% } %>
+		      
+		        <!-- <tr data-toggle="modal" data-target="#blackUserInfo">
 		            <td><input type="checkbox" name="checkRow"></td>
 		            <td>01</td>
 		            <td>user01</td>
@@ -448,7 +483,7 @@
 		            <td></td>
 		            <td></td>
 		            <td></td>
-		        </tr>
+		        </tr> -->
 		      </tbody>
 		    </table>
 		  </div>
