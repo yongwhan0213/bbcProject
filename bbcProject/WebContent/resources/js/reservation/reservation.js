@@ -9,7 +9,7 @@ var rent_branchnm;		// 대여지짐 이름
 var return_branchnm;	// 반납지점 이름
 var carType;			// 차량유형
 var rentDate;			// 대여일시
-var returndate;			// 반납일시
+var returnDate;			// 반납일시
 
 $(function() {
 		
@@ -168,29 +168,37 @@ function goLinkPage(pageName) {
 // 예약버튼 클릭시 수행
 function goOptionPage(obj) {
 	
-	//pageName = contextJSPath + "/carOption.rv";
-	
-	var rent_branch			// 대여지점 토
-	var return_branch 		// 반납지점코드
-	var rent_branchnm		// 대여지점  
-	var return_branchnm		// 반납지점
-	var rentDate			// 대여일시
-	var returndate			// 반납일시
 	var carname				// 차명 
 	var carimg				// 차이미지
 	var carpay				// 대여금액(기본)
-
+	var carno				// 차량등록번호(차량정보테이블 FK)
+	
+	carname = $(obj).attr('carname');
+	carimg = $(obj).attr('carimg');
+	carpay = $(obj).attr('carpay');
+	carno = $(obj).attr('carno');	
 	
 	$.ajax({
-		url:"/carOption.rv",
-		data:{name:name, 
-			  age:age},
-		type:"POST",
-		success:function(result){
-			console.log("ajax 통신 성공!!");	
+		url:"rvCarOption.rv",
+		data:{
+			rent_branch:rent_branch, 
+			return_branch:return_branch,
+			rent_branchnm:rent_branchnm,
+			return_branchnm:return_branchnm,
+			rentDate:rentDate,
+			returnDate:returnDate,
+			carname:carname,
+			carimg:carimg,
+			carpay:carpay,
+			carno:carno
+		},
+		type:"post",
+		success:function(request){			
+			console.log("차량예약 옵션선택 페이지 가져오는 ajax 통신 성공");	
+			location.href = "views/reservation/reservationOption1.jsp";
 		},
 		error:function(){
-			console.log("ajax 통신 실패!!");
+			console.log("차량예약 옵션선택 페이지 가져오는 ajax 통신 오류");
 		}
 	});
 
@@ -241,7 +249,7 @@ function displayBranchList(areaNo) {
  					 "</li>" 					 
   			}  	  	
   				
-  			$("#selRentDiv ul").html(rentValue);
+  			$("#selRentDiv").html(rentValue);
   			$("#selReturnDiv ul").html(returnValue);
   				
   		},
@@ -329,7 +337,6 @@ function serachCarList(){
   	  		url:"rvSearchCar.rv?carType=" + carType + "&rent_branch=" + rent_branch + "&rent_date=" + rent_date + "&return_date=" + return_date,
   	  		type:"get",
   	  		success:function(list){  
-  	  			console.log(list);
   	  			
   	  			var resultValue = "<table style='width:470px'>"
   	    		for(var i=0; i<list.length; i++) {    	    		
@@ -349,7 +356,8 @@ function serachCarList(){
   	    			resultValue += "</div>"					
   	    			resultValue += "<div class='btn-reservation' carname='" + list[i].CAR_TYPE_NAME + "' " 
   	    			resultValue += "carimg='" + list[i].CAR_MODIFY_NAME + "' "
-  	    			resultValue += "carpay='" + numberFormat(list[i].PRICE) + "' onclick='goOptionPage(this);'>예약</div>"				
+  	    			resultValue += "carpay='" + list[i].PRICE + "' "
+  	    			resultValue += "carno='" + list[i].CAR_NO + "' onclick='goOptionPage(this);'>예약</div>"				
   	    			resultValue += "</td>"				
   	    			resultValue += "</tr>"
   	    			resultValue += "<tr>"
@@ -357,8 +365,7 @@ function serachCarList(){
   	    			resultValue += "</tr>"
   	    		}
   	  			resultValue += "</table>";
-  	  			
-  	  			console.log(resultValue);
+
   	  			$("#searchcnt").html("결과<span>(" + list.length + ")</span>");
   	  			$(".list-car").html(resultValue);
   	  			$('#car-info-right').css("display", "none");   

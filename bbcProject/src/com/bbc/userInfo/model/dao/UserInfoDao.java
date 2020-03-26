@@ -351,16 +351,4 @@ public class UserInfoDao {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
