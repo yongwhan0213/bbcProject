@@ -100,7 +100,7 @@
 		}
 		
 		function goReturnManage(){
-			location.href="<%= request.getContextPath() %>/returnManage.b.rv";
+			location.href="<%= request.getContextPath() %>/returnManage.b.rv?st=1&&fr=menu";
 		}
 		
 		function goReservClient(){

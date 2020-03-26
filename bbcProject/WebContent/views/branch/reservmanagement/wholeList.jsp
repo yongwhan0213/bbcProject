@@ -204,6 +204,7 @@
 				type:"get",
 				success:function(list){
 					
+					
 					value +="<table id='user-table' class='table table-bordered'>"
 					value += "<thead> <tr> <th>이름</th> <th>예약 번호</th> <th>차종</th> <th>차량 번호</th> <th>예약 기간</th> </tr> </thead>"
 					value += "<tbody>"
