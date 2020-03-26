@@ -8,10 +8,8 @@ var return_branch;		// 반납지점 코드
 var rent_branchnm;		// 대여지짐 이름
 var return_branchnm;	// 반납지점 이름
 var carType;			// 차량유형
-var rentDate;
-var returndate;
-
-
+var rentDate;			// 대여일시
+var returndate;			// 반납일시
 
 $(function() {
 		
@@ -167,6 +165,37 @@ function goLinkPage(pageName) {
 	location.href = pageName;	
 }
 
+// 예약버튼 클릭시 수행
+function goOptionPage(obj) {
+	
+	//pageName = contextJSPath + "/carOption.rv";
+	
+	var rent_branch			// 대여지점 토
+	var return_branch 		// 반납지점코드
+	var rent_branchnm		// 대여지점  
+	var return_branchnm		// 반납지점
+	var rentDate			// 대여일시
+	var returndate			// 반납일시
+	var carname				// 차명 
+	var carimg				// 차이미지
+	var carpay				// 대여금액(기본)
+
+	
+	$.ajax({
+		url:"/carOption.rv",
+		data:{name:name, 
+			  age:age},
+		type:"POST",
+		success:function(result){
+			console.log("ajax 통신 성공!!");	
+		},
+		error:function(){
+			console.log("ajax 통신 실패!!");
+		}
+	});
+
+}
+
 // 지점선택시 지역선택에 따른 지점리스트 표시
 function displayBranchList(areaNo) {
 	$.ajax({
@@ -299,18 +328,51 @@ function serachCarList(){
   		$.ajax({
   	  		url:"rvSearchCar.rv?carType=" + carType + "&rent_branch=" + rent_branch + "&rent_date=" + rent_date + "&return_date=" + return_date,
   	  		type:"get",
-  	  		success:function(carList){  
-  	  			console.log(carList);
-  	  		
+  	  		success:function(list){  
+  	  			console.log(list);
+  	  			
+  	  			var resultValue = "<table style='width:470px'>"
+  	    		for(var i=0; i<list.length; i++) {    	    		
+  	    			resultValue += "<tr>"
+  	    			resultValue += "<td rowspan='3'><img width='125px' height='85px' src='" + contextJSPath + "/resources/carinfo_upfile/" + list[i].CAR_MODIFY_NAME + "'></td>"
+  	    			resultValue += "</tr>"
+  	    			resultValue += "<tr>"
+  	    			resultValue += "<td width='70%' class='car-type'>" + list[i].CAR_TYPE_NAME + "</td>"
+  	    			resultValue += "<td width='30%' class='car-price'>" + numberFormat(list[i].PRICE) + "원</td>"
+  	    			resultValue += "</tr>"
+  	    			resultValue += "<tr>"
+  	    			resultValue += "<td colspan='2'>"
+  	    			resultValue += "<span class='ico-gas'><img src='" + contextJSPath + "/resources/images/car/" + list[i].FUEL_IMG + "'></span>"
+  	    			resultValue += "<div class='ico-people-wrap'>"
+  	    			resultValue += "<div><img src='" + contextJSPath + "/resources/images/car/ico_people.png'></div>"
+  	    			resultValue += "<div class='ico-people-text'><p class='ico-people-count'>" + list[i].CAR_RIDE_PEOPLE + "</p></div>"
+  	    			resultValue += "</div>"					
+  	    			resultValue += "<div class='btn-reservation' carname='" + list[i].CAR_TYPE_NAME + "' " 
+  	    			resultValue += "carimg='" + list[i].CAR_MODIFY_NAME + "' "
+  	    			resultValue += "carpay='" + numberFormat(list[i].PRICE) + "' onclick='goOptionPage(this);'>예약</div>"				
+  	    			resultValue += "</td>"				
+  	    			resultValue += "</tr>"
+  	    			resultValue += "<tr>"
+  	    			resultValue += "<td colspan='3'><p style='border-bottom: 1px solid #757272; margin-top:10px; margin-bottom:5px;'></p></td>"
+  	    			resultValue += "</tr>"
+  	    		}
+  	  			resultValue += "</table>";
+  	  			
+  	  			console.log(resultValue);
+  	  			$("#searchcnt").html("결과<span>(" + list.length + ")</span>");
+  	  			$(".list-car").html(resultValue);
+  	  			$('#car-info-right').css("display", "none");   
+  	  			$('#car-search-result').css("display", "block");    	  		  	  		
   	  		},
   	  		error:function(){
   	  			console.log("차량유형 가져오는 ajax 통신 오류");
   	  		}
   		});
-  		
-  		
-  		$('#car-info-right').css("display", "none");   
-  		$('#car-search-result').css("display", "block");  
+}
+
+// 천 단위마다 컴마 찍기
+function numberFormat(inputNumber) {
+	return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 

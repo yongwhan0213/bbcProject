@@ -10,10 +10,10 @@ import static com.bbc.common.JDBCTemplate.*;
 
 public class CarInfoService {
 
-	public ArrayList<HashMap<String, String>> selectCarTypeRv(int carType, int rent_branch){
+	public ArrayList<HashMap<String, String>> selectCarTypeRv(int carType, int rent_branch, long dayCount){
 		Connection conn = getConnection();
 		
-		ArrayList<HashMap<String, String>> list = new CarInfoDao().selectCarTypeRv(conn, carType, rent_branch);
+		ArrayList<HashMap<String, String>> list = new CarInfoDao().selectCarTypeRv(conn, carType, rent_branch, dayCount);
 
 		
 		//HashMap<String, String[]> carList = new CarInfoDao().selectCarLisrRv(conn, carType, rent_branch);
