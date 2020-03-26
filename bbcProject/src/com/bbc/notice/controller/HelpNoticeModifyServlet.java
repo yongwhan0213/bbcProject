@@ -80,7 +80,7 @@ public class HelpNoticeModifyServlet extends HttpServlet {
 				}
 			}
 			
-			int result = new NoticeService().updateNotice(n, list, memNo);
+			int result = new NoticeService().branchUpdateNotice(n, list, memNo);
 			
 			if(result > 0) {
 				response.sendRedirect("notice.b.no");

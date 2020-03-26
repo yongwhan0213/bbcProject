@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.payment.model.vo.Payment;
 import com.bbc.reservation.model.vo.Reservation;
 import com.bbc.userInfo.model.vo.UserInfo;
@@ -102,8 +102,7 @@ public class ReservationDao {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		System.out.println(car_no);		
+
 		System.out.println(rent_date + ":00");
 		System.out.println(return_date + ":00");
 		
@@ -245,17 +244,15 @@ public class ReservationDao {
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);
-			
+
 			while(rset.next()) {
-				Reservation r = new Reservation(rset.getInt("member_no"),
-												rset.getString("member_name"),
-												rset.getInt("reservation_no"),
-												rset.getString("car_name"),
-												rset.getInt("car_no"),
-												rset.getDate("rent_date"),
-												rset.getDate("return_date"));
+				Reservation u = new Reservation(rset.getInt("member_no"),
+											rset.getString("member_id"),
+											rset.getString("member_name"),
+											rset.getString("phone"),
+											rset.getString("member_email"));
 				
-				list.add(r);
+				list.add(u);
 			}
 			
 			
@@ -276,7 +273,7 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("rentDetailMember");
+		String sql = prop.getProperty("reservClientMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -309,7 +306,7 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("rentDetailPay");
+		String sql = prop.getProperty("reservClientDetailPay");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

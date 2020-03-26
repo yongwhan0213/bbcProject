@@ -35,8 +35,8 @@ public class HelpNoticeDetailServlet extends HttpServlet {
 		
 		int nno = Integer.parseInt(request.getParameter("nno"));
 		
-		Notice nList = new NoticeService().selectNotice(nno);
-		ArrayList<Attachment> aList = new NoticeService().selectAttachment(nno);
+		Notice nList = new NoticeService().branchSelectNotice(nno);
+		ArrayList<Attachment> aList = new NoticeService().branchSelectAttachment(nno);
 		
 		if(nList != null) {
 			request.setAttribute("nList", nList);

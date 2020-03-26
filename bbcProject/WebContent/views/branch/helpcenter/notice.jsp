@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.bbc.notice.model.vo.Notice, java.util.ArrayList, com.bbc.common.PageInfo" %>
+<%@ page import="com.bbc.notice.model.vo.Notice, java.util.ArrayList, com.bbc.common.page.vo.PageInfo" %>
 <%
 	ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
 
@@ -190,7 +190,6 @@
 	</div>
 
 
-	<!-- check box all select/cancel script-->
 	<script>
 			                
 		function checkAll(){
@@ -216,21 +215,23 @@
 			var arr = new Array();
 			
 			$('input:checkbox[name=checkRow]:checked').each(function(){
-				
-			})
+				arr.push($(this).val());
+			});
+			
+			var str = arr.join();
 			
 			$.ajax({
-				url:"chkDelete.b.no?no=" + no,
+				url:"chkDelete.b.no",
 				type:"get",
+				data:{str:str},
 				success:function(){
-					
+					location.href="notice.b.no";
 				},
 				error:function(){
 					console.log("공지사항 선택 삭제 ajax 통신 오류");
 				}
 			});
 		});
-			                
 	</script>
 
 </body>

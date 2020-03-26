@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.bbc.attachment.model.vo.Attachment;
-import com.bbc.common.PageInfo;
+import com.bbc.common.page.vo.PageInfo;
 import com.bbc.notice.model.vo.Notice;
 
 public class NoticeDao {
@@ -31,7 +31,7 @@ public class NoticeDao {
 		}
 	}
 	
-	public ArrayList<Notice> selectNoticeList(Connection conn, int memNo, PageInfo pi) {
+	public ArrayList<Notice> branchSelectNoticeList(Connection conn, int memNo, PageInfo pi) {
 		
 		ArrayList<Notice> list = new ArrayList<>();
 		
@@ -94,7 +94,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public Notice selectNotice(Connection conn, int nno) {
+	public Notice branchSelectNotice(Connection conn, int nno) {
 		
 		Notice nList = null;
 		
@@ -137,13 +137,13 @@ public class NoticeDao {
 		return nList;
 	}
 	
-	public int deleteOneNotice(Connection conn, int nno) {
+	public int branchDeleteOneNotice(Connection conn, int nno) {
 		
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("deleteNoticeOne");
+		String sql = prop.getProperty("deleteNotice");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -160,7 +160,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int insertNotice(Connection conn, Notice n, int memNo) {
+	public int branchInsertNotice(Connection conn, Notice n, int memNo) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -183,7 +183,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int insertAttachment(Connection conn, ArrayList<Attachment> list) {
+	public int branchInsertAttachment(Connection conn, ArrayList<Attachment> list) {
 		
 		int result = 1;
 		PreparedStatement pstmt = null;
@@ -215,7 +215,7 @@ public class NoticeDao {
 		
 	}
 	
-	public int updateNotice(Connection conn, Notice n, int memNo) {
+	public int branchUpdateNotice(Connection conn, Notice n, int memNo) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -240,7 +240,7 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public ArrayList<Attachment> selectAttachment(Connection conn, int nno){
+	public ArrayList<Attachment> branchSelectAttachment(Connection conn, int nno){
 		
 		ArrayList<Attachment> aList = new ArrayList<>();
 		
@@ -275,7 +275,7 @@ public class NoticeDao {
 	
 	public int getNoticeCount(Connection conn) {
 		
-		int eventCount = 0;
+		int noticeCount = 0;
 		
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -288,7 +288,7 @@ public class NoticeDao {
 			rset = stmt.executeQuery(sql);
 			
 			if(rset.next()) {
-				eventCount = rset.getInt(1);
+				noticeCount = rset.getInt(1);
 			}
 			
 		} catch (SQLException e) {
@@ -298,7 +298,7 @@ public class NoticeDao {
 			close(stmt);
 		}
 		
-		return eventCount;
+		return noticeCount;
 	}
 	
 	public Notice selectByBranch(Connection conn, int branchNo) {
@@ -329,9 +329,218 @@ public class NoticeDao {
 		
 	}
 	
-//	String no = "123";
-//	arry = no.split(",");
-//	for(i=0; i< array.length; i++) {
-//		int result = new ReservationDao().selectReservDetailPay(conn, array[i]);
-//	}
+	public int branchDeleteChkNotice(Connection conn, String arr) {
+		
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, arr);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	// -------------------------------------------- 민기 Dao
+	public int adminGetListCount(Connection conn) {
+		int result = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("getListCount");
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<Notice> adminSelectList(Connection conn, PageInfo pi){
+		ArrayList<Notice> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage() - 1) * pi.getTableLimit() + 1;
+			int endRow = startRow + pi.getTableLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Notice(rset.getInt("notice_no"),
+									rset.getString("notice_title"),
+									rset.getString("member_name"),
+									rset.getDate("notice_date"),
+									rset.getInt("notice_readcnt")));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public int adminUserNotice(Connection conn, Notice n) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("adminUserNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setInt(3, n.getMemberNo());
+			pstmt.setInt(4, n.getNoticeField());
+			pstmt.setInt(5, n.getNoticeImport());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int adminUserAttachment(Connection conn, ArrayList<Attachment> list) {
+		int result = 1;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("adminUserAttachement");
+		
+		try {
+			for(int i=0; i<list.size(); i++) {
+				pstmt = conn.prepareStatement(sql);
+				
+				Attachment at = list.get(i);
+				pstmt.setString(1, at.getFileName());
+				pstmt.setString(2, at.getRename());
+				pstmt.setInt(3, at.getNoticeNo());
+				pstmt.setString(4, at.getFilePath());
+				
+				// insert가 실패하면 result에 0이 초기화된다
+				result = pstmt.executeUpdate();
+				
+				if(result == 0) {
+					return 0;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	 public Notice adminUserNoticeDetail(Connection conn, int no){
+		 Notice n = new Notice();
+		 
+		 PreparedStatement pstmt = null; 
+		 ResultSet rset = null; 
+		 String sql = prop.getProperty("adminUserNoticeDetail");
+	 
+		 try { 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setInt(1, no);
+			 
+			 rset = pstmt.executeQuery();
+			 
+			 while(rset.next()) {
+				 n.setNoticeTitle(rset.getString("notice_title"));
+				 n.setNoticeContent(rset.getString("notice_content"));
+				 n.setEnrollDate(rset.getDate("notice_date"));
+				 n.setNoticeReadCnt(rset.getInt("notice_readcnt"));
+				 n.setNoticeField(rset.getInt("notice_field"));
+				 n.setNoticeImport(rset.getInt("notice_import"));
+				 n.setMemberName(rset.getString("member_name"));
+				 n.setRename(rset.getString("frename"));
+			 }
+			 
+		} catch (SQLException e) {
+			e.printStackTrace(); 
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		 return n;
+	 }
+	 
+	 public int adminUserNoticeUpdate(Connection conn, Notice n) {
+		 int result = 0;
+		 PreparedStatement pstmt = null;
+		 String sql = prop.getProperty("adminUserNoticeUpdate");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setInt(3, n.getNoticeField());
+			pstmt.setInt(4, n.getNoticeImport());
+			pstmt.setInt(5, n.getNoticeNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		 
+		 return result;
+	 }
+	 
+	 public int adminUserNoticeDelete(Connection conn, int no) {
+		 int result = 0;
+		 PreparedStatement pstmt = null;
+		 String sql = prop.getProperty("adminUserNoticeDelete");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		 
+		 return result;
+	 }
 }
