@@ -103,9 +103,6 @@ public class ReservationDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		System.out.println(rent_date + ":00");
-		System.out.println(return_date + ":00");
-		
 		String sql = prop.getProperty("selectCarListRv");
 		
 		try {
