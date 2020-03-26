@@ -268,13 +268,13 @@
 			      		<button type="button" class="completeBtn">해제</button>
 			      	<% } %>
 					<input type="text" class="blackNo" name="blackNo" value="<%=u.getMemberNo()%>">
+
 			        <button type="button" class="cancelBtn" data-dismiss="modal">취소</button>
 			      </div>
 			    </div>
 			  </div>
 			</div>
     	<% } %>
-		
 		
 		<div class="tab-content">
 		  <div id="home" class="container tab-pane active"><br>

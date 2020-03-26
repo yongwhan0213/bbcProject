@@ -59,16 +59,17 @@
 
 						<hr class="tab-divider">
 
-						<ul class="nav nav-tabs" role="tablist" id="tabs">
-							<li class="nav-item">
-								<a id="default" href="#content1" class="nav-link active" data-toggle="tab">
-									예약중<input type="hidden" id="tabNo" value=1>
-								</a>
-							</li>
-							
-							<li class="nav-item"><a href="#content2" class="nav-link active" data-toggle="tab" >대여중</a></li>
-							<li class="nav-item"><a href="#content3" class="nav-link active" data-toggle="tab" >반납 완료</a></li>
-						</ul>
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="nav-item" id="1">
+								<a class="nav-link active" data-toggle="tab" href="#content1">예약중</a>
+			              	</li>
+			              	<li class="nav-item" id="2">
+			                	<a class="nav-link" data-toggle="tab" href="#content1">대여중</a>
+			              	</li>
+			              	<li class="nav-item" id="3">
+			                	<a class="nav-link" data-toggle="tab" href="#content2">반납 완료</a>
+			              	</li>
+			            </ul>
 
 						<!-- Tab panes -->
 						<div class="tab-content">
@@ -242,9 +243,23 @@
 	<script>
 		
 		// Ajax tab menu
-		$("#tabs a").click(function(){
+		$(".nav-item").click(function(){
 			
+			var status = $(this).attr('id');
+			
+			$.ajax({
+				url:"wholeList.b.rv?status=" + status,
+				type:"get",
+				success:function(list){
+					
+					
+				},
+				error:function(){
+					console.log("tab menu ajax 통신 실패");
+				}
+			});
 		});
+		
 		 
 	</script>
 
