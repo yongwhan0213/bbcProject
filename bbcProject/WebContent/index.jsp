@@ -9,6 +9,10 @@
 <% 
 	String contextPath = request.getContextPath();	
 %>
+<%@ page import="com.bbc.userInfo.model.vo.UserInfo"%>
+<% 
+	UserInfo loginUser = (UserInfo)session.getAttribute("loginUser");
+%>
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -55,7 +59,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="cd-main-header">
 						<ul class="cd-header-buttons">
 							<li>
-								<a data-toggle="modal" href="#myModal3" data-backdrop="static" aria-hidden="true" style="background-color:none;color:#ffc107;border:none;">로그인</a>
+							<%if(loginUser == null){ %>
+							<li > <a data-toggle="modal" href="#myModal3" data-backdrop="static" aria-hidden="true" style="background-color:none;color:#ffc107;border:none;">로그인</a></li>
+							<% } else { %>
+								<li > <a href="<%=request.getContextPath()%>/logout.ui" style="color:#ffc107">로그아웃</a></li>
+							
+							<% } %>
 							</li>
 						</ul>
 					</div>
@@ -80,13 +89,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								마이페이지
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item text-center" href="">차량 이용 내역</a>
-								<a class="dropdown-item text-center" href="">예약 내역 조회</a>
-								<a class="dropdown-item text-center" href="">쿠폰함 조회</a>
+								<a class="dropdown-item text-center" onclick="goMyRes();">차량 이용 내역</a>
+								<a class="dropdown-item text-center" onclick="goMyRes();">예약 내역 조회</a>
+								<a class="dropdown-item text-center" onclick="goCoupon();">쿠폰함 조회</a>
 								<a class="dropdown-item text-center" href="">운전면허 등록/수정</a>
 								<a class="dropdown-item text-center" href="">나의 문의 내역</a>
-								<a class="dropdown-item text-center" href="">나의 지점 관리</a>
-								<a class="dropdown-item text-center" href="">회원 정보 수정</a>
+								<a class="dropdown-item text-center" onclick="goMyBranch();">나의 지점 관리</a>
+								<a class="dropdown-item text-center" onclick="goMyInfo();">회원 정보 수정</a>
 							</div>
 						</li>
 						
@@ -311,6 +320,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
 		
+	<!-- 마이페이지 기능(요한) -->	
+		<script>
+		
+		function goCoupon(){
+			location.href = "<%=request.getContextPath()%>/list.mc";
+		}
+		function goMyBranch(){
+			location.href = "<%=request.getContextPath()%>/areaSearch.mb";
+		}
+		function goMyInfo(){
+			location.href = "<%=request.getContextPath()%>/view.ui"
+		}
+		function goMyRes(){
+			location.href = "<%= request.getContextPath()%>/view.rv"
+		}
+		function goMyRes(){
+			location.href = "<%= request.getContextPath()%>/viewRes.rv";
+		}
+	</script>
+	
+	
 </body>
 
 </html>

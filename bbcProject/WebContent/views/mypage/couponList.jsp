@@ -1,5 +1,11 @@
+<%@page import="com.bbc.mycoupon.model.vo.MyCoupon"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+		ArrayList<MyCoupon> list = (ArrayList<MyCoupon>)request.getAttribute("couponlist");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -241,8 +247,8 @@ hr.garo{
 		<hr class="garo"> 
 	 
 
-            <table id="tableMain" style="margin-top: 25px;"
-            >
+            <table id="tableMain" style="margin-top: 25px;">
+            
                 <thead>
                     <tr class="tableheader">
                       <th>사용여부</th>
@@ -251,111 +257,31 @@ hr.garo{
                     </tr>
                 </thead>
                 <tbody>
+			
 
-              <tr class="accordion-head breakrow open"><td style="height:40px"><div class="arrow"></div>미사용</td>
-              <td style="left-margin:5px;">퇴근친구 7,900원</td><td>2018.02.07~2020.02.08</td></tr>    
-                    <tr><td id="pop" colspan="3" style="font-weight:bold; background-color: lightgrey;">퇴근친구 7,900원(2/9)</td></tr>
+           
+         	<% if( list != null){ %>
+					<% for(MyCoupon c : list){ %>
+					<tr>
+					
+					
+              <tr class="accordion-head breakrow open"><td style="height:40px"><div class="arrow"></div><%=c.getCouponUse()%></td>
+              <td style="left-margin:5px;"><%=c.getCouponName() %></td><td><%=c.getCouponPost()%>~<%=c.getCouponExp() %></td></tr>    
                     <tr><td id="pop" colspan="3"><div id="bor">할인혜택</div>
-                       &nbsp; &nbsp;19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">유효기간</div>
-                       &nbsp;&nbsp; 19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
+                       &nbsp; &nbsp;<%=c.getCouponDc() %>원</td></tr>
+                    <tr><td id="pop" colspan="3"><div id="bor">쿠폰타입</div>
+                       &nbsp;&nbsp; <%=c.getCouponType() %></td></tr>
                     <tr><td id="pop" colspan="3"><div id="bor">사용조건</div>
-                       &nbsp; &nbsp;[사전예약기간]<br>
-                    &nbsp; &nbsp; &nbsp;  2020-02-09 ~ 2020-02-09<br>
-                        &nbsp;&nbsp; [할인제한]<br>
-                     &nbsp;&nbsp; &nbsp;  10시간 이상 예약시 할인</td></tr>
+                       &nbsp; &nbsp;<%=c.getCouponCondition() %><br>
+                 
 
-
-              <tr class="accordion-head breakrow open"><td style="height:40px"><div class="arrow"></div>미사용</td>
-              <td style="left-margin:5px;">퇴근친구 7,900원</td><td>2018.02.07~2020.02.08</td></tr>    
-                    <tr><td id="pop" colspan="3" style="font-weight:bold; background-color: lightgrey;">퇴근친구 7,900원(2/9)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">할인혜택</div>
-                       &nbsp; &nbsp;19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">유효기간</div>
-                       &nbsp;&nbsp; 19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">사용조건</div>
-                       &nbsp; &nbsp;[사전예약기간]<br>
-                    &nbsp; &nbsp; &nbsp;  2020-02-09 ~ 2020-02-09<br>
-                        &nbsp;&nbsp; [할인제한]<br>
-                     &nbsp;&nbsp; &nbsp;  10시간 이상 예약시 할인</td></tr>
-                     
-                <tr class="accordion-head breakrow open"><td style="height:40px"><div class="arrow"></div>미사용</td>
-              <td style="left-margin:5px;">퇴근친구 7,900원</td><td>2018.02.07~2020.02.08</td></tr>    
-                    <tr><td id="pop" colspan="3" style="font-weight:bold; background-color: lightgrey;">퇴근친구 7,900원(2/9)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">할인혜택</div>
-                       &nbsp; &nbsp;19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">유효기간</div>
-                       &nbsp;&nbsp; 19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">사용조건</div>
-                       &nbsp; &nbsp;[사전예약기간]<br>
-                    &nbsp; &nbsp; &nbsp;  2020-02-09 ~ 2020-02-09<br>
-                        &nbsp;&nbsp; [할인제한]<br>
-                     &nbsp;&nbsp; &nbsp;  10시간 이상 예약시 할인</td></tr>
-                     
-                      <tr class="accordion-head breakrow open"><td style="height:40px"><div class="arrow"></div>미사용</td>
-              <td style="left-margin:5px;">퇴근친구 7,900원</td><td>2018.02.07~2020.02.08</td></tr>    
-                    <tr><td id="pop" colspan="3" style="font-weight:bold; background-color: lightgrey;">퇴근친구 7,900원(2/9)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">할인혜택</div>
-                       &nbsp; &nbsp;19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">유효기간</div>
-                       &nbsp;&nbsp; 19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">사용조건</div>
-                       &nbsp; &nbsp;[사전예약기간]<br>
-                    &nbsp; &nbsp; &nbsp;  2020-02-09 ~ 2020-02-09<br>
-                        &nbsp;&nbsp; [할인제한]<br>
-                     &nbsp;&nbsp; &nbsp;  10시간 이상 예약시 할인</td></tr>
-                     
-                      <tr class="accordion-head breakrow open"><td style="height:40px"><div class="arrow"></div>미사용</td>
-              <td style="left-margin:5px;">퇴근친구 7,900원</td><td>2018.02.07~2020.02.08</td></tr>    
-                    <tr><td id="pop" colspan="3" style="font-weight:bold; background-color: lightgrey;">퇴근친구 7,900원(2/9)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">할인혜택</div>
-                       &nbsp; &nbsp;19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">유효기간</div>
-                       &nbsp;&nbsp; 19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">사용조건</div>
-                       &nbsp; &nbsp;[사전예약기간]<br>
-                    &nbsp; &nbsp; &nbsp;  2020-02-09 ~ 2020-02-09<br>
-                        &nbsp;&nbsp; [할인제한]<br>
-                     &nbsp;&nbsp; &nbsp;  10시간 이상 예약시 할인</td></tr>
-                            
-                                   <tr class="accordion-head breakrow open"><td style="height:40px"><div class="arrow"></div>미사용</td>
-              <td style="left-margin:5px;">퇴근친구 7,900원</td><td>2018.02.07~2020.02.08</td></tr>    
-                    <tr><td id="pop" colspan="3" style="font-weight:bold; background-color: lightgrey;">퇴근친구 7,900원(2/9)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">할인혜택</div>
-                       &nbsp; &nbsp;19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">유효기간</div>
-                       &nbsp;&nbsp; 19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">사용조건</div>
-                       &nbsp; &nbsp;[사전예약기간]<br>
-                    &nbsp; &nbsp; &nbsp;  2020-02-09 ~ 2020-02-09<br>
-                        &nbsp;&nbsp; [할인제한]<br>
-                     &nbsp;&nbsp; &nbsp;  10시간 이상 예약시 할인</td></tr>
-                            
-               <tr class="accordion-head breakrow open"><td style="height:40px"><div class="arrow"></div>미사용</td>
-              <td style="left-margin:5px;">퇴근친구 7,900원</td><td>2018.02.07~2020.02.08</td></tr>    
-                    <tr><td id="pop" colspan="3" style="font-weight:bold; background-color: lightgrey;">퇴근친구 7,900원(2/9)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">할인혜택</div>
-                       &nbsp; &nbsp;19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">유효기간</div>
-                       &nbsp;&nbsp; 19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">사용조건</div>
-                       &nbsp; &nbsp;[사전예약기간]<br>
-                    &nbsp; &nbsp; &nbsp;  2020-02-09 ~ 2020-02-09<br>
-                        &nbsp;&nbsp; [할인제한]<br>
-                     &nbsp;&nbsp; &nbsp;  10시간 이상 예약시 할인</td></tr>
-                     
-                 <tr class="accordion-head breakrow open"><td style="height:40px"><div class="arrow"></div>미사용</td>
-              <td style="left-margin:5px;">퇴근친구 7,900원</td><td>2018.02.07~2020.02.08</td></tr>    
-                    <tr><td id="pop" colspan="3" style="font-weight:bold; background-color: lightgrey;">퇴근친구 7,900원(2/9)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">할인혜택</div>
-                       &nbsp; &nbsp;19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">유효기간</div>
-                       &nbsp;&nbsp; 19-00시 내 대여시작시간, 10시간 대여 시 7900,원(이후 기본요금)</td></tr>
-                    <tr><td id="pop" colspan="3"><div id="bor">사용조건</div>
-                       &nbsp; &nbsp;[사전예약기간]<br>
-                    &nbsp; &nbsp; &nbsp;  2020-02-09 ~ 2020-02-09<br>
-                        &nbsp;&nbsp; [할인제한]<br>
-                     &nbsp;&nbsp; &nbsp;  10시간 이상 예약시 할인</td></tr>
+					</tr>
+					<% } %>
+				<% } %> 
+				
+				
+   
+      		</tbody>
                                                 
             </table>
        

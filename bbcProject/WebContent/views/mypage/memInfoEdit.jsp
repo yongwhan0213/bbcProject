@@ -1,11 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ page import ="java.util.ArrayList"%>
+ <%@page import="com.bbc.userInfo.model.vo.*"%>
+ <%
+ 	UserInfo mem = (UserInfo)request.getAttribute("mem");
+ 	
+ 	String userId = mem.getMemberId();
+ 	String userPwd = mem.getMemberPwd();
+ 	String userName = mem.getMemberName();
+ 	String phone = (mem.getPhone() != null) ? mem.getPhone() : "";
+ 	String email = (mem.getMemberEmail() != null) ? mem.getMemberEmail() : "";
+ 	String address = (mem.getMemberAddress() != null) ? mem.getMemberEmail() : "";
+ 	String detailAddress = (mem.getMemberZipcode() != null ) ? mem.getMemberZipcode(): ""; 	
+ 
+ %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 
-<title>회원가입</title>
+<title>회원정보 수정</title>
 <style>
 	   .outer{
 		width:860px;
@@ -69,13 +83,13 @@
   <%@ include file="../common/menubar.jsp" %>
 
         <div class="outer"> 
-            <span class="main-title">회원가입</span>
+            <span class="main-title">회원정보 수정</span>
             <hr class="garo">
 		
 		<p style="margin-top:15px;color:black;"><strong> 회원정보입력</strong> &nbsp;<b class="str">*는 필수 입력항목입니다</b></p>
 
 <hr>          
-<form name="RegForm" action="<%= request.getContextPath() %>/insert.ui" onsubmit="return validate();" method="post">  
+<form name="RegForm" action="<%= request.getContextPath()%>/change.ui" onsubmit="return validate();" method="post">  
       
     <p><b class="str">* &nbsp;</b><b>성별:</b><b style="color:black;margin-left:5px;"> 남 </b> <input type="radio" name="gender" value="M" style="width:20px;"><b style="color:black;"> 여</b><input type="radio" name="gender" value="F" style="width:20px;color:black;"> </p> 
     <hr>      
@@ -127,7 +141,7 @@ function validate()
         return false;
      }
     if(rrn.value==''){
-        alert("이름을 입력하세요");
+        alert("주민등록번호를 입력하세요");
         rrn.focus();
         return false;
      }

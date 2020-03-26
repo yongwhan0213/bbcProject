@@ -56,6 +56,32 @@ public class UserInfo {
 		this.rrn = rrn;
 		this.memberEmail = memberEmail;
 	}
+	
+	
+	// 회원 가입용 
+	public UserInfo(String memberId, String memberPwd, String memberName, String memberZipcode, String memberAddress,
+			String phone, String rrn, String memberEmail, String gender) {
+		super();
+		this.memberId = memberId;
+		this.memberPwd = memberPwd;
+		this.memberName = memberName;
+		this.memberZipcode = memberZipcode;
+		this.memberAddress = memberAddress;
+		this.phone = phone;
+		this.rrn = rrn;
+		this.memberEmail = memberEmail;
+		this.gender = gender;
+	}
+	
+	// 회원정보 수정에서 조회보기용 
+	public UserInfo(String memberId, String memberName, String memberEmail, String phone, String memberZipcode) {
+		super();
+		this.memberId = memberId;
+		this.memberName = memberName;
+		this.memberEmail = memberEmail;
+		this.phone = phone;
+		this.memberZipcode = memberZipcode;
+	}
 
 	public int getMemberNo() {
 		return memberNo;

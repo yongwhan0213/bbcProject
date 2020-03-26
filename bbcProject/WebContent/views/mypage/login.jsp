@@ -33,6 +33,10 @@
 		margin-left:auto;
 		margin-right:auto;
 	}	
+	
+	 a:hover {
+ color: #ffc107;
+}
 </style>
 <body>
 	<div class="outer">
@@ -69,10 +73,10 @@
 					</div>
 					<div class="text-center p-t-115">
 						<span class="txt1">
-							<a class="txt2">
+							<a href="<%=request.getContextPath()%>/views/mypage/findMyId.jsp" class="txt2" class="txt2">
 								아이디 찾기
 							</a>
-							<a class="txt2">
+							<a href="<%=request.getContextPath()%>/views/mypage/memInfoEdit.jsp" class="txt2">
 								/ 비밀번호 찾기
 							</a>
 						</span>
@@ -82,7 +86,7 @@
 							처음이신가요?
 						</span>
 
-						<a class="txt2" >
+							<a href="<%=request.getContextPath()%>/views/mypage/memSignUp.jsp" class="txt2">
 							회원가입
 						</a>
 					</div>
