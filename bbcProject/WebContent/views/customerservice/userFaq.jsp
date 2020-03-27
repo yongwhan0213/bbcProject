@@ -228,10 +228,7 @@
 	        	location.href="<%=contextPath%>/views/admin/faqWrite.jsp";
 	        }
 	        
-	        function goFaq(){
-	        	alert("작성 내용이 등록되었습니다.");
-	        	location.href="adminFaq.jsp";
-	        }
+
 	        
 	    </script>
     </div>

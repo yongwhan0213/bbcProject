@@ -1,6 +1,6 @@
 package com.bbc.myinquiry.model.dao;
 
-import static com.bbc.common.JDBCTemplate.close;
+import static com.bbc.common.JDBCTemplate.*;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,7 +14,8 @@ import java.util.Properties;
 
 import com.bbc.common.page.vo.PageInfo;
 import com.bbc.myinquiry.model.vo.MyInquiry;
-
+import com.bbc.myinquiry.model.vo.UserPageInfo;
+ 
 public class MyInquiryDao {
 	// ----------------------------------- 공통
 	private Properties prop = new Properties();

@@ -66,12 +66,17 @@ public class InquiryDetailsServlet extends HttpServlet {
 
 		UserPageInfo pi = new UserPageInfo(listCount,currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		ArrayList<MyInquiry> list = new MyInquiryService().UserselectList(pi);
+		
+		request.setAttribute("parentMenu", "마이페이지");
+		request.setAttribute("currentMenu", "나의 문의 내역");
+		
+		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
 
 		
-		
+		 
 		
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/mypage/userInquiryDetails.jsp");

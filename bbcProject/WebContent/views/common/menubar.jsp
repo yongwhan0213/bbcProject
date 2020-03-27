@@ -88,10 +88,10 @@
 								고객센터
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item text-center" href="">FAQ</a>
-								<a class="dropdown-item text-center" href="">고객의견</a>
+								<a class="dropdown-item text-center" onclick="goFaq();">FAQ</a>
+								<a class="dropdown-item text-center" onclick="goMail();">고객의견</a>
 								<a class="dropdown-item text-center" href="">1:1 상담</a>
-								<a class="dropdown-item text-center" href="">공지사항</a>
+								<a class="dropdown-item text-center" onclick="goNotice();">공지사항</a>
 							</div>
 						</li>
 					</ul>
@@ -133,6 +133,23 @@
 		function goMyRes(){
 			location.href = "<%= request.getContextPath()%>/viewRes.rv";
 		}
+	</script>
+	<!-- 용환   -->
+	<script>
+	
+		function goFaq(){
+			location.href ="<%=request.getContextPath()%>/list.fa";
+		}
+		
+		function goMail(){
+			location.href ="<%=request.getContextPath()%>/mail.co";
+		}
+		
+		function goNotice(){
+			location.href ="<%=request.getContextPath()%>/CsList.no";
+		}
+
+	
 	</script>
 	
 </body>

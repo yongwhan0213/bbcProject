@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.bbc.common.page.vo.PageInfo;
 import com.bbc.myinquiry.model.dao.MyInquiryDao;
 import com.bbc.myinquiry.model.vo.MyInquiry;
+import com.bbc.myinquiry.model.vo.UserPageInfo;
 
 public class MyInquiryService {
 	// ---------------------------------- 민기 Service

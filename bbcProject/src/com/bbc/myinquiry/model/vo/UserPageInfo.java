@@ -14,8 +14,8 @@ public class UserPageInfo {
 	public UserPageInfo() {		
 
 	}
-
-
+ 
+ 
 	public UserPageInfo(int listCount, int currentPage, int startPage, int endPage, int maxPage, int pageLimit,
 			int boardLimit) {
 		super();

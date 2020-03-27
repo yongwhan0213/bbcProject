@@ -97,6 +97,9 @@ public class CsNoticeListServlet extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
 		
+		request.setAttribute("parentMenu", "고객센터");
+		request.setAttribute("currentMenu", "공지사항");
+		
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/customerservice/userNotice.jsp");
 		view.forward(request, response);	

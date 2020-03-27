@@ -33,7 +33,8 @@ public class Customeropinion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
+		request.setAttribute("parentMenu", "고객센터");
+		request.setAttribute("currentMenu", "고객의견");
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/customerservice/mailForm.jsp");
 		view.forward(request, response);

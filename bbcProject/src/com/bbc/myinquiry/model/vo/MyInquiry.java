@@ -20,7 +20,7 @@ public class MyInquiry {
 	private String phone;			// 회원 전화번호
 	
 	public MyInquiry() {
-		
+		 
 	}
 	
 	

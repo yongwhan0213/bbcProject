@@ -34,6 +34,9 @@ public class UserFaqListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ArrayList<Faq> list = new FaqService().selectList();
+		
+		request.setAttribute("parentMenu", "고객센터");
+		request.setAttribute("currentMenu", "FAQ");
 		request.setAttribute("list", list);
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/customerservice/userFaq.jsp");

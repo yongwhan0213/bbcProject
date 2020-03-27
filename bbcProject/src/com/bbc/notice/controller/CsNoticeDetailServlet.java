@@ -68,6 +68,9 @@ public class CsNoticeDetailServlet extends HttpServlet {
 		int nno = Integer.parseInt(request.getParameter("nno"));
 		Notice n = new NoticeService().UserSelectNotice(nno);
 		request.setAttribute("n", n);
+		
+		request.setAttribute("parentMenu", "고객센터");
+		request.setAttribute("currentMenu", "공지사항");
 
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/customerservice/UserNoticeInquiry.jsp");
