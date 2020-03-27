@@ -24,12 +24,15 @@ public class NoticeDao {
 		
 		String fileName = NoticeDao.class.getResource("/sql/notice/notice-query.properties").getPath();
 		
+		
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	public ArrayList<Notice> branchSelectNoticeList(Connection conn, int memNo, PageInfo pi) {
 		
@@ -543,4 +546,116 @@ public class NoticeDao {
 		 
 		 return result;
 	 }
+	 
+		//사용자
+		public ArrayList<Notice> userSelectList(Connection conn, UserPageInfo pi) {
+			ArrayList<Notice> list = new ArrayList<>();
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("UserSelectList");
+
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+				int endRow = startRow + pi.getBoardLimit() - 1;
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					list.add(new Notice(rset.getInt("notice_no"),
+										rset.getString("notice_title"),
+										rset.getString("member_name"),
+										rset.getDate("notice_date"),
+										rset.getInt("notice_readcnt")));
+
+				}
+
+			} catch (SQLException e) {
+	 			e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			return list;
+		}
+
+		// 총 갯수
+		public int UserGetListCount(Connection conn) {
+			int listCount = 0;
+			Statement stmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("UserGetListCount");
+			try {
+				stmt = conn.createStatement();
+				rset =stmt.executeQuery(sql);
+				if(rset.next()) {
+					listCount = rset.getInt(1);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(stmt);
+			}
+			return listCount;
+		}
+		
+		public int UserincreaseCount(Connection conn, int nno) {
+			int result = 0;
+			PreparedStatement pstmt = null;		
+
+			String sql = prop.getProperty("UserIncreaseCount");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, nno);
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
+
+		
+
+		public Notice UserSelectNotice(Connection conn, int nno) {
+			Notice n = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			String sql = prop.getProperty("UserSelectNotice");
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, nno);
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					n = new Notice(rset.getInt("notice_no"),
+									rset.getString("notice_title"),
+									rset.getString("notice_content"),
+									rset.getDate("notice_date"),
+									rset.getInt("notice_readcnt"),
+									rset.getInt("notice_field"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			return n;	
+
+		}
+		//사용자 끝
+	 
+	 
+	 
+	 
+	 
+	 
 }

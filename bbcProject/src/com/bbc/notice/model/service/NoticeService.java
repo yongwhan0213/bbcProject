@@ -318,6 +318,40 @@ public class NoticeService {
 		
 		return result;
 	}
+	
+	
+	/**
+	 * user. 공지사항  리스트 조회용 서비스
+	 * @return	공지사항 리스트 담은 객체
+	 */
+	public ArrayList<Notice> userSelectList(UserPageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> list = new NoticeDao().userSelectList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+	
+	public Notice UserSelectNotice(int nno) {
+		Connection conn = getConnection();		
+
+		int result = new NoticeDao().UserincreaseCount(conn, nno);
+		Notice n = null;
+		if(result > 0) {
+			commit(conn);
+			n = new NoticeDao().UserSelectNotice(conn, nno);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return n;
+
+	}
+	
+	
+	
 
 
 }

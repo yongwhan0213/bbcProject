@@ -73,6 +73,18 @@ public class Notice {
 		this.modifyDate = modifyDate;
 		this.noticeReadCnt = noticeReadCnt;
 	}
+   
+   // 공지사항 전체 조회용 (용환)
+   public Notice(int noticeNo, String noticeTitle, String noticeContent, Date enrollDate, int noticeReadCnt,
+			int noticeField) {
+		super();
+		this.noticeNo = noticeNo;
+		this.noticeTitle = noticeTitle;
+		this.noticeContent = noticeContent;
+		this.enrollDate = enrollDate;
+		this.noticeReadCnt = noticeReadCnt;
+		this.noticeField = noticeField;
+	}
 
 	public int getNoticeNo() {
 		return noticeNo;

@@ -157,6 +157,69 @@ public class MyInquiryDao {
 		
 		return result;
 	}
+	
+	//사용자 총 리스트(용환)
+	public int UserGetListCount(Connection conn) {
+		int listCount = 0;
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("UserGetListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset =stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return listCount;
+		
+	}
+	
+	
+	//사용자  리스트 및 페이징(용환)
+	public ArrayList<MyInquiry> UserselectList(Connection conn, UserPageInfo pi) {
+		ArrayList<MyInquiry> list = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("UserSelectList");
+
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new MyInquiry(rset.getInt("inquiry_no"),
+			            rset.getString("inquiry_title"),
+			            rset.getDate("inquiry_date"),
+			            rset.getString("inquiry_status")));
+			}
+
+		} catch (SQLException e) {
+ 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}//사용자  리스트 및 페이징(용환) 끝나는부분
+	
 
 
 }

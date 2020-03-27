@@ -11,7 +11,25 @@ public class Faq {
 	public Faq() {
 		
 	}
+	
+//	용환 추가
+	public Faq(String faqTitle, String faqContent) {
+		super();
+		this.faqTitle = faqTitle;
+		this.faqContent = faqContent;
+	}
 
+	public Faq(int faqNo, String faqTitle, String faqContent) {
+		super();
+		this.faqNo = faqNo;
+		this.faqTitle = faqTitle;
+		this.faqContent = faqContent;
+	}
+	
+//	용환 추가 끝
+	
+	
+	
 	public Faq(int faqNo, String faqTitle, String faqContent, int memberNo) {
 		super();
 		this.faqNo = faqNo;

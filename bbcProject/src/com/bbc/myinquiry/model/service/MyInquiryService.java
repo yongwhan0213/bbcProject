@@ -73,5 +73,27 @@ public class MyInquiryService {
 		
 		return result;
 	}
+	
+	//사용자 총 리스트(용환)
+	public int UserGetListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new MyInquiryDao().UserGetListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+		
+	}
+	//사용자 목록 리스트(용환)
+	public ArrayList<MyInquiry> UserselectList(UserPageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<MyInquiry> list = new MyInquiryDao().UserselectList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
 
 }

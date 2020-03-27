@@ -23,6 +23,17 @@ public class MyInquiry {
 		
 	}
 	
+	
+	// -- 유저용 나의문의내역 조회
+	public MyInquiry(int inquiryNo, String inquiryTitle, Date inquiryDate, String inquiryStatus) {
+		super();
+		this.inquiryNo = inquiryNo;
+		this.inquiryTitle = inquiryTitle;
+		this.inquiryDate = inquiryDate;
+		this.inquiryStatus = inquiryStatus;
+	}
+	
+	
 	public MyInquiry(int inquiryNo, String inquiryTitle, String inquiryContent, Date inquiryDate,
 			Date inquiryModifyDate, String inquiryAnswer, String inquiryStatus, Date inquiryAnswerDate, int memberNo) {
 		super();
